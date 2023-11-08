@@ -12,25 +12,40 @@ A memorable quote can also be used.
 \section{Structure of Internet}
 
 The internet is a network of networks, an infrastructure comprised of billions of computers, 
-using protocols,\ac{tcp}/\ac{ip} to communicate. 
-It is necessary to understand the different layers of the internet to correctly model the 
-energy consumption of the network.
+using protocols,\ac{tcp}/\ac{ip} to communicate.
 
-Several studies include end-users and datacenters in their models, when studying 
-energy comsumption REFS, and while this study will include both we note that the 
-separation of both from the network is important, because we aim to
-construct a modular model that can remove any component depending on
-the use case of whoever uses the model.
+It has always been a challenge to estimate the energy consumption of the internet, because of the complexe structure of the network. Nonetheless, several studies have been made to estimate the energy consumption. The results of the studies can go from 136 \ac{kilowatt-hour}/\ac{gigabyte}
+\citet{Koomey2003} down to 0.0064 \ac{kilowatt-hour}/\ac{gigabyte} \citet{Baliga2011}.
 
-\citet{Coroama2015} and \citet{Schien2015} divide the network in 4 layers: \ac{cpe}, access, 
-metro and core. Both studies use bottom-up approaches to calculate the energy consumption 
-of each layer, creating models that use time used or data volume as idependent variables.
+As \citet{Coroama2015} points out, the difference in results is due to the year that the study is made and the scope of the study. 
+The year is important because the energy efficiency of the equipment has been improving over the years. 
+The scope is important because the studies can map different layers of the network.
+
+The internet can be divided in layers as seen in the figure \ref{fig:layers}. 
+Each layer handles different amount on traffic so has different energy needs.
+The structure of the layers is discussed in the following sections.
+
+\citet{Coroama2014} argues that datacenters and end users devices shouldn't be included in the system boundaries. However, this study will include the impact of datacenters and the cost of the decompression algorithm in the end user device.
+
+\subsection{\acl{cpe}}
+
+\ac{cpe} is the equipment that is installed in the end user premises. This usually means wifi routers and modems that connect to their \ac{isp}.
+
+\subsection{Access layer}
+
+This is the layer where \ac{isp} connects to several end users. This layer is usually composed of \ac{dslam} for achieving the \ac{dsl} connectivity.
+
+\subsection{Metro layer}    
+
+\subsection{Core layer}
+
+\subsection{System Boundaries}
+
+\citet{Coroama2015} and \citet{Schien2015} divide the network in 4 layers: \ac{cpe}, access, metro and core. Both studies use bottom-up approaches to calculate the energy consumption of each layer, creating models that use time used or data volume as idependent variables.
 \citet{Coroama2015} focuses on the \ac{cpe} and access layers. They reach the conclusion that
 in those layers, the energy consumption is dependent on the time that the equipment is used.
 They research the power of the equipment involved and reach the conclusion that for 2015,
-the energy intensity of the layers combined is 52 \ac{watts} per unit of time.
-
-
+the energy intensity of the layers combined is 52 \ac{watt} per unit of time.
 
 \section{Structure of Datacenters}
 
