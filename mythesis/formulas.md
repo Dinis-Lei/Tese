@@ -3,12 +3,12 @@
 Formula from [Coroama2015](https://link.springer.com/chapter/10.1007/978-3-319-09228-7_8):
 
 $$
-E_{CPE\&AN} = t_s I_{CPE\&AN} = t_s(R_{idle} \frac{P_{CPE}}{N_{CPE}} + \frac{P_{AN}}{N_{AN}} PUE_{AN})
+E_{CPE,AN} = t_s I_{CPE,AN} = t_s(R_{idle} \frac{P_{CPE}}{N_{CPE}} + \frac{P_{AN}}{N_{AN}} PUE_{AN})
 $$
 
-- $E_{CPE\&AN}$: Energy consumption of both CPE and AN.
+- $E_{CPE,AN}$: Energy consumption of both CPE and AN.
 - $t_s$: time of service consumption.
-- $I_{CPE\&AN}$: Intensity of both CPE and AN.
+- $I_{CPE,AN}$: Intensity of both CPE and AN.
 - $R_{idle}$: Ratio of time that the device is actively working. 
 - $P_{CPE}$: Power of all CPE devices.
 - $N_{CPE}$: Number of Users connected to the CPE.
@@ -150,6 +150,50 @@ The second part of the equation $(1 + O * \frac{C_{external}}{C_{total}})$ refer
 The report states that operational cost is assumed to be 25% of the storage energy, based on industry comment, and it only applies to external storage. 
 
 (opinion) I would assume that in our use case, $C_{external} \simeq C_{total}$, because it makes sense to have large external storage when dealing with a great amount data. So $\frac{C_{external}}{C_{total}} \simeq 1$
+
+
+From [Taal2014](https://ieeexplore.ieee.org/document/6866547) the cost of storage has in account 3 factors: $E_{write}$, $E_{read}$, $E_{store}$. They assume that the storage architecture comprises of a SAN that consists of a content server, ethernet switch and content server. 
+
+$$
+    E_{write}(D_{in}) = \frac{PUE}{U} \cdot \frac{8D_{in}}{3600} \cdot \bigg(\frac{P_{server}}{C_{server}} + \frac{P_{sw}}{C_{sw}} + N_d(D_{in}) \frac{P_{disk}}{C_{disk}}  \bigg) 
+$$
+
+- $PUE$: datacenter effiiency.
+- $U$: accounts for the utilization of the data equipment, expressing the fact data equipment typically does not operate at a full utilization while still consuming 100% of the power, $U = 0.5$
+- $\frac{8D_{in}}{3600}$: covert Gbps to GBph
+- $P_x$: power consumption in kW of server, switch and disk.
+- $C_x$: capacity of the components
+- $N_d(D_{in})$: number of disks used for capacity $D_{in}$ 
+
+$$
+    N_d(D_{in}) = 2 \cdot \bigg \lceil \frac{D_{in}}{S_{array} \cdot S_{disk}} \bigg \rceil
+$$
+
+- $S_{array}$: Number of disks in the array
+- $S_{disk}$: Capacity of disks (GB)
+
+$$
+    E_{store}(D_{in}, RT) = \frac{PUE}{U} \cdot N_d(D_{in}) \cdot P_{disk} \cdot RT
+$$
+
+- $RT$: retenton time of the data stored
+
+$$
+    E_{read}(D_{out}) = \frac{PUE}{U} \cdot \frac{8D_{out}}{3600} \cdot \bigg(\frac{P_{server}}{C_{server}} + \frac{P_{sw}}{C_{sw}}  \bigg)
+$$
+
+- $D_{out}$: Data being read.
+
+
+This model uses $D_{in}$ for the amount of data that is being written and stored. I think there should be a seperation of data written and storage because not every write is a POST, some can be PUT, so $D_{in}$ should become $D_{write}$, $D_{store}$, amount of data written and stored.
+
+
+In the example of the article they model for a $PUE=1.2$, $D_{in} = 2000$ GB, $RT =$ 1 week = 168h, and a download rate of 500 GB/h so $D_{out} = 500*RT$. The architecture is RAID 10 with 12 disks of 1 tera. However the value shown doesn't make sense with the configuration discribed, because using the formula for the $N_d$ above, we would get $N_d = 2$ resulting in $E_{total} = 151.2$, but assuming that $N_d = 12$ (full use of the disks), $E_{total} = 212.192$, so either the formula given is wrong or they made an error in calculating the energy value. I think that the formula is wrong because if we have 12 teras of storage $N_d$ would be 2 instead of the 12*2=24 (full set of disk plus redundancy).
+So the correct formula should be:
+
+$$
+    N_d(D_{in}) = 2 \cdot \bigg\lceil \frac{D_{in}}{S_{disk}} \bigg\rceil
+$$
 
 
 
