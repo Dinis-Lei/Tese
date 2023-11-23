@@ -45,6 +45,32 @@ the consumption is 0.052 kWh/GB.
 - This layer the user probably won't have a way to change it because it is related to the ISP so we can use a value from a study like [Schien2015](https://www.researchgate.net/publication/266968255_The_Energy_Intensity_of_the_Internet_Edge_and_Core_Networks)
 - [Malmodin 2010](https://www.ericsson.com/en/reports-and-papers/research-papers/lca-of-data-transmission-and-ip-core-networks) estimates that the value of the core network for Sweden is 0.08 kwh/GB
 
+
+From [Taal2014](https://ieeexplore.ieee.org/document/6866547) they assue two paths that data can take, via public internet or a dedicated network called lightpath.
+![Alt text](image-2.png)
+![Alt text](image-1.png)
+
+Both paths model somewhat the core network that as been mention before.
+The paper also has into account the energy of the network of the data center, which we don't take into account in this boundary.
+
+The network model is the following:
+
+$$
+    E_{LAN\_DC}(D_{in}) = \frac{PUE_{DC}}{U} \cdot \frac{8D{in}}{3600} \cdot \bigg( \frac{P_{serv}}{C_{serv}} \cdot \frac{3P_{switch}}{C_{switch}} \cdot \frac{P_{router}}{C_{router}} \bigg)
+$$
+$$
+    E_{internet}(D_{in}) = \frac{PUE_{DC}}{U} \cdot \frac{8D{in}}{3600} \cdot \Bigg( \bigg( \frac{2P_{switch}}{C_{switch}} + \frac{2P_{DWDM}}{C_{DWDM}} \bigg) + \bigg(\frac{2P_{switch}}{C_{switch}} + \frac{2P_{DWDM}}{C_{DWDM}} + \frac{P_{router}}{C_{router}}\bigg) \cdot n_{hops} \Bigg)
+$$
+$$
+    E_{lightpath}(D_{in}) = \frac{PUE_{DC}}{U} \cdot \frac{8D{in}}{3600} \cdot \Bigg( \bigg( \frac{2P_{switch}}{C_{switch}} + \frac{2P_{DWDM}}{C_{DWDM}} \bigg) + \bigg(\frac{2P_{DWDM}}{C_{DWDM}}\bigg) \cdot n_{hops} + \bigg( \frac{P_{switch}}{C_{switch}} \bigg) \cdot \bigg( n_{hops} - 1 \bigg) \Bigg)
+$$
+
+The structure LAN of the datacenter is based on this table: 
+![Alt text](image-3.png)
+
+This structure only considers DWDM terminal nodes, it ignores optical line amplifiers, regenerators, and optical switches such as OXCs which the paper by [Schien2015](https://www.researchgate.net/publication/266968255_The_Energy_Intensity_of_the_Internet_Edge_and_Core_Networks) mentions.
+
+
 ## Datacenter (DC)
 
 The cost of the datacenter will only be the storage cost, as server activity isn't relevant for this study.
@@ -115,22 +141,9 @@ $$
 - $D_b$: Device bandwith.
 - $\alpha$: if $N_{min}$ is the theoretical minimum number of devices needed to complete the workload then, $\alpha N_{min}$ is the actual number of devices needed, $\alpha \in [1,\frac{N}{N_{min}}]$.
 
-This approach doesn't take into account the operational costs and cooling costs, a simple solution would be multiplying the result by a $PUE_{dc}$ constant.
+This approach doesn't take into account the operational costs and cooling costs, a simple solution would be multiplying the result by a constant, $PUE_{dc}$.
 
-According to the datacenter survey from [Uptime Institute 2022](https://uptimeinstitute.com/resources/research-and-reports/uptime-institute-global-data-center-survey-results-2022) who has been tracking the PUE since 2007, the value has seen little improvement since 2014, arriving at the average value of 1.55 in 2022.
-
-According to [US DC Report 2016](https://www.osti.gov/biblio/1372902/) the $PUE_{dc}$ varies by the space type of the DC.
-
-|Type|PUE|
-|---|---|
-|Closet| 2.0|
-|Room| 2.5|
-|Localized|2.0|
-|Midtier|1.9|
-|High-end|1.7|
-|Hyperscale|1.2|
-
-The same report has a more "simplified" way to calculate energy:
+According to the [US DC Report 2016](https://www.osti.gov/biblio/1372902/) a more "simplified" way to calculate energy:
 
 $$
 E_y = \sum_{t=HDD,SDD}{(I_{t,y} * P_{t,y}) * h_y * (1 + O * \frac{C_{external}}{C_{total}})}
@@ -198,12 +211,31 @@ $$
 
 
 
+## PUE
 
 
+The measure most commonly used to rate the energy efficiency of data centres is the power usage effectiveness
+(PUE). The PUE is expressed as the ratio of the total power consumption of a data centre (PIN) to the total power consumption of IT equipment such as storage devices, servers and routers (PIT).ܷܲ 
+
+$$
+    PUE = \frac{P_{IN}}{P_{IT}} = CLF + PLF + 1 \\ 1 < PUE < \infty
+$$
+
+In calculating their PUE, data centres use two terms: CLF and PLF. CLF represents the cooling load factor normalized to the IT load (losses associated with chillers, pumps, air conditioners) and PLF represents the power load factor normalized to IT load (losses associated with switchgear, UPS, PDU) [Taal2013](https://pure.uva.nl/ws/files/1520801/166927_Transporting_Bits_or_Transporting_Energy_does_it_matter_May2013.pdf).
 
 
+According to the datacenter survey from [Uptime Institute 2022](https://uptimeinstitute.com/resources/research-and-reports/uptime-institute-global-data-center-survey-results-2022) who has been tracking the PUE since 2007, the value has seen little improvement since 2014, arriving at the average value of 1.55 in 2022.
 
+According to [US DC Report 2016](https://www.osti.gov/biblio/1372902/) the $PUE_{dc}$ varies by the space type of the DC.
 
+|Type|PUE|
+|---|---|
+|Closet| 2.0|
+|Room| 2.5|
+|Localized|2.0|
+|Midtier|1.9|
+|High-end|1.7|
+|Hyperscale|1.2|
 
 
 
