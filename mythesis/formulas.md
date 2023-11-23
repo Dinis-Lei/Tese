@@ -26,7 +26,7 @@ According to the paper:
 - They assume $N_{CPE} = 1$, because they are modeling the energy intensity of the Internet, that is the average value for one Internet connection.
 - $\frac{P_{AN}}{N_{AN}} = 2W$, from the study [Schien2013](https://onlinelibrary.wiley.com/doi/full/10.1111/jiec.12065).
 - $PUE = 2$
-- Finally, $I_{CPE\&AN} = 52W$
+- Finally, $I_{CPE,AN} = 52W$
 
 We can write $P_{CPE}$ in two ways:
 
