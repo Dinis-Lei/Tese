@@ -1,0 +1,28 @@
+\subsection{Structure of the Internet}
+
+The internet is a network of networks, an infrastructure comprised of billions of computers, 
+using protocols,\ac{tcp}/\ac{ip} to communicate.
+
+It has always been a challenge to estimate the energy consumption of the internet, because of the complexe structure of the network. Nonetheless, several studies have been made to estimate the energy consumption. However, the results of the studies can go from 136 \ac{kilowatt-hour}/\ac{gigabyte}
+\citet{Koomey2003} down to 0.0064 \ac{kilowatt-hour}/\ac{gigabyte} \citet{Baliga2011}.
+
+As \citet{Coroama2015} and later \citet{Aslan2018} point out, the difference in results is due to the year that the study is made and the scope of the study. 
+The year is important because the energy efficiency of the equipment has been improving over the years. 
+The scope or system boundary is important because the studies can map different layers of the network.
+
+The internet is usually divided in layers as seen in the figure \ref{fig:layers}. 
+Each layer handles different amount on traffic so has different energy needs.
+The structure of the layers is discussed in the following sections.  
+
+\subsubsection{\acl{cpe} and Access network}
+
+In telecomunications, \ac{cpe} is the equipment that is installed in the end user premises that connects to the provider network. This usually means wifi routers and modems that connect to their \ac{isp} through a feeder network. The \ac{isp} bundles the data transmited by several end users in multiplexers, which for the case of \ac{isp} that use \ac{dsl} connectivety they are \ac{dslam}. The multiplexers and the cables that connect them to the \ac{cpe} are what constitute the access network.
+
+\subsubsection{Core network}
+
+Core network or IP core network is the network that interconnects several \ac{isp} with each other, forming the regional and global networks.
+The network consists of routers, switches, and other network infrastructure that directs data packets across the network. These devices use routing algorithms and protocols to determine the best path for data to travel based on factors like network congestion and available bandwidth.
+
+\subsection{Datacenters}
+
+Datacenters are facilities that house computer systems and associated components. They are a larges contributer to energy consumption in the internet, consuming a total of 205 \ac{terawatt-hour} in 2020, or 1\% of global eletric power \citet{IEA2020}. 

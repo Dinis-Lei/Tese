@@ -4,55 +4,41 @@
 \label{chapter:background}
 
 \begin{introduction}
-    With the increase of machine learning applications and the need to process large amounts of data, the energy consumption of the \ac{ict} sector has been increasing. So models to estimate the energy consumption are needed to help policy makers and companies make informed decisions to meet the goals of Net Zero by 2050.
+    
+    The modelling of the energy consumption of the \ac{ict} sector is a complex task, beacuse it involves modelling several different systems, each with their distinct topologies and external factors.
 
-    There exists some reasearch on how to make devices more energy efficient, but research on modeling the power impact of said devices is lacking. Nonetheless, there are some studies that try to estimate the energy consumption of the internet. The studies can be divided in two categories, the ones that use a top-down approach and the ones that use a bottom-up approach.
-    
-    Top-down approaches use the energy consumption of the whole network and divide by the amount of data transmited (cite papers).
-    
-    Bottom-up on the other hand gathers information on the devices that make up the network and estimate the energy consumption of each, they can then estimate how many \ac{kilowatt-hour} are needed to transmit a \ac{gigabyte} of data (cite papers).
-    
-    The objective is to implement a energy calculator, our model will mostly be based on bottom-up approaches, because the energy consumption of the system won't be known beforehand. It will also allow for a more modular approach, where the energy consumption of each component can be changed without affecting the rest of the model.    
+    In this chapter we can find a descrition of the topology of the different systems that comprise the \ac{ict} sector and an highlight on the main component of each system. Moreover, the chapter also includes a description on the basics of compression algorithms and the different types of compression algorithms.
+
 \end{introduction}
-
-
 
 \section{System Boundaries}
 
 The definition of system boundaries is an important factor in the modelling of energy consumption. As seen in the compilation of studies made by \citet{Aslan2018}, the system boundaries is one of the main factors for the discrepancies of the results.
 
-The common consensus is that the system boundaries for the model of the internet should exclude datacenters and user devices \citet{Coroama2014}. This study however won't be modeling only the network but also the impact on datacenters and of the compression/decompression algorithm in the end user device. So the overall system boundary will include all of the \ac{ict} sector. To facilitate the modeling of the system, the system will be divided in three components, internet,  datacenters and compression phase. The network component will be further divided in the access network and the core network. The datacenter component will be divided into storage and \ac{lan}.
+The common consensus is that the system boundaries for the model of the internet should exclude datacenters and user devices \citet{Coroama2014}. This study however won't be modeling only the network but also the impact on datacenters and of the compression/decompression algorithm in the end user device. So the overall system boundary will include all of the \ac{ict} sector. 
 
+As will later be discussed in chapter \ref{chapter:energy_model}, the energy model can be divided in 3 main components, network, datacenters and compression phase.
 
+So the system boundaries for the model is what is shown in figure \ref{fig:system_boundaries}.
 
-\subsection{Structure of the Internet}
+\section{Network}
 
-The internet is a network of networks, an infrastructure comprised of billions of computers, 
-using protocols,\ac{tcp}/\ac{ip} to communicate.
+The network is the most complex component of the model. What is defined by network or internet can vary by paper to paper \citet{Aslan2018}. This study uses the definition derived by \citet{Coroama2015}, the network the is the infrastructure that connects two end users. This infrastructure can be divided in 4 main components: \ac{cpe}, access network, edge network and core network.
 
-It has always been a challenge to estimate the energy consumption of the internet, because of the complexe structure of the network. Nonetheless, several studies have been made to estimate the energy consumption. However, the results of the studies can go from 136 \ac{kilowatt-hour}/\ac{gigabyte}
-\citet{Koomey2003} down to 0.0064 \ac{kilowatt-hour}/\ac{gigabyte} \citet{Baliga2011}.
+\subsection{\acl{cpe}}
 
-As \citet{Coroama2015} and later \citet{Aslan2018} point out, the difference in results is due to the year that the study is made and the scope of the study. 
-The year is important because the energy efficiency of the equipment has been improving over the years. 
-The scope or system boundary is important because the studies can map different layers of the network.
+\subsection{Access Network}
 
-The internet is usually divided in layers as seen in the figure \ref{fig:layers}. 
-Each layer handles different amount on traffic so has different energy needs.
-The structure of the layers is discussed in the following sections.  
+\subsection{Edge Network}
 
-\subsubsection{\acl{cpe} and Access network}
+\subsection{Core Network}
 
-In telecomunications, \ac{cpe} is the equipment that is installed in the end user premises that connects to the provider network. This usually means wifi routers and modems that connect to their \ac{isp} through a feeder network. The \ac{isp} bundles the data transmited by several end users in multiplexers, which for the case of \ac{isp} that use \ac{dsl} connectivety they are \ac{dslam}. The multiplexers and the cables that connect them to the \ac{cpe} are what constitute the access network.
+\section{Datacenters}
 
-\subsubsection{Core network}
+\subsection{Datacenter Network}
 
-Core network or IP core network is the network that interconnects several \ac{isp} with each other, forming the regional and global networks.
-The network consists of routers, switches, and other network infrastructure that directs data packets across the network. These devices use routing algorithms and protocols to determine the best path for data to travel based on factors like network congestion and available bandwidth.
+\subsection{Datacenter Servers}
 
-\subsection{Datacenters}
+\subsection{Datacenter Storage}
 
-Datacenters are facilities that house computer systems and associated components. They are a larges contributer to energy consumption in the internet, consuming a total of 205 \ac{terawatt-hour} in 2020, or 1\% of global eletric power \citet{IEA2020}. 
-
-
-\subsection{Compression Algorithms}
+\section{Compression algorithms}
