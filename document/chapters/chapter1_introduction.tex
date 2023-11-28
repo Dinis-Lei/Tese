@@ -15,35 +15,83 @@ In this chapter, we will present reasearch questions, followed by the hypotheses
 \end{introduction}
 
 \section{Researh questions}
+\label{section:research_questions}
 
 To define the scope of the thesis, the following research questions were defined:
 
-- What is the system boundary of the model?
+\begin{itemize}
+    \item How to quantify the impact of compression algorithms on the energy consumption of the \ac{ict} sector?
 
-- How to test the accuracy of the model?
+    The impact can be quantified by firstly determening the energy intensity of data, that is the cost of processing a unif of data, ususally expressed in \ac{kilowatt-hour}/\ac{gigabyte}.
+    The modeling of the energy consumption can be done by two approaches: bottom-up or top-down. 
+    The bottom-up consists on aggregating data from each device of the system.
+    The top-down approach uses the total energy consumption of the system and divides it by the amount of data processed.
+    
+    \item What is the appropriate system boundary of the model?
+    
+    The system boundary defines the scope of the model. It is important to define the system boundary to avoid over or under estimating the energy consumption of the \ac{ict} sector.
 
-- What is the impact of each component of the model?
+    \item How to evaluate the accuracy of the model?
+
+    
+    \item Which component will be more affected by the compression algorithms?
+
+    Each component of the \ac{ict} sector is affected differently by the amount of data processed. Therefore, the impact of the compression algorithms will vary on each component.
+\end{itemize}
 
 \section{Hypotheses}
+\label{section:hypotheses}
+
+From the research questions, the following hypotheses were derived:
+
+\begin{itemize}
+    \item The energy consumption of the \ac{ict} sector can be modeled as a function of the data processed.
+
+    By quantifying the compression ratio of each compression algorithm, the energy consumption of the \ac{ict} sector can be modeled as the differece between the uncompressed model and the compressed one.
+
+    \item The most afected component affected by the compression algorithms is the datacenter.
+
+    The datacenter is the component which consumes the most energy in the \ac{ict} sector. Therefore, it is expected that the datacenter will be the most affected component by the compression algorithms.
+
+\end{itemize}
+
 
 \section{Objectives}
 
-- Study the current energy models of the internet
+To try to awnser the research questions posed in \ref{section:research_questions}, and to validate the hypotheses in chapter \ref{section:hypotheses}, the following objectives were defined:
 
-- Develop an aggregated model.
+\begin{itemize}
+    \item Study the current energy models of the internet.
 
-- Develop a web calculator to show the model
+    \item Develop an aggregated model.
 
-- Create case studies to benchmark the model
+    \item Develop a web calculator to show the model
 
+    \item Create case studies to benchmark the model
+
+\end{itemize}
 
 \section{Risk assessment and impact}
 
 \section{Contributions}
 
+The main contributions of this thesis are described below.
+Firstly, an aggregated model of the energy consumption of the \ac{ict} was developed, which can be found in \ref{chapter:energy_model}.
+
+Secondly, a web calculator was created to show the model. The web calculator allows the user to compare different compression algorithms on several use cases, which can be found in:
+
+\begin{itemize}
+    \item %\href{LINK}
+\end{itemize}
+
+
 \section{Thesis structure}
 
-This thesis is divided into 6 chapters. After this introduction (chapter 1), a background on the concepts covered, such as network structure and compressions, is presented in chapter 2. Chapter 3 focuses on the recent works that have modeled part of the internet. An aggregation of these recent models will be presented in chapter 4. Chapter 5 will present the web calculator developed to show the model, along side with use cases on how to use the web calculator. Finally, chapter 6 will present the conclusions of the thesis and future work.
+This thesis is divided into 6 chapters. After this introduction (chapter 1), a background on the concepts covered, such as network structure and compressions, is presented in chapter 2. 
+Chapter 3 focuses on the recent works that have modeled part of the internet. 
+An aggregation of these recent models will be presented in chapter 4. 
+Chapter 5 will present the web calculator developed to show the model, along side with use cases on how to use the web calculator. 
+Finally, chapter 6 will present the conclusions of the thesis and future work.
 
 
 % - chapter 1: introduction
@@ -51,4 +99,4 @@ This thesis is divided into 6 chapters. After this introduction (chapter 1), a b
 % - chapter 3: related work
 % - chapter 4: Energy model
 % - chapter 5: web calculator and use cases
-% - chapter 7: conclusion
+% - chapter 6: conclusion
