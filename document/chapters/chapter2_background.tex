@@ -15,19 +15,56 @@
 
 The definition of system boundaries is an important factor in the modelling of energy consumption. As seen in the compilation of studies made by \citet{Aslan2018}, the system boundaries is one of the main factors for the discrepancies of the results.
 
-The common consensus is that the system boundaries for the model of the internet should exclude datacenters and user devices \citet{Coroama2014}. This study however won't be modeling only the network but also the impact on datacenters and of the compression/decompression algorithm in the end user device. So the overall system boundary will include all of the \ac{ict} sector. 
+The common consensus is that the system boundaries for the model of the internet should exclude datacenters and user devices \citet{Coroama2014}. This study however won't be modeling only the internet but also the impact on datacenters and of the compression/decompression algorithm in the end user device. So the overall system boundary will include all of the \ac{ict} sector. 
 
-As will later be discussed in chapter \ref{chapter:energy_model}, the energy model can be divided in 3 main components, network, datacenters and compression phase.
+As will later be discussed in chapter \ref{chapter:energy_model}, the energy model can be divided in 3 main components, internet, datacenters and compression phase.
 
 So the system boundaries for the model is what is shown in figure \ref{fig:system_boundaries}.
 
-\section{Network}
+\section{Internet}
 
-The network is the most complex component of the model. What is defined by network or internet can vary by paper to paper \citet{Aslan2018}. This study uses the definition derived by \citet{Coroama2015}, the network the is the infrastructure that connects two end users. This infrastructure can be divided in 4 main components: \ac{cpe}, access network, edge network and core network.
+The internet is the most complex component of the model.
+Internet started has an interconnection of small number of local university networks, which were composed of a few routers and cables. Nowadays the internet is a global network of networks, composed of millions of routers, switches and cables, that interconnects billions of end users. This communication is made possible by the use of the \ac{tcp} and \ac{ip} protocols.
+
+Because of its complexity the system is ususally divided in smaller components, however the delimitation on where each component begins and ends can vary from paper to paper. In this thesis we use the delimitation proposed by \citet{Coroama2015} and \citet{Schien2015}, which divides the internet in 4 main components: \ac{cpe}, access network, \ac{ip} core network and undersea cables.
+
+\ref{fig:internet_topology} shows the topology of the internet as described by both papers \cite{Coroama2015} \cite{Schien2015}. 
 
 \subsection{\acl{cpe}}
 
+The first layer and most simple is the \ac{cpe}. The \ac{cpe} is the equipment that is installed in the end user premises. 
+The equipment is usually provided by the \ac{isp} and normaly consists of a gateway that acacts as a modem and a router.
+A modem is used to convert the signal from the \ac{isp} to a signal that can be used by the router. The router is used to connect the end user devices to the internet.
+
 \subsection{Access Network}
+
+Access networks serve as the connection between the \ac{cpe} and the \ac{isp}. 
+There are several technologies used to establish the connection, they can be wired, wireless or hybrid.
+
+\subsubsection{Wired thecnologies}
+
+The most popular wired connections are \ac{dsl} and fiber.
+
+\ac{dsl} provide internet access over existing analog telephone lines. So, existing telephone service providers offer \ac{dsl} service. With this technology, user voice and data traffic go through this analog lines. \ac{dsl} uses high frequencies for data transmission. And with a help of \ac{dsl} filter data traffic do not interference with voice traffic.
+There are different DSL types. Now \ac{adsl} is the most used \ac{dsl} type in the world. 
+
+Fiber-optic networks use light pulses transmitted through glass or plastic fibers, which produce high bandwidth and transmit speeds. 
+The fibers are also more resistant to interference and signal degradation, making them better suited for sending data over long distances without losing signal quality.
+
+\subsubsection{Wireless technologies}
+
+Wireless access networks use radio waves to connect devices to the internet. The three most common types of wireless networks are Wi-Fi, cellular and satellite.
+
+Wi-Fi is the most widely used type of wireless network. \acp{lan} in homes, offices and public spaces such as airports and coffee shops typically run over Wi-Fi. It works by connecting devices to a wireless access point that transmits data over radio frequencies to other devices within range.
+
+Cellular networks use towers to transmit data over a large area and are often used in remote places where it would be difficult to set up wired networks. This makes them useful for mobile applications such as voice calling, streaming media or internet connections in vehicles.
+
+Satellite networks use satellites orbiting the Earth to provide internet access over a very large geographic area. These are more expensive than other types of wireless networks but offer very high speeds over long distances with high reliability.
+
+
+\subsubsection{Hybrid technologies}
+
+Hybrid access networks combine two or more different access technologies, allowing \acp{isp} to expand and improve network coverage. For example, a hybrid access network might connect fiber-optic cables with Wi-Fi or cellular networks to provide a consistent user experience and increase the availability and reliability of services.
 
 \subsection{Edge Network}
 
