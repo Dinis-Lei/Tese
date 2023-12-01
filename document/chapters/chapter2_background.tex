@@ -38,26 +38,38 @@ A modem is used to convert the signal from the \ac{isp} to a signal that can be 
 
 \subsection{Access Network}
 
-Access networks serve as the connection between the \ac{cpe} and the \ac{isp}. 
-There are several technologies used to establish the connection, they can be wired, wireless or hybrid.
+Access networks serve as the connection between the \ac{cpe} and the core network. All the user are connected to a central office where traffic is aggregated and then transfered to the core network.
+
+Traffic in the access network is highly variable. The equipment used in the access network has a power consumption that is largely constant in time and thus load-independent \citet{Heddeghem2011}.
+
+There are several technologies used to establish the connection, they can be either wired or wireless, figure \ref{figure:access_networks_technologies} highlights which technologies will be presented in more detail.
 
 \subsubsection{Wired thecnologies}
 
-The most popular wired connections are \ac{dsl} and fiber.
+The most popular wired connections are \ac{dsl}, coax cable and fiber-optics.
 
-\ac{dsl} provide internet access over existing analog telephone lines. So, existing telephone service providers offer \ac{dsl} service. With this technology, user voice and data traffic go through this analog lines. \ac{dsl} uses high frequencies for data transmission. And with a help of \ac{dsl} filter data traffic do not interference with voice traffic.
-There are different DSL types. Now \ac{adsl} is the most used \ac{dsl} type in the world. 
+\begin{itemize}
 
-Fiber-optic networks use light pulses transmitted through glass or plastic fibers, which produce high bandwidth and transmit speeds. 
-The fibers are also more resistant to interference and signal degradation, making them better suited for sending data over long distances without losing signal quality.
+    \item \ac{dsl} provide internet access over existing analog telephone lines. So, existing telephone service providers offer \ac{dsl} service. With this technology, user voice and data traffic go through this analog lines. \ac{dsl} uses high frequencies for data transmission. And with a help of \ac{dsl} filter data traffic do not interference with voice traffic.
+    There are different DSL types. Now \ac{adsl} is the most used \ac{dsl} type in the world. 
+
+    \item \ac{hfc} uses the same coaxial cable that is used for cable television. It uses the \ac{docsis} standard to provide internet access.
+
+    \item Fiber-optic networks use light pulses transmitted through glass or plastic fibers, which produce high bandwidth and transmit speeds. 
+    The fibers are also more resistant to interference and signal degradation, making them better suited for sending data over long distances without losing signal quality.
+    Fiber optics technology, namely \ac{epon}, have become the most popular choice for wired access network technology. \ac{epon} is a point-to-multipoint network, which means that a single optical fiber is used to serve multiple end users. This is done by using a passive optical splitter, which splits the signal into multiple data streams that are sent to each end user.
+
+\end{itemize}
+
 
 \subsubsection{Wireless technologies}
 
-Wireless access networks use radio waves to connect devices to the internet. The three most common types of wireless networks are Wi-Fi, cellular and satellite.
+Wireless access networks use radio waves to provide fixed or mobile access services for users. 
+According to coverage range classification, the broadband wireless access technology generally includes a \ac{wpan}, a \ac{wlan}, a \ac{wman}, and a \ac{wwan}.
 
-Wi-Fi is the most widely used type of wireless network. \acp{lan} in homes, offices and public spaces such as airports and coffee shops typically run over Wi-Fi. It works by connecting devices to a wireless access point that transmits data over radio frequencies to other devices within range.
+Wi-Fi is the most widely used type of wireless network. \acp{lan} in homes, offices and public spaces typically run over Wi-Fi. It uses wireless access points that transmits data over radio frequencies to connect devices within its range.
 
-Cellular networks use towers to transmit data over a large area and are often used in remote places where it would be difficult to set up wired networks. This makes them useful for mobile applications such as voice calling, streaming media or internet connections in vehicles.
+Cellular networks use towers to transmit data over a large area and are often used in remote places where it would be difficult and expensive to set up wired networks. They are useful for mobile applications such as voice calling, streaming media or internet connections in vehicles.
 
 Satellite networks use satellites orbiting the Earth to provide internet access over a very large geographic area. These are more expensive than other types of wireless networks but offer very high speeds over long distances with high reliability.
 
@@ -66,9 +78,15 @@ Satellite networks use satellites orbiting the Earth to provide internet access 
 
 Hybrid access networks combine two or more different access technologies, allowing \acp{isp} to expand and improve network coverage. For example, a hybrid access network might connect fiber-optic cables with Wi-Fi or cellular networks to provide a consistent user experience and increase the availability and reliability of services.
 
-\subsection{Edge Network}
-
 \subsection{Core Network}
+
+Core networks consist of several core nodes that are interconnected by \ac{wdm} optical fiber links.
+
+\ac{wdm} is a fiber-optic transmission technique that enables the use of multiple light wavelengths (or colors) to send data over the same medium. Two or more colors of light can travel on one fiber, and several signals can be transmitted in an optical waveguide at differing wavelengths or frequencies on the optical spectrum. 
+
+Each core node is composed by a mix of several layers of technologies stacked on top of each other. Typicallty it is composed of a \ac{ip} layer, a \ac{wdm} layer and a \ac{oxc} layer.
+
+From a broad perspective, core nodes operate on an optical-electrical-optical basis. This implies that any optical traffic undergoes conversion into the electronic domain and is then processed by the node, regardless of whether the traffic is terminated at that node. Typically, a node comprises several WDM transmit and receive cards, commonly known as transponders or transceivers, which are linked to an IP router. The IP router, in turn, can establish connections with various access routers.
 
 \section{Datacenters}
 
