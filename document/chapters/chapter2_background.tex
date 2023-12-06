@@ -18,8 +18,7 @@ The definition of system boundaries is an important factor in the modelling of e
 The common consensus is that the system boundaries for the model of the internet should exclude datacenters and user devices \citet{Coroama2014}. This study however won't be modeling only the internet but also the impact on datacenters and of the compression/decompression algorithm in the end user device. So the overall system boundary will include all of the \ac{ict} sector. 
 
 As will later be discussed in chapter \ref{chapter:energy_model}, the energy model can be divided in 3 main components, internet, datacenters and compression phase.
-
-So the system boundaries for the model is what is shown in figure \ref{fig:system_boundaries}.
+Swhich can be seen in figure \ref{fig:system_boundaries}.
 
 \section{Internet}
 
@@ -30,21 +29,27 @@ Because of its complexity the system is ususally divided in smaller components, 
 
 \ref{fig:internet_topology} shows the topology of the internet as described by both papers \cite{Coroama2015} \cite{Schien2015}. 
 
-\subsection{\acl{cpe}}
+\subsection{\acl{cpe} and Access Network}
+
+There are several technologies used to establish to connect user to the Ethernet, they can be either wired or wireless and can be part of the \ac{cpe} layer or access network layer. Figure \ref{figure:network_technologies} highlights which technologies are currently used and in what layer they belong to.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/network_technologies.png}
+    \caption[Network technologies used in Access Networks and CPE]{Network technologies used in Access Networks and CPE. In green are the technologies used in the access network and in blue are the technologies used in the CPE. Adapted from \citet{forum:huwawei}}
+    \label{figure:network_technologies}
+\end{figure}
 
 The first layer and most simple is the \ac{cpe}. The \ac{cpe} is the equipment that is installed in the end user premises. 
 The equipment is usually provided by the \ac{isp} and normaly consists of a gateway that acacts as a modem and a router.
-A modem is used to convert the signal from the \ac{isp} to a signal that can be used by the router. The router is used to connect the end user devices to the internet.
-
-\subsection{Access Network}
+A modem is used to convert the signal from the \ac{isp} to a signal that can be used by the router. The router is used to connect the end user devices to the internet. The user can connect to the routers either by cable or by wireless technology like Wi-fi. 
 
 Access networks serve as the connection between the \ac{cpe} and the core network. All the user are connected to a central office where traffic is aggregated and then transfered to the core network.
+The access network incorperates any technology that establishes the connection between the end user and the \ac{isp} and said technology it is not own by the user. % So a user can connect to the internet by either a modem or a cellular tower but only the cellular tower is part of the access network. 
 
 Traffic in the access network is highly variable. The equipment used in the access network has a power consumption that is largely constant in time and thus load-independent \citet{Heddeghem2011}.
 
-There are several technologies used to establish the connection, they can be either wired or wireless, figure \ref{figure:access_networks_technologies} highlights which technologies will be presented in more detail.
-
-\subsubsection{Wired thecnologies}
+\subsubsection{Access Network Wired thecnologies}
 
 The most popular wired connections are \ac{dsl}, coax cable and fiber-optics.
 
@@ -62,21 +67,24 @@ The most popular wired connections are \ac{dsl}, coax cable and fiber-optics.
 \end{itemize}
 
 
-\subsubsection{Wireless technologies}
+\subsubsection{Access Network Wireless technologies}
 
 Wireless access networks use radio waves to provide fixed or mobile access services for users. 
-According to coverage range classification, the broadband wireless access technology generally includes a \ac{wpan}, a \ac{wlan}, a \ac{wman}, and a \ac{wwan}.
+According to coverage range classification, the broadband wireless access technology are generally divided into different categories such as \ac{wpan}, a \ac{wlan}, a \ac{wman}, and a \ac{wwan}, however only technologies in the \ac{wman} and \ac{wwan} fall into the umbrella of what we refer as the access network.
 
-Wi-Fi is the most widely used type of wireless network. \acp{lan} in homes, offices and public spaces typically run over Wi-Fi. It uses wireless access points that transmits data over radio frequencies to connect devices within its range.
+The area coverage of \ac{wman} is in the order of kilometers and there are 2 prominent technologies for establish internet access, \ac{lmds} and \ac{wimax}.
 
-Cellular networks use towers to transmit data over a large area and are often used in remote places where it would be difficult and expensive to set up wired networks. They are useful for mobile applications such as voice calling, streaming media or internet connections in vehicles.
+\begin{itemize}
 
-Satellite networks use satellites orbiting the Earth to provide internet access over a very large geographic area. These are more expensive than other types of wireless networks but offer very high speeds over long distances with high reliability.
+    \item \ac{lmds} as the name says is a multipoint communication system, it is used to provided network connectivity to buildings. These are great technologies for last mile connectivity, because they are more cost-effective than wired technologies and can be deployed faster than fiber \cite{forum:imda}.
 
+    \item \ac{wimax}  is based on IEEE 802.16. It provides fixed, mobile or portible wireless connections with highspeeds that can reach up to 70 \ac{mbps} \cite{forum:ctrfantennasinc}.
 
-\subsubsection{Hybrid technologies}
+\end{itemize}
 
-Hybrid access networks combine two or more different access technologies, allowing \acp{isp} to expand and improve network coverage. For example, a hybrid access network might connect fiber-optic cables with Wi-Fi or cellular networks to provide a consistent user experience and increase the availability and reliability of services.
+The \ac{wwan} has a bigger range that the \ac{wman} and is used to provide internet access to mobile devices.
+\ac{wwan} uses telecommunication cellular network technologies such as 2G, 3G, 4G LTE, and 5G to transfer data.
+
 
 \subsection{Core Network}
 
@@ -86,7 +94,7 @@ Core networks consist of several core nodes that are interconnected by \ac{wdm} 
 
 Each core node is composed by a mix of several layers of technologies stacked on top of each other. Typicallty it is composed of a \ac{ip} layer, a \ac{wdm} layer and a \ac{oxc} layer.
 
-From a broad perspective, core nodes operate on an optical-electrical-optical basis. This implies that any optical traffic undergoes conversion into the electronic domain and is then processed by the node, regardless of whether the traffic is terminated at that node. Typically, a node comprises several WDM transmit and receive cards, commonly known as transponders or transceivers, which are linked to an IP router. The IP router, in turn, can establish connections with various access routers.
+From a broad perspective, core nodes operate on an optical-electrical-optical basis. This implies that any optical traffic undergoes conversion into the electronic domain and is then processed by the node, regardless of whether the traffic is terminated at that node. Typically, a node comprises several \ac{wdm} transmit and receive cards, commonly known as transponders or transceivers, which are linked to an \ac{ip} router. The \ac{ip} router, in turn, can establish connections with various access routers.
 
 \section{Datacenters}
 
