@@ -111,23 +111,58 @@ Datacenters are composed of eletronic equipment for communication, data processi
     \item Hyperscale
 \end{itemize}
 
-The main contributers for the energy consumption of datacenters are the servers, the network and the storage devices. Each type of datcenter has a different efficiency in the use of energy. The efficiency of a datacenter is measured by the \ac{pue}, that it the ratio between the total energy consumption of the facility and the energy consumption of the \ac{it} equipment, the closer it is to 1 the better the effiiency of the datacenter.
-
-\subsection{Datacenter Network}
-
-Tippically, datacenter networks are composed of switches, routers and other hardware components that provide the connectivity and security to run applications and process data on the servers. 
-
-According to \citet{Cheung} and \citet{Miyuru} the network accounts for around 10\% of the energy consumption of the datacenter. 
-
+The main contributers for the energy consumption of datacenters are the servers, the network and the storage devices. Each type of datcenter has a different efficiency in the use of energy. The efficiency of a datacenter is measured by the \ac{pue}, that it the ratio between the total energy consumption of the facility and the energy consumption of the \ac{it} equipment, the closer it is to 1 the better the efficiency of the datacenter.
 
 \subsection{Datacenter Servers}
 
-Datacenter servers are the main component of the datacenter. They are responsible for the processing of the data and the execution of the applications.
+Datacenter servers are the main component of the datacenter. The servers are computers with the resources capable of executing applications and processing data.
 
-As the main component of the dacatencer, they are also the main contributor for the energy consumption of the datacenter. According to \citet{Cheung} and \citet{Miyuru} the servers account for around 70\% of the energy consumption of the datacenter, ignoring cooling and other non \ac{it} factors.
+As the main component of the datacencer, they are also the main contributor for the energy consumption of it. According to \citet{Cheung} and \citet{Miyuru} the servers account for around 70\% of the energy consumption of the datacenter, ignoring cooling and other non \ac{it} factors.
 
 
 \subsection{Datacenter Storage}
+
+Storage in datacenter is composed of several \acp{hdd} and \acp{ssd} that are connected to the servers. The storage configuration can be divided in three categories: \ac{das}, \ac{nas} and \ac{san} \citet{Storage101}.
+
+\subsubsection{\acl{das}}
+
+As the name suggests, the storage devices connect directly to the server without any networking. \ac{das} can connect either internally or externally has a single drive or an array of \ac{raid}. 
+
+\ac{das} is the cheapest easier and cheapest option to implement of the three. However, it is also the least scalable and the least flexible, because the server has a limited number of ports and expansion slots.
+
+\subsubsection{\acl{nas}}
+
+\ac{nas} is a centralized file-level storage system, that is connected to the server via the network. \ac{nas} is composed of a storage device with a \ac{os} that is optimized for file storage and sharing.
+
+It includes built-in fault tolerance, management capabilities, and security protections, and it can support features such as replication and data deduplication.
+
+\subsubsection{\acl{san}}
+
+\ac{san} is a decentralized block-level storage system, that is connected to the server via the network. It presents a pool of block-level storage to the server, which the server can then format and partition as it sees fit.
+
+It is composed of storage arrays (\acp{raid}), servers for managing data access, storage management software, \acp{hba}, and any physical components that make up the network's infrastructure.
+
+\subsection{Datacenter Network}
+
+Tipically, datacenter networks are composed of switches, routers and other hardware components that provide the connectivity and security to run applications and process data on the servers. 
+
+According to \citet{Cheung} and \citet{Miyuru} the network accounts for around 10\% of the energy consumption of the datacenter. 
+
+Today there are 3 main topologies that datacenters can follow, but larger datacenters can use two or all three of them. Each topology has its own advantages and disadvantages and the choice of topology depends on the type of datacenter and the type of applications that it will be hosted \citet{commScope}.
+
+\subsubsection{Centralized}
+
+This model is more used by smaller datacenters. There are separated enviroments for the server and storage, with dedicated  cables that connect the storage server cabinates to the storage.  
+
+\subsubsection{\ac{eor}}
+
+This topology consists in distributing network resources, as seen in figure \ref{figure:eor_topology}. The servers are placed in rows and the network resources are placed at the end of each row. This solution is recommended by the  ANSI/TIA-942 Data Center Standards \cite{ANSI/TIA-942} and is very scalable, repeatable, and predictable.
+
+\subsubsection{\ac{tor}}
+
+Top of the rack consists on two or more swtches on top of each server cabinate, as shown below in figure \ref{figure:tor_topology}. It is cost-effective because it reduces the number of copper cables between racks. The rack is linked to the data center network by an Ethernet switch, often through a fiber cable. This fiber cable is a direct link from the common aggregation area to the rack.
+
+In the \ac{tor} approach, every rack in the data center network is a separate entity that eases its management. Any change, upgrade, or malfunction in the rack usually affects that rack only.
 
 \section{Compression algorithms}
 % estado da arte de algoritmos especificos
