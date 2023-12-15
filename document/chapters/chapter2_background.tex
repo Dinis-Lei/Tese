@@ -17,8 +17,7 @@ The definition of system boundaries is an important factor in the modelling of e
 
 The common consensus is that the system boundaries for the model of the internet should exclude datacenters and user devices \citet{Coroama2014}. This study however won't be modeling only the internet but also the impact on datacenters and of the compression/decompression algorithm in the end user device. So the overall system boundary will include all of the \ac{ict} sector. 
 
-As will later be discussed in chapter \ref{chapter:energy_model}, the energy model can be divided in 3 main components, internet, datacenters and compression phase.
-Swhich can be seen in figure \ref{fig:system_boundaries}.
+As will later be discussed in chapter \ref{chapter:energy_model}, the energy model can be divided in 3 main components, internet, datacenters and compression phase, which can be seen in figure \ref{fig:system_boundaries}.
 
 \section{Internet}
 
@@ -145,7 +144,6 @@ It is composed of storage arrays (\acp{raid}), servers for managing data access,
 \subsection{Datacenter Network}
 
 Tipically, datacenter networks are composed of switches, routers and other hardware components that provide the connectivity and security to run applications and process data on the servers. 
-
 According to \citet{Cheung} and \citet{Miyuru} the network accounts for around 10\% of the energy consumption of the datacenter. 
 
 Today there are 3 main topologies that datacenters can follow, but larger datacenters can use two or all three of them. Each topology has its own advantages and disadvantages and the choice of topology depends on the type of datacenter and the type of applications that it will be hosted \citet{commScope}.
@@ -161,7 +159,6 @@ This topology consists in distributing network resources, as seen in figure \ref
 \subsubsection{\ac{tor}}
 
 Top of the rack consists on two or more swtches on top of each server cabinate, as shown below in figure \ref{figure:tor_topology}. It is cost-effective because it reduces the number of copper cables between racks. The rack is linked to the data center network by an Ethernet switch, often through a fiber cable. This fiber cable is a direct link from the common aggregation area to the rack.
-
 In the \ac{tor} approach, every rack in the data center network is a separate entity that eases its management. Any change, upgrade, or malfunction in the rack usually affects that rack only.
 
 \section{Compression algorithms}
@@ -170,19 +167,46 @@ Compression algorithms are used to reduce the size of a file or data stream. The
 
 With the increase of the use of the internet and the increase of the amount of data that is stored and transmitted, compression algorithms have become a standard in the \ac{ict} sector.
 
-\subsection{Lossless Compression}
+\subsubsection{Lossless compression}
 
-Lossless algorithms usually exploit the redundancy present in data to reduce the size without lossing any information. Among the lossless algorithms, the Lemple-Ziv (LZ) family of algorithms are the most popular.
+Lossless algorithms usually exploit the redundancy present in data to reduce the size without lossing any information. Among the lossless algorithms, the Lemple-Ziv (LZ) family of algorithms are the most popular. One popular image format that uses lossless compression is the \ac{png} format. The \ac{png} format uses the DEFLATE algorithm \cite{rfc1951}, which is a combination of LZ77 and Huffman coding.
 
-One popular image format that uses lossless compression is the \ac{png} format. The \ac{png} format uses the DEFLATE algorithm, which is a combination of LZ77 and Huffman coding.
+\subsubsection{Lossy compression}
 
-\subsection{Lossy Compression}
+Lossy compression algorithms are used when the loss of information is acceptable. They are usually used in multimedia applications, where the loss of information is not noticeable by the end user.
 
-\subsection{General purpose Algorithms}
+Compression algorithms can be divided in two categories based on the type of data that they are used to compress. General purpose algorithms can be used to compress any type of data. Specific algorithms on the other hand are developed to compress a specific type of data, like images, audio or even genetic data, and are usually more efficient in their data type than general purpose algorithms.
 
-\subsection{Specific Algorithms}
+Below we will enumerate some of the most popular compression algorithms, focusing on algorithms that are commonly used to compress genome sequences. But first we will explain the common formats used to store genome sequences.
+
+\subsection{Genome sequence formats}
+
+\subsubsection{FASTQ}
+
+\subsubsection{FASTA}
+
+\subsubsection{SAM/BAM}
+
+\subsubsection{VCF}
 
 
+
+\subsection{Compression algorithms overview}
+
+
+
+
+
+
+\begin{center}
+    \begin{tabular}{|| c | c | c | c | c ||}
+        \hline
+        Name & Data type & Compression Rate & Decompression Speed & Reference \\
+        \hline\hline
+        1 & 2 & 3 & 4 & 5\\
+        \hline
+    \end{tabular}
+\end{center}
 
 
 % estado da arte de algoritmos especificos
