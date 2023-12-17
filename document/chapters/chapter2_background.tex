@@ -181,14 +181,16 @@ Below we will enumerate some of the most popular compression algorithms, focusin
 
 \subsection{Genome sequence formats}
 
-\subsubsection{FASTQ}
+Genome sequencing is a process that determines the order of the nucleotides in a genome, it turns sequences of genomes into data that can be stored and analyzed. The genome sequence is usually stored in a file, which can be in several formats. The most common formats are FASTQ, FASTA, SAM/BAM and VCF.
 
-\subsubsection{FASTA}
+FASTQ is a text-based format that stores the biological sequence and its corresponding quality scores. Each entry of the file is composed of 4 lines. The first line is the sequence identifier, the second line is the genetic sequence (the nucleotide bases A, C, T, G and N), the third line is a seperator, lastly the fourth line is the quality score of each base.
 
-\subsubsection{SAM/BAM}
+FASTA is also a text-based format that stores the biological sequence. However it only stores the headers and nucleotide bases sequenced, which makes it more compact than FASTQ.
 
-\subsubsection{VCF}
+SAM/BAM are the text and binary versions of the same format. They are used to store the alignment of the sequenced reads to a reference genome. The file is composed of a header and a body. The header contains information about the reference genome and the body contains the alignment of the reads. They reduce the space needed to store a genetic sequence however they are dependent on a reference genome.
 
+Lastly VCFis the standard file format for storing variation data. It is used by large scale variant mapping projects such as IGSR. It is also the standard output of variant calling software such as GATK and the standard input for variant analysis tools such as the VEP or for variation archives like EVA.
+VCF is a preferred format because it is unambiguous, scalable and flexible, allowing extra information to be added to the info field. Many millions of variants can be stored in a single VCF file. 
 
 
 \subsection{Compression algorithms overview}
