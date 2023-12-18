@@ -46,5 +46,21 @@
 - Uses neural networks
 - Pure neural network models based on LSTM and Transform models.
 
+### Mfcompress
 
+- Used on Fasta and multi-fasta files
+- Uses probabilistic models that comply with the markov property
+
+### jarvis3
+
+- Works on fasta and fastq files
+- Lossless
+- Uses neural networks
+
+### Naf
+
+- Based on zstandard
+- Fasta and Fastq
+
+### 
 

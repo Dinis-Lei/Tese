@@ -196,19 +196,15 @@ VCF is a preferred format because it is unambiguous, scalable and flexible, allo
 
 As stated above, compression algorithms can be divided into two categories, general purpose and specific algorithms. In terms of general purpose algorithms, we have the most popular algorithms, zstandard, gzip, bzip2 and lzma.
 
-Zstandard is a lossless compression algorithm developed by Facebook. It is based on the DEFLATE algorithm, but it is much faster and has a better compression ratio. It is also a very popular algorithm, being used by Meta, Google, Amazon and Apple.
+Zstandard and Gzip are both lossless compression algorithms based on the DEFLATE algorithm, which uses a combination of both LZ77 and Huffman coding. Zstandard is the most recent algorithm and was developed by Facebook, offering a much faster compression and decompression than its predecessors. Gzip was created as an alternative to the compress program in Unix systems, because of the Unisys and IBM patens covering the LZW algorithm.
 
-Gzip is also based on DEFLATE, it was created as an alternative to the compress program in Unix systems, because of the Unisys and IBM patens covering the LZW algorithm.
-
-Bzip2 is a lossless compression algorithm based on the Burrows-Wheeler transform. It is more efficient than DEFLATE but is also slower. Even though it can be used in any type of data it is most efficient in text based data.
+Bzip2 is a lossless compression algorithm based on the Burrows-Wheeler transform. It is more efficient than DEFLATE but is also slower. Even though it can be used in any type of data it is most efficient in text based data. The algorithms is composed of several compression techniques such as \ac{rle}, \ac{bwt}, \ac{mtf} and Huffman coding.
 
 Lzma is a lossless compression algorithm based on the Lempel-Ziv-Markov chain algorithm. It is used by the 7zip file archiver and the xz file format.
 
-Cmix is a lossless compression algorithm that uses several machine learning models to predict the next symbol in a sequence. It is a very efficient algorithm, however it is extremely cpu and memory intensive, requiring a minimum of 32GB of memory to run it.
+Cmix and paq1 are both context mixing compression algorithms. They use more than one model to predict the next symbol in a sequence, it usually results in a more accurate prediction than using only one model. Cmix uses several machine learning models, while paq1 uses a weighted average of 5 bit-level predictors.
 
 Nncp also uses machine learning models, in this case it uses pure neural network models based on the \ac{lstm} and Transform model.
-
-Paq1 is a context mixing compression algorithm. It uses an arithemetic encoder that uses the weighted average of 5 bit-level predictors, to predict the next symbol in a sequence.
 
 
 \begin{center}
