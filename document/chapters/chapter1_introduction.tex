@@ -5,18 +5,16 @@
 
 \begin{introduction}
 
-Energy consumption has been a topic of discussion lately due to the increase of global warming. The \ac{ict} sector is responsible for around 4-6\% of the global eletricity use in 2020 \citet{UK-parliament}. The main contributer to the energy consumption of the \ac{ict} sector are datacenters, which account for XXX\% (\citet{check source}). With the increase of internet use and the need to process large amounts of data, the energy consumption of the \ac{ict} sector will only increase further.
+Energy consumption has been a topic of discussion lately due to the increase of global warming. The \ac{ict} sector is responsible for around 4-6\% of the global electricity use in 2020 \citet{UK-parliament}. The main contributor to the energy consumption of the \ac{ict} sector are datacenters, which account for XXX\% (\citet{check source}). With the increase of internet use and the need to process large amounts of data, the energy consumption of the \ac{ict} sector will only increase further.
 
-The primary objective of this thesis is to analyse data compression algorithms and their impact on the energy consumption of the \ac{ict} sector.
-To achieve this objective, a model of the energy consumption of the \ac{ict} sector was develop, along side a web calculator to compare different compression algorithms on several uses cases. 
+The primary objective of this thesis is to analyze data compression algorithms and their impact on the energy consumption of the \ac{ict} sector.
+To achieve this objective, a model of the energy consumption of the \ac{ict} sector was developed, alongside a web calculator to compare different compression algorithms on several uses cases. 
 
-With the increase of machine learning applications and the need to process large amounts of data, the energy consumption of the \ac{ict} sector has been increasing. So models to estimate the energy consumption are needed to help policy makers and companies make informed decisions to meet the goals of Net Zero by 2050.
-
-In this chapter, we will present reasearch questions, followed by the hypotheses and objectives of the thesis. We will then present the risk assessment and impact of the thesis, concluding with the contributions of the thesis. 
+In this chapter, we will present research questions, followed by the hypotheses and objectives of the thesis. We will then present the risk assessment and impact of the thesis, concluding with the contributions of the thesis. 
 
 \end{introduction}
 
-\section{Researh questions}
+\section{Research questions}
 \label{section:research_questions}
 
 To define the scope of the thesis, the following research questions were defined:
@@ -24,18 +22,15 @@ To define the scope of the thesis, the following research questions were defined
 \begin{itemize}
     \item How to quantify the impact of compression algorithms on the energy consumption of the \ac{ict} sector?
 
-    The impact can be quantified by firstly determening the energy intensity of data, that is the cost of processing a unif of data, ususally expressed in \ac{kilowatt-hour}/\ac{gigabyte}.
+    The impact can be quantified by firstly determining the energy intensity of data, that is the cost of processing a unit of data, usually expressed in \ac{kilowatt-hour}/\ac{gigabyte}.
     The modeling of the energy consumption can be done by two approaches: bottom-up or top-down. 
-    The bottom-up consists on aggregating data from each device of the system.
-    The top-down approach uses the total energy consumption of the system and the traffic passed thorugh the system in study.
+    The bottom-up consists on aggregating data from each device of the system then estimating the energy consumption by data traffic.
+    The top-down approach uses the total energy consumption of the system and the traffic passed through the system in study to derive the cost of the system and estimate the future cost as the data traffic increases.
     
     \item What is the appropriate system boundary of the model?
     
-    The system boundary defines the scope of the model. It is important to define the system boundary to avoid over or under estimating the energy consumption of the \ac{ict} sector.
+    The system boundary defines the scope of the model. It is important to define the system boundary to avoid over or underestimating the energy consumption of the \ac{ict} sector.
 
-    \item How to evaluate the accuracy of the model?
-
-    
     \item Which component will be more affected by the compression algorithms?
 
     Each component of the \ac{ict} sector is affected differently by the amount of data processed. Therefore, the impact of the compression algorithms will vary on each component.
@@ -49,9 +44,15 @@ From the research questions, the following hypotheses were derived:
 \begin{itemize}
     \item The energy consumption of the \ac{ict} sector can be modeled as a function of the data processed.
 
-    By quantifying the compression ratio of each compression algorithm, the energy consumption of the \ac{ict} sector can be modeled as the differece between the uncompressed model and the compressed one.
+    By quantifying the compression ratio of each compression algorithm, the energy consumption of the \ac{ict} sector can be modeled as the difference between the uncompressed model and the compressed one.
 
-    \item The most afected component affected by the compression algorithms is the datacenter.
+    % Isto é uma hipótese ou simplesmente a resposta à pergunta?
+
+    \item The system boundary of the model should include the datacenter, the network and the end devices. 
+    
+    Some studies that model the energy consumption of the internet argue against the inclusion of end-user devices, and datacenters because they are not part of the internet infrastructure. However, as we focus on the impact of compression algorithms, we have to have in account the cost of both compression and decompression of data. Therefore, it is necessary to include the end-user devices and datacenters in the model.
+
+    \item The most affected component affected by the compression algorithms is the datacenter.
 
     The datacenter is the component which consumes the most energy in the \ac{ict} sector. Therefore, it is expected that the datacenter will be the most affected component by the compression algorithms.
 
@@ -60,20 +61,32 @@ From the research questions, the following hypotheses were derived:
 
 \section{Objectives}
 
-To try to awnser the research questions posed in \ref{section:research_questions}, and to validate the hypotheses in chapter \ref{section:hypotheses}, the following objectives were defined:
+To try to answer the research questions posed in \ref{section:research_questions}, and to validate the hypotheses in chapter \ref{section:hypotheses}, the following objectives were defined:
 
 \begin{itemize}
-    \item Study the current energy models of the internet.
+    \item Study the current energy models of the \ac{ict} sector.
+
+    Currently, there are a few studies that model the energy of parts of the \ac{ict} sector. Some studies focus on the internet or parts of it like the Core network, and others focus on datacenters. To understand and formulate an accurate model a review of the most recent studies must be made. 
 
     \item Develop an aggregated model.
 
-    \item Develop a web calculator to show the model
+    As there isn't any global model of the \ac{ict} sector, it is necessary to aggregate several models of parts of the \ac{ict} sector. The model must be modular to better adapt to the users necessities.
 
-    \item Create case studies to benchmark the model
+    \item Develop a web calculator to showcase the model
+
+    To show the model, a web calculator will be developed. The web calculator must allow the user to easily modify its parameters and have a clean layout to compare different compression algorithms.
 
 \end{itemize}
 
 \section{Risk assessment and impact}
+
+There are a multitude of risks that can affect the development of the thesis, such as the lack of public data on most devices in use in the network, as well as the assumptions that most studies have to make on the layout of the network.
+
+To mitigate the risk of lack of data, the thesis will focus on two case studies, the \ac{sra} which stores a large amount of genetic data, and the \acl{stic} (Information and Communication Technology Services, STIC) that manage all the \ac{ict} infrastructure of the university of Aveiro. The data from these two organizations is fundamental to validate the accuracy of the model. 
+
+As for the assumptions made for the layout and the devices of the network and datacenter, the default layout of the model will be based on the most recent studies, and the model will be constructed in a modular way, so that whoever uses it will be able to change the parameters to better fit their use cases.
+
+Even tough the risk is high, the positive impact of the thesis is also high. Users such as researchers, companies and governments can use the model to estimate the energy consumption of their systems and choose the best compression tool for their use case, which will reduce the energy consumption, and consequently the carbon footprint of the \ac{ict} sector.
 
 \section{Contributions}
 
@@ -92,7 +105,7 @@ Secondly, a web calculator was created to show the model. The web calculator all
 This thesis is divided into 6 chapters. After this introduction (chapter 1), a background on the concepts covered, such as network structure and compressions, is presented in chapter 2. 
 Chapter 3 focuses on the recent works that have modeled part of the internet. 
 An aggregation of these recent models will be presented in chapter 4. 
-Chapter 5 will present the web calculator developed to show the model, along side with use cases on how to use the web calculator. 
+Chapter 5 will present the web calculator developed to show the model, alongside with use cases on how to use the web calculator. 
 Finally, chapter 6 will present the conclusions of the thesis and future work.
 
 

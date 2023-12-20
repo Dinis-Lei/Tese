@@ -1,12 +1,12 @@
 # Study of the impact of data compression on reducing energy consumption
 
-### Thesis structure and status: 22.0%
+### Thesis structure and status: 26.7%
 
-* **Introduction**: 50%
-    - Research Questions: 40%
-    - Hypotheses: 40%
-    - Objectives: 30%
-    - Risk Assessment and Impact: 0%
+* **Introduction**: 78.3%
+    - Research Questions: 80%
+    - Hypotheses: 60%
+    - Objectives: 60%
+    - Risk Assessment and Impact: 80%
     - Contributions: 90%
     - Thesis Structure: 100%
 * **Background**: 81.7%
