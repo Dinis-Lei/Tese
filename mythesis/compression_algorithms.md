@@ -62,5 +62,33 @@
 - Based on zstandard
 - Fasta and Fastq
 
-### 
+### Agc
+
+- Fasta
+- Uses a reference genome to compress
+- Uses zstd to compress small sequences
+
+
+### Fqzcomp
+
+- Fastq
+- produces multiple compressed files
+- Uses ZPAQ in higher levels of compression
+
+
+### Quip
+
+- Fastq, SAM/BAM
+- Arithemetic encoding
+- reference-based
+
+
+### Leon
+
+- Fasta/Fastq
+- uses probabilistic de Bruijn Graph
+- No need for reference genome
+- Lossy by default but can be lossless
+
+
 

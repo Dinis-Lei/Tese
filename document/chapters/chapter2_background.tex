@@ -7,17 +7,18 @@
     
     The modelling of the energy consumption of the \ac{ict} sector is a complex task, because it involves modelling several systems, each with their distinct topologies and external factors.
 
-    In this chapter we can find a descrition of the topology of the different systems that comprise the \ac{ict} sector and an highlight on the main component of each system. Moreover, the chapter also includes a description on the basics of compression algorithms and the different types of compression algorithms.
+    In this chapter we can find a description of the topology of the different systems that comprise the \ac{ict} sector and a highlight on the main component of each system. Moreover, the chapter also includes a description on the basics of compression algorithms and the different types of compression algorithms.
 
 \end{introduction}
 
 \section{System Boundaries}
+\label{section:system_boundaries}
 
 The definition of system boundaries is an important factor in the modelling of energy consumption. As seen in the compilation of studies made by \citet{Aslan2018}, the system boundaries are one of the main factors for the discrepancies of the results.
 
 The common consensus is that the system boundaries for the model of the internet should exclude datacenters and user devices \citet{Coroama2014}. This study however won't be modeling only the internet but also the impact on datacenters and of the compression/decompression algorithm in the end user device. So the overall system boundary will include all the \ac{ict} sector. 
 
-As will later be discussed in chapter \ref{chapter:energy_model}, the energy model can be divided in 3 main components, internet, datacenters and compression phase, which can be seen in figure \ref{fig:system_boundaries}.
+So this study divides the system boundary in 3 main components, the network, datacenters and the end user devices (figure \ref{figure:system_boundaries}). The network is divided in three main components, \ac{cpe}, Access Network and Core Network. The datacenter is also divided in three components, Servers, Storage and Datacenter Network. Lastly the end user devices only includes the compression/decompression algorithm cost. 
 
 \section{Internet}
 
@@ -200,7 +201,7 @@ As stated above, compression algorithms can be divided into two categories, gene
 
 Zstandard and Gzip are both lossless compression algorithms based on the DEFLATE algorithm, which uses a combination of both LZ77 and Huffman coding. Zstandard is the most recent algorithm and was developed by Facebook, offering a much faster compression and decompression than its predecessors. Gzip was created as an alternative to the compress program in Unix systems, because of the Unisys and IBM patens covering the LZW algorithm.
 
-Bzip2 is a lossless compression algorithm based on the Burrows-Wheeler transform. It is more efficient than DEFLATE but is also slower. Even though it can be used in any type of data it is most efficient in text based data. The algorithms is composed of several compression techniques such as \ac{rle}, \ac{bwt}, \ac{mtf} and Huffman coding.
+Bzip2 is a lossless compression algorithm based on the Burrows-Wheeler transform. It is more efficient than DEFLATE but is also slower. Even though it can be used in any type of data it is most efficient in text based data. The algorithm is composed of several compression techniques such as \ac{rle}, Burrows-Wheeler transform, move-to-front transform and Huffman coding.
 
 Lzma is a lossless compression algorithm based on the Lempel-Ziv-Markov chain algorithm. It is used by the 7zip file archiver and the xz file format.
 
