@@ -33,7 +33,7 @@ export default function Chart(data) {
     return (
     // <ResponsiveContainer width="100%" height="100%">
         <LineChart width={400} height={400} data={chartData}>
-            <Line type="monotone" dataKey="val" stroke="#8884d8" />
+            <Line type="monotone" dataKey="val" stroke="#8884d8" strokeWidth={3} />
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
