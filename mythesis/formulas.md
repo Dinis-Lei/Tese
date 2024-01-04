@@ -30,7 +30,7 @@ According to the paper:
 
 We can write $P_{CPE}$ in two ways:
 
-- $\sum{P_i}$: this is impratical because the user will probably use the same type of router or similar routers in the network. And if they are different  it is annoying to calculate the sum for all the network.
+- $\sum{P_i}$: this is impractical because the user will probably use the same type of router or similar routers in the network. And if they are different it is annoying to calculate the sum for all the network.
 - $N_{router}P_{router}$: this is not as accurate but should be a close enough alternative.
 
 (idea) Using the second way, the $t_s$ could be influenced by the $N_{CPE}$ and $N_{routers}$  
@@ -46,7 +46,7 @@ the consumption is 0.052 kWh/GB.
 - [Malmodin 2010](https://www.ericsson.com/en/reports-and-papers/research-papers/lca-of-data-transmission-and-ip-core-networks) estimates that the value of the core network for Sweden is 0.08 kwh/GB
 
 
-From [Taal2014](https://ieeexplore.ieee.org/document/6866547) they assue two paths that data can take, via public internet or a dedicated network called lightpath.
+From [Taal2014](https://ieeexplore.ieee.org/document/6866547) they assume two paths that data can take, via public internet or a dedicated network called lightpath.
 ![Alt text](image-2.png)
 ![Alt text](image-1.png)
 

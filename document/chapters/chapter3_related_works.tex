@@ -12,15 +12,44 @@ The search methodology focused on studies that analyze energy or carbon consumpt
 The search was based on primarily done by using a keyword related to the specific area of the \ac{ict} sector in study followed by a keyword related to energy consumption. For example a search for datacenters would be done by using the keywords \textit{"datacenter"} and \textit{"power consumption"}. The search filtered articles to include only those above January 2000. 
 From the results gathered papers that showed bottom-up models were privileged over top-down models. 
 
-\section{Energy models}
+\section{Energy consumption studies}
 
-In this section, we will present the most relevant energy models gathered by the methodology described in the previous section. Each model tackles a different subsystem, however, their boundary delimitation can overlap with other models, so we will frame the boundaries of the models into the system boundaries that we have defined in \ref{section:system_boundaries}.
+In this section, we will present the most relevant studies gathered by the methodology described in the previous section. Each study tackles a different subsystem, however, their boundary delimitation can overlap with others, so we will frame the boundaries of the studies into the system boundaries that we have defined in \ref{section:system_boundaries}.
 
-\subsection{Network models}
+The methodology used by each study is different. We separate the studies into those who use modeling, direct measurement, and those who use a combination of both.
 
-\subsection{Storage/Datacenter models}
+\subsection{Modeling}
+
+This approach consists in specifying equations based on parameters like energy consumption to describe the subsystem in study. The parameters can be obtained by using empirical data or by making informed assumptions of the system in question. 
+
+\citet{Coroama2015} uses both approaches to estimate the energy consumption of the \ac{cpe} and access network subsystems. They developed a formula for estimating the energy intensity of these two subsystems. The formula, (\ref{formula:coroama_cpe_an}), builds on their previous analysis of multimedia servers \citet{Schien2013} 
+
+\begin{equation}
+\label{formula:coroama_cpe_an}
+    I_{CPE,AN} = \frac{t_{on}}{t_{use}} \frac{P_{CPE}}{N_{CPE}} + \frac{P_{AN}}{N_{AN}} PUE_{AN}
+\end{equation}
+
+\begin{itemize}
+    \item $I_{CPE,AN}$: Intensity of both \ac{cpe} and \ac{an}.
+    \item $\frac{t_{on}}{t_{use}}$: Ratio of time that the device is actively working. 
+    \item $P_{CPE}$: Power of all \ac{cpe} devices.
+    \item $N_{CPE}$: Number of Users connected to the \ac{cpe}.
+    \item $P_{AN}$: Power of all \ac{an} devices.
+    \item $N_{AN}$: Number of users (subscribers) connected to the \ac{an}.
+    \item $PUE_{AN}$: \ac{pue} of the \ac{an}.
+\end{itemize}
+
+$\frac{P_{AN}}{N_{AN}}$ gives the energy intensity of the \ac{an} per subscriber, the technology they evaluate is \ac{adsl2} which has a power consumption of \SI{2}{\watt} per subscriber \citet{Schien2013}. As for the $PUE$ they assume a value of 2. 
+$\frac{P_{CPE}}{N_{CPE}}$ gives the energy intensity of the \ac{cpe} per subscriber. The study assumes that each household has 2 \ac{cpe} devices, a modem and a router, and arrives at a value of \SI{8}{\watt} per subscriber when accounting for legacy equipment. 
+The ratio of time that the device is actively working is estimated to be 6 according to the findings in \citet{Nissen2007}.
+The study then concludes that the energy intensity for this subsystem is \SI{52}{\watt} per subscriber.
+
+\citet{Schien2015} developed a model for the subsystem of core network. The study created a model to estimate the energy consumption of data traffic in the core network, that is the cost per \ac{gigabyte} of data transmitted. 
+The model only considers the devices that will carry the connection data between the user and the server. Because not all energy spent by each device is directly related to a request, the energy intensity is the ratio between the energy spent by the device and the data throughput.   
 
 
+
+\subsection{Direct measurement}
 
 
 
