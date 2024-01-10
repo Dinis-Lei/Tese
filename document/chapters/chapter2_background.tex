@@ -213,9 +213,15 @@ Nncp also uses machine learning models, in this case it uses pure neural network
 
 In terms of specific algorithms, we focus on algorithms that compress genome sequences. These algorithms compress files that are in the FASTA, FASTQ and \ac{sam}/\ac{bam} formats.
 
+MFCompress was designed and implemented in \ac{ieeta}. It is a tool for compressing FASTA and multi-FASTA files, achieving compression gains of almost 50\%. The algorithm bases on probabilistiv models that comply with the Markov property, i.e. that estimate the probability of the next symbol of the information source using the $k>0$ immediate past symbols (order-k context) to select the probability distribution. 
 
+Jarvis3, Naf and Leon, are tools that compress FASTA and FASTQ files, but all focus on different techniques. Jarvis3 uses neural network models, while Naf is based on the zstandard algorithm. Leon uses probabilistic models based on "De Bruijin Graph", it has the advantage of not needing to have a reference genome for the execution of the algorithm.
 
+Agc uses a reference genome to compress FASTA files, and in small sequences it uses zstandard.
 
+Fqzcomp compresses FASTQ files and uses ZPAQ, an algorithm of the PAQ family, to achieve higher levels of compression.
+
+Lastly Quip compresses FASTQ and \ac{sam}/\ac{bam} files using reference-based arithmetic encoding.
 
 \begin{center}
     \begin{tabular}{|| c | c | c | c | c ||}

@@ -1,15 +1,15 @@
 # Study of the impact of data compression on reducing energy consumption
 
-### Thesis structure and status: 33.7%
+### Thesis structure and status: 37.9%
 
-* **Introduction**: 78.3%
-    - Research Questions: 80%
-    - Hypotheses: 60%
-    - Objectives: 60%
+* **Introduction**: 90%
+    - Research Questions: 90%
+    - Hypotheses: 90%
+    - Objectives: 90%
     - Risk Assessment and Impact: 80%
     - Contributions: 90%
     - Thesis Structure: 100%
-* **Background**: 81.7%
+* **Background**: 84.6%
     - System Boundaries: 90%
     - Internet: 80%
         - CPE and AN: 90%
@@ -18,14 +18,14 @@
         - DC Network: 90%
         - DC Server: 80%
         - DC Storage: 90%
-    - Compression Algorithm: 70%
+    - Compression Algorithm: 81.7%
         - Lossless and Lossy Compression: 90%
         - Genome sequence formats: 90%
-        - Compression Algorithms Overview: 40%
-* **Related Works**: 42.5%
+        - Compression Algorithms Overview: 65%
+* **Related Works**: 52.5%
     - Systematic review methodology: 80%
-    - Energy consumption studies: 5%
-        - Modeling: 10%
+    - Energy consumption studies: 25%
+        - Modeling: 50%
         - Direct measurement: 0%
 * **Energy Model**: 0%
 * **Web Calculator**: 0%

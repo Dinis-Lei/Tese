@@ -22,12 +22,14 @@ The methodology used by each study is different. We separate the studies into th
 
 This approach consists in specifying equations based on parameters like energy consumption to describe the subsystem in study. The parameters can be obtained by using empirical data or by making informed assumptions of the system in question. 
 
-\citet{Coroama2015} uses both approaches to estimate the energy consumption of the \ac{cpe} and access network subsystems. They developed a formula for estimating the energy intensity of these two subsystems. The formula, (\ref{formula:coroama_cpe_an}), builds on their previous analysis of multimedia servers \citet{Schien2013} 
+\citet{Coroama2015} uses both approaches to estimate the energy consumption of the \ac{cpe} and access network subsystems. They developed a formula, (\ref{formula:coroama_cpe_an}), for estimating the energy intensity of these two subsystems. The formula builds on their previous analysis of multimedia servers \citet{Schien2013}. The formula is as follows: 
 
 \begin{equation}
 \label{formula:coroama_cpe_an}
-    I_{CPE,AN} = \frac{t_{on}}{t_{use}} \frac{P_{CPE}}{N_{CPE}} + \frac{P_{AN}}{N_{AN}} PUE_{AN}
+    I_{CPE,AN} = \frac{t_{on}}{t_{use}} \frac{P_{CPE}}{N_{CPE}} + \frac{P_{AN}}{N_{AN}} PUE_{AN}.
 \end{equation}
+
+Where: 
 
 \begin{itemize}
     \item $I_{CPE,AN}$: Intensity of both \ac{cpe} and \ac{an}.
@@ -45,39 +47,123 @@ The ratio of time that the device is actively working is estimated to be 6 accor
 The study then concludes that the energy intensity for this subsystem is \SI{52}{\watt} per subscriber.
 
 \citet{Schien2015} developed a model for the subsystem of core network. The study created a model to estimate the energy consumption of data traffic in the core network, that is the cost per \ac{gigabyte} of data transmitted. 
-The model only considers the devices that will carry the connection data between the user and the server. Because not all energy spent by each device is directly related to a request, the energy intensity is the ratio between the energy spent by the device and the data throughput.   
+The model only considers the devices that will carry the connection data between the user and the server. Because not all energy spent by each device is directly related to a request, the energy intensity is the ratio between the energy spent by the device and the data throughput. The study distinguish between metro and long-haul networks, and use similar models for both. The model for the metro network is as follows:
 
+\begin{equation}
+\label{formula:schien_core_metro}
+    I_{M_{TM}} = R \cdot n_{M_R} (c_{ON} \cdot I_{ON} + n_{M_{OA}} \cdot I_{OA})
+\end{equation}
+
+Where:
+
+\begin{itemize}
+    \item $R$: Redundancy.
+    \item $n_{M_R}$: Number of metro routers.
+    \item $c_{ON}$: Ratio of \ac{wdm} systems relative to routers.
+    \item $I_{ON}$: Energy intensity per \ac{wdm} system.
+    \item $n_{M_{OA}}$: Number of metro network optical amplifiers per hop.
+    \item $I_{OA}$: Energy intensity per metro network optical amplifier.
+\end{itemize}
+
+%% Tall2014
+
+Another model for the core network was developed by \citet{Tall2014}. The study models the energy consumption of offloading data between datacenters, so it includes in  its analysis the energy consumption of data being stored in datacenters as well as the cost of transmitting the data through the network. 
+The study analysis the possibility of data to travel through public internet or by a dedicated network called \textit{lightpath}. The difference between the two is that the \textit{lightpath} does not need routing therefore the \ac{dwdm} nodes are directly connected to each other, whilst in the public internet the \ac{dwdm} nodes are connected to routers and switches. Figure \ref{fig:tall2014_network_components} shows the difference between the two networks. The energy consumption is defined as a function of data passing through the network ($D_{in}$). The models for the public internet and \textit{lightpath} are as follows:
+
+\begin{equation}
+\label{formula:tall_public_internet}
+\begin{split}
+    E_{internet}(D_{in}) = & \frac{PUE_{network}}{U} \cdot \frac{8D{in}}{3600} \cdot \\
+    \Bigg( \bigg( \frac{2P_{switch}}{C_{switch}} + \frac{2P_{DWDM}}{C_{DWDM}} \bigg) + \bigg(\frac{2P_{switch}}{C_{switch}} & + \frac{2P_{DWDM}}{C_{DWDM}} + \frac{P_{router}}{C_{router}}\bigg) \cdot n_{hops} \Bigg)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\label{formula:tall_lightpath}
+\begin{split}
+    E_{lightpath}(D_{in}) = & \frac{PUE_{network}}{U} \cdot \frac{8D{in}}{3600} \cdot \\
+    \Bigg( \bigg( \frac{2P_{switch}}{C_{switch}} + \frac{2P_{DWDM}}{C_{DWDM}} \bigg) + \bigg(\frac{2P_{DWDM}}{C_{DWDM}}\bigg) \cdot n_{hops} & + \bigg( \frac{P_{switch}}{C_{switch}} \bigg) \cdot \bigg( n_{hops} - 1 \bigg) \Bigg)
+\end{split}
+\end{equation}
+
+Where:
+
+\begin{itemize}
+    \item $PUE_{network}$: \ac{pue} of the network.
+    \item $U$: Utilization of the network.
+    \item $P_{switch}$: Power of the switch.
+    \item $C_{switch}$: Capacity of the switch.
+    \item $P_{DWDM}$: Power of the \ac{dwdm} node.
+    \item $C_{DWDM}$: Capacity of the \ac{dwdm} node.
+    \item $P_{router}$: Power of the router.
+    \item $C_{router}$: Capacity of the router.
+    \item $n_{hops}$: Number of hops between the datacenters.
+\end{itemize}
+
+As for the estimation of the energy consumption of the datacenter, the study considers 3 costs, the cost of writing data ($E_{write}$), reading data ($E_{read}$) and the cost of storing data ($E_{store}$). The study assumes a \ac{san} consisting of a content server, an Ethernet switch and a storage array of several disks. The equations for each cost are expressed below:
+
+\begin{equation}
+\label{formula:tall_datacenter_write}
+    E_{write}(D_{in}) = \frac{PUE}{U} \cdot \frac{8D_{in}}{3600} \cdot \bigg(\frac{P_{server}}{C_{server}} + \frac{P_{sw}}{C_{sw}} + N_d(D_{in}) \frac{P_{disk}}{C_{disk}}  \bigg) 
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item $PUE$: \ac{pue} of the datacenter.
+    \item $U$: factor that accounts for the utilization of the data equipment, expressing the fact data equipment typically does not operate at a full utilization while still consuming 100\% of the power, $U = 0.5$.
+    \item $\frac{8D_{in}}{3600}$: covertion of Gbps to GBph
+    \item $P_x$: power consumption in kW of server, switch and disk.
+    \item $C_x$: capacity of the server, switch and disk.
+    \item $N_d(D_{in})$: function of the number of disks used for capacity $D_{in}$, assuming a configuration of RAID 10, given by: 
+\end{itemize}
+
+\begin{equation}
+\label{formula:tall_datacenter_ndisks}
+    N_d(D_{in}) = 2 \cdot \bigg \lceil \frac{D_{in}}{S_{array} \cdot S_{disk}} \bigg \rceil
+\end{equation}
+
+\begin{itemize}
+    \item $S_{array}$: Number of disks in the array
+    \item $S_{disk}$: Capacity of disks (GB)
+\end{itemize}
+
+\begin{equation}
+\label{formula:tall_datacenter_store}
+    E_{store}(D_{in}, RT) = \frac{PUE}{U} \cdot N_d(D_{in}) \cdot P_{disk} \cdot RT
+\end{equation}
+
+\begin{itemize}
+    \item $RT$: retention time of the data stored
+\end{itemize}
+
+\begin{equation}
+\label{formula:tall_datacenter_read}
+    E_{read}(D_{out}) = \frac{PUE}{U} \cdot \frac{8D_{out}}{3600} \cdot \bigg(\frac{P_{server}}{C_{server}} + \frac{P_{sw}}{C_{sw}}  \bigg)
+\end{equation}
+
+
+\begin{itemize}
+    \item $D_{out}$: Data being read.
+\end{itemize}
+
+%% Li Y
+
+%% US Report 2016
+
+
+\begin{center}
+    \begin{tabular}{|| c | c | c ||}
+        \hline
+        Author & System Boundary & Reference \\
+        \hline\hline
+        1 & 2 & 3 \\
+        \hline
+    \end{tabular}
+\end{center}
 
 
 \subsection{Direct measurement}
 
+%% Maldomin 2010
 
 
-% \subsection{Structure of the Internet}
-
-% The internet is a network of networks, an infrastructure comprised of billions of computers, 
-% using protocols,\ac{tcp}/\ac{ip} to communicate.
-
-% It has always been a challenge to estimate the energy consumption of the internet, because of the complexe structure of the network. Nonetheless, several studies have been made to estimate the energy consumption. However, the results of the studies can go from 136 \ac{kilowatt-hour}/\ac{gigabyte}
-% \citet{Koomey2003} down to 0.0064 \ac{kilowatt-hour}/\ac{gigabyte} \citet{Baliga2011}.
-
-% As \citet{Coroama2015} and later \citet{Aslan2018} point out, the difference in results is due to the year that the study is made and the scope of the study. 
-% The year is important because the energy efficiency of the equipment has been improving over the years. 
-% The scope or system boundary is important because the studies can map different layers of the network.
-
-% The internet is usually divided in layers as seen in the figure \ref{fig:layers}. 
-% Each layer handles different amount on traffic so has different energy needs.
-% The structure of the layers is discussed in the following sections.  
-
-% \subsubsection{\acl{cpe} and Access network}
-
-% In telecomunications, \ac{cpe} is the equipment that is installed in the end user premises that connects to the provider network. This usually means wifi routers and modems that connect to their \ac{isp} through a feeder network. The \ac{isp} bundles the data transmited by several end users in multiplexers, which for the case of \ac{isp} that use \ac{dsl} connectivety they are \ac{dslam}. The multiplexers and the cables that connect them to the \ac{cpe} are what constitute the access network.
-
-% \subsubsection{Core network}
-
-% Core network or IP core network is the network that interconnects several \ac{isp} with each other, forming the regional and global networks.
-% The network consists of routers, switches, and other network infrastructure that directs data packets across the network. These devices use routing algorithms and protocols to determine the best path for data to travel based on factors like network congestion and available bandwidth.
-
-% \subsection{Datacenters}
-
-% Datacenters are facilities that house computer systems and associated components. They are a larges contributer to energy consumption in the internet, consuming a total of 205 \ac{terawatt-hour} in 2020, or 1\% of global eletric power \citet{IEA2020}. 
