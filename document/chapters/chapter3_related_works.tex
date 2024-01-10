@@ -20,6 +20,26 @@ The methodology used by each study is different. We separate the studies into th
 
 \subsection{Modeling}
 
+There exist several models for parts of the \ac{ict} sector, table \ref{table:energy_model} showcase the models that we will describe in this section.
+
+\begin{table}
+\caption{My table}
+\label{table:energy_models}
+\begin{center}
+    \begin{tabular}{|| c | c | c | c | c | c ||}
+        \hline
+        \multirow{2}{*}{Study} & \multirow{2}{*}{Year of data} & \multicolumn{4}{c||}{System Boundary} \\ \cline{3-6}
+        & & \ac{cpe} & \ac{an} & Core Network & Datacenter \\
+        \hline
+        \citet{Coroama2015} & 2 & 3 & 4 & 5 & 6  \\ \hline
+        \citet{Schien2015} & 2 & 3 & 4 & 5 & 6  \\ \hline
+        \citet{Tall2014} & 2 & 3 & 4 & 5 & 6  \\ \hline
+        \citet{USReport2016} & 2 & 3 & 4 & 5 & 6  \\ \hline
+        \citet{Li2014} & 2 & 3 & 4 & 5 & 6  \\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
 This approach consists in specifying equations based on parameters like energy consumption to describe the subsystem in study. The parameters can be obtained by using empirical data or by making informed assumptions of the system in question. 
 
 \citet{Coroama2015} uses both approaches to estimate the energy consumption of the \ac{cpe} and access network subsystems. They developed a formula, (\ref{formula:coroama_cpe_an}), for estimating the energy intensity of these two subsystems. The formula builds on their previous analysis of multimedia servers \citet{Schien2013}. The formula is as follows: 
@@ -111,7 +131,7 @@ Where:
 \begin{itemize}
     \item $PUE$: \ac{pue} of the datacenter.
     \item $U$: factor that accounts for the utilization of the data equipment, expressing the fact data equipment typically does not operate at a full utilization while still consuming 100\% of the power, $U = 0.5$.
-    \item $\frac{8D_{in}}{3600}$: covertion of Gbps to GBph
+    \item $\frac{8D_{in}}{3600}$: convertion of Gbps to GBph
     \item $P_x$: power consumption in kW of server, switch and disk.
     \item $C_x$: capacity of the server, switch and disk.
     \item $N_d(D_{in})$: function of the number of disks used for capacity $D_{in}$, assuming a configuration of RAID 10, given by: 
@@ -141,25 +161,84 @@ Where:
     E_{read}(D_{out}) = \frac{PUE}{U} \cdot \frac{8D_{out}}{3600} \cdot \bigg(\frac{P_{server}}{C_{server}} + \frac{P_{sw}}{C_{sw}}  \bigg)
 \end{equation}
 
-
 \begin{itemize}
     \item $D_{out}$: Data being read.
 \end{itemize}
 
-%% Li Y
-
 %% US Report 2016
 
+\citet{USReport2016} developed a model for the subsystem of datacenters. The report evaluates the yearly consumption of datacenters in the US until 2014 and forecasts the consumption until 2020. Data from \ac{idc} was collected to determine the installed base, in \ac{TB}, per type of disk (\ac{hdd}, \ac{sdd}) and their information of previous report \citet{USReport2007} was used to convert the installed based to \ac{TB}/drive.
+Electricity consumption is calculated as the product of the estimated installed base of drives and the assumed power consumption per drive.
 
-\begin{center}
-    \begin{tabular}{|| c | c | c ||}
-        \hline
-        Author & System Boundary & Reference \\
-        \hline\hline
-        1 & 2 & 3 \\
-        \hline
-    \end{tabular}
-\end{center}
+\begin{equation}
+\label{formula:usreport2016}
+    E_y = \sum_{t=HDD,SDD}{(I_{t,y} * P_{t,y}) * h_y * (1 + O * \frac{C_{external}}{C_{total}})}
+\end{equation}
+
+Where:
+
+\begin{itemize}
+    \item $E_y$: Storage electricity consumption in year y
+    \item $I_{t,y}$: Installed base of storage type t in year y
+    \item $P_{t,y}$: Per-unit power consumption of storage type t in year y
+    \item $h_y$: Number of hours in year y
+    \item $O$: Operational energy as a fraction of storage energy
+    \item $C_{external}$: Capacity of the external storage installed base
+    \item $C_{total}$: Capacity of the total storage installed base
+\end{itemize}
+
+The second part of the equation $(1 + O * \frac{C_{external}}{C_{total}})$ refers to the operational cost of storage that is external to the server.
+The report states that operational cost is assumed to be 25\% of the storage energy, based on industry comment, and it only applies to external storage.
+
+%% Li Y
+
+\citet{Li2014} studied the energy cost of I/O workloads. According to the paper, the power consumption of storage devices such as \ac{hdd} and \ac{ssd} is dependent on the workload type, which can be either capability or capacity. Capability workloads are when its demand for I/O bandwidth is more difficult to meet than its demand for storage space. For example a web server. Capacity is when the requirement for storage space is greater than other requirements. The paper also takes into account power saving techniques that disk may implement, so it differentiates between active and idle power consumption. However, This approach doesn't take into account the operational and cooling costs.
+The formula for calculating the energy consumption of the I/O operation:
+
+\begin{equation}
+    E = T_a P_i N_i + T_a P_b N_a
+\end{equation}
+Where:
+
+\begin{itemize}
+    \item $E$: Energy consumption of the workload.
+    \item $T_a$: The time needed to complete the workload.
+    \item $P_i$: Power consumption  of the device in idle mode.
+    \item $N_i$: The number of idle devices during the workload.
+    \item $P_b$: Power consumption of the device in active mode.
+    \item $N_a$:The number of active devices during the workload.
+\end{itemize}
+
+The $T_a$ can be expressed as: 
+
+\begin{equation}
+    T_a = \frac{W_c}{W_{ab}}
+\end{equation}
+With:
+\begin{itemize}
+    \item $W_c$: Workload capacity requirement.
+    \item $W_{ab}$: Workload average bandwidth requirement.
+\end{itemize}
+
+Given that the total number of devices ($N$) is equal to the sum of the number of idle devices ($N_i$) and the number of active devices ($N_a$), they determine the number of active and idle devices with the formulas below:
+
+\begin{equation}
+    N = \left \lceil {\frac{W_c}{D_c}} \right \rceil
+\end{equation}
+\begin{equation}
+    N_a = \alpha \frac{W_{ab}}{D_b}
+\end{equation}
+\begin{equation}
+    N_i = N - N_a
+\end{equation}
+
+\begin{itemize}
+    \item $W_c$: Workload capacity requirement.
+    \item $W_{ab}$: Workload average bandwidth requirement.
+    \item $D_c$: Device capacity.
+    \item $D_b$: Device bandwidth.
+    \item $\alpha$: if $N_{min}$ is the theoretical minimum number of devices needed to complete the workload then, $\alpha N_{min}$ is the actual number of devices needed, $\alpha \in [1,\frac{N}{N_{min}}]$.
+\end{itemize}
 
 
 \subsection{Direct measurement}
