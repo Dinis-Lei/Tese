@@ -54,7 +54,7 @@ A modem is used to convert the signal from the \ac{isp} to a signal that can be 
 Access networks serve as the connection between the \ac{cpe} and the core network. All the user are connected to a central office where traffic is aggregated and then transferred to the core network.
 The access network incorporates any technology that establishes the connection between the end user and the \ac{isp} and said technology it is not own by the user. % So a user can connect to the internet by either a modem or a cellular tower but only the cellular tower is part of the access network. 
 
-Traffic in the access network is highly variable. The equipment used in the access network has a power consumption that is largely constant in time and thus load-independent \citet{Heddeghem2011}.
+Traffic in the access network is highly variable. The equipment used in the access network has a power consumption that is largely constant in time and thus load-independent \citet{Vereecken2011}.
 
 \subsubsection{Access Network Wired technologies}
 
@@ -197,10 +197,6 @@ Lossless algorithms usually exploit the redundancy present in data to reduce the
 
 Lossy compression algorithms are used when the loss of information is acceptable. They are usually used in multimedia applications, where the loss of information is not noticeable by the end user.
 
-Compression algorithms can be divided in two categories based on the type of data that they are used to compressing. General purpose algorithms can be used to compress any type of data. Specific algorithms on the other hand are developed to compress a specific type of data, like images, audio or even genetic data, and are usually more efficient in their data type than general purpose algorithms.
-
-Below we will enumerate some of the most popular compression algorithms, focusing on algorithms that are commonly used to compress genome sequences. But first we will explain the common formats used to store genome sequences.
-
 \subsection{Genome sequence formats}
 
 Genome sequencing is a process that determines the order of the nucleotides in a genome, it turns sequences of genomes into data that can be stored and analyzed. The genome sequence is usually stored in a file, which can be in several formats. The most common formats are FASTQ, FASTA, \ac{sam}/\ac{bam} and \ac{vcf}.
@@ -215,6 +211,36 @@ Lastly \ac{vcf} is the standard file format for storing variation data. It is us
 VCF is a preferred format because it is unambiguous, scalable and flexible, allowing extra information to be added to the info field. Many millions of variants can be stored in a single VCF file. 
 
 \subsection{Compression algorithms overview}
+
+Compression algorithms can be divided in two categories based on the type of data that they are used to compressing. General purpose algorithms can be used to compress any type of data. Specific algorithms on the other hand are developed to compress a specific type of data, like images, audio or even genetic data, and are usually more efficient in their data type than general purpose algorithms.
+
+There exists several compression algorithms available, their characteristics are summarized in table \ref{table:compression_algorithms}.
+
+\begin{table}
+\caption{Compression algorithms and their characteristics}
+\label{table:compression_algorithms}
+\begin{center}
+    \begin{tabular}{|| c | c | c | c | c ||}
+        \hline
+        Name & Data type & Compression Rate & Decompression Speed & Reference \\
+        \hline
+        Gzip & 2 & 3 & 4 & 5\\ \hline
+        Zstandard & 2 & 3 & 4 & 5\\ \hline
+        Bzip2 & 2 & 3 & 4 & 5\\ \hline
+        Lzma & 2 & 3 & 4 & 5\\ \hline
+        Cmix & 2 & 3 & 4 & 5\\ \hline
+        Paq & 2 & 3 & 4 & 5\\ \hline
+        Nncp & 2 & 3 & 4 & 5\\ \hline
+        MFCompress & 2 & 3 & 4 & 5\\ \hline
+        Jarvis3 & 2 & 3 & 4 & 5\\ \hline
+        Naf & 2 & 3 & 4 & 5\\ \hline
+        Leon & 2 & 3 & 4 & 5\\ \hline
+        Agc & 2 & 3 & 4 & 5\\ \hline
+        Fqzcomp & 2 & 3 & 4 & 5\\ \hline
+        Quip & 2 & 3 & 4 & 5\\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
 
 \subsubsection{General purpose algorithms}
 
@@ -243,16 +269,6 @@ Agc uses a reference genome to compress FASTA files, and in small sequences it u
 Fqzcomp compresses FASTQ files and uses ZPAQ, an algorithm of the PAQ family, to achieve higher levels of compression.
 
 Lastly Quip compresses FASTQ and \ac{sam}/\ac{bam} files using reference-based arithmetic encoding.
-
-\begin{center}
-    \begin{tabular}{|| c | c | c | c | c ||}
-        \hline
-        Name & Data type & Compression Rate & Decompression Speed & Reference \\
-        \hline\hline
-        1 & 2 & 3 & 4 & 5\\
-        \hline
-    \end{tabular}
-\end{center}
 
 
 % estado da arte de algoritmos especificos

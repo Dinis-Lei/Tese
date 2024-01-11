@@ -7,7 +7,7 @@
 
 \section{Systematic review methodology}
 
-The search methodology focused on studies that analyze energy or carbon consumption of parts of the \ac{ict} sector, such as datacenters. The search was based primarily on English language publications, using bibliographic databases such as IEEE Xplore Digital Library (\textbf{link}), ResearchGate (\textbf{link}). ACM Digital Library (\textbf{link}) and Google Scholar (\textbf{link}). Also, to complement the search we used ConnectedPapers (\textbf{link}), a tool that uses the references of a paper to create a graph of papers similar to the reference.
+The search methodology focused on studies that analyze energy or carbon consumption of parts of the \ac{ict} sector, such as datacenters. The search was based primarily on English language publications, using bibliographic databases such as \href{https://ieeexplore.ieee.org}{IEEE Xplore Digital Library}, \href{https://www.researchgate.net/}{ResearchGate}, \href{https://dl.acm.org/}{ACM Digital Library} and \href{https://scholar.google.com/}{Google Scholar}. Also, to complement the search we used \href{https://www.connectedpapers.com/}{ConnectedPapers}, a tool that uses the references of a paper to create a graph of papers similar to the reference.
 
 The search was based on primarily done by using a keyword related to the specific area of the \ac{ict} sector in study followed by a keyword related to energy consumption. For example a search for datacenters would be done by using the keywords \textit{"datacenter"} and \textit{"power consumption"}. The search filtered articles to include only those above January 2000. 
 From the results gathered papers that showed bottom-up models were privileged over top-down models. 
@@ -16,11 +16,8 @@ From the results gathered papers that showed bottom-up models were privileged ov
 
 In this section, we will present the most relevant studies gathered by the methodology described in the previous section. Each study tackles a different subsystem, however, their boundary delimitation can overlap with others, so we will frame the boundaries of the studies into the system boundaries that we have defined in \ref{section:system_boundaries}.
 
-The methodology used by each study is different. We separate the studies into those who use modeling,  or direct measurement, with a focus on the former category.
+The methodology used by each study is different, however all use a combination of direct measurements and modeling to estimate the energy consumption of the subsystems. 
 
-\subsection{Modeling}
-
-This approach consists in specifying equations based on parameters like energy consumption to describe the subsystem in study. The parameters can be obtained by using empirical data or by making informed assumptions of the system in question. 
 There exist several models for parts of the \ac{ict} sector, table \ref{table:energy_models} showcase the models that we will describe in this section.
 
 \begin{table}
@@ -35,7 +32,7 @@ There exist several models for parts of the \ac{ict} sector, table \ref{table:en
         \citet{Coroama2015} & 2 & \checkmark & \checkmark &  &   \\ \hline
         \citet{Baliga2009} & 2 & \checkmark & \checkmark & \checkmark &   \\ \hline
         \citet{Schien2015} & 2 &  &  & \checkmark &   \\ \hline
-        \citet{Tall2014} & 2 &  &  & \checkmark & \checkmark  \\ \hline
+        \citet{Taal2014} & 2 &  &  & \checkmark & \checkmark  \\ \hline
         \citet{USReport2016} & 2 &  &  &  & \checkmark  \\ \hline
         \citet{Li2014} & 2 &  &  &  & \checkmark  \\ \hline
     \end{tabular}
@@ -63,7 +60,7 @@ Where:
     \item $PUE_{AN}$: \ac{pue} of the \ac{an}.
 \end{itemize}
 
-$\frac{P_{AN}}{N_{AN}}$ gives the energy intensity of the \ac{an} per subscriber, the technology they evaluate is \ac{adsl2} which has a power consumption of \SI{2}{\watt} per subscriber \citet{Schien2013}. As for the $PUE$ they assume a value of 2. 
+$\frac{P_{AN}}{N_{AN}}$ gives the energy intensity of the \ac{an} per subscriber, the technology they evaluate is \ac{adsl}2 which has a power consumption of \SI{2}{\watt} per subscriber \citet{Schien2013}. As for the $PUE$ they assume a value of 2. 
 $\frac{P_{CPE}}{N_{CPE}}$ gives the energy intensity of the \ac{cpe} per subscriber. The study assumes that each household has 2 \ac{cpe} devices, a modem and a router, and arrives at a value of \SI{8}{\watt} per subscriber when accounting for legacy equipment. 
 The ratio of time that the device is actively working is estimated to be 6 according to the findings in \citet{Nissen2007}.
 The study then concludes that the energy intensity for this subsystem is \SI{52}{\watt} per subscriber.
@@ -125,11 +122,18 @@ Where:
 \end{itemize}
 
 
-%% Tall2014
+%% Taal2014
 
-Another model for the core network was developed by \citet{Tall2014}. The study models the energy consumption of offloading data between datacenters, so it includes in  its analysis the energy consumption of data being stored in datacenters as well as the cost of transmitting the data through the network. 
-The study analysis the possibility of data to travel through public internet or by a dedicated network called \textit{lightpath}. The difference between the two is that the \textit{lightpath} does not need routing therefore the \ac{dwdm} nodes are directly connected to each other, whilst in the public internet the \ac{dwdm} nodes are connected to routers and switches. Figure \ref{fig:tall2014_network_components} shows the difference between the two networks. The energy consumption is defined as a function of data passing through the network ($D_{in}$). The models for the public internet and \textit{lightpath} are as follows:
+Another model for the core network was developed by \citet{Taal2014}. The study models the energy consumption of offloading data between datacenters, so it includes in  its analysis the energy consumption of data being stored in datacenters as well as the cost of transmitting the data through the network. 
+The study analysis the possibility of data to travel through public internet or by a dedicated network called \textit{lightpath}. The difference between the two is that the \textit{lightpath} does not need routing therefore the \ac{dwdm} nodes are directly connected to each other, whilst in the public internet the \ac{dwdm} nodes are connected to routers and switches. Figure \ref{figure:tall2014_network_components} shows the difference between the two networks. The energy consumption is defined as a function of data passing through the network ($D_{in}$). The models for the public internet and \textit{lightpath} are as follows:
 
+\begin{figure}[h] 
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/taal2014.png}
+    \caption[Network components of the internet and \textit{lightpath}] {Network components of the internet and \textit{lightpath}, on the left it showcases the internet building blocks composiong of 2 \ac{dwdm} nodes, 2 switches and 1 router. On the right it showcases the \textit{lightpath} building blocks, composed of 2 \ac{dwdm} nodes. Figure adapted from \citet{Taal2014}.}
+    \label{figure:tall2014_network_components}
+\end{figure}
+ 
 \begin{equation}
 \label{formula:tall_public_internet}
 \begin{split}
@@ -281,14 +285,16 @@ Given that the total number of devices ($N$) is equal to the sum of the number o
 \end{itemize}
 
 
-\subsection{Direct measurement}
+% \subsection{Direct measurement}
 
-Another approach is to directly measure the power consumption and data traffic of equipment within a network.
+% Another approach is to directly measure the power consumption and data traffic of equipment within a network. These model use the data collected to extrapolate the energy consumption of each component of the network and are able to forecast the energy consumption of the network.
 
-%% Maldomin 2010
+% %% Maldomin 2010
 
-\citet{Malmodin2010} focus on the Sweden \ac{ict} sector and uses both top-down data collection of traffic and energy measurements of several network sites, and bottom-up data from user data traffic measurements and network equipment databases.  
-From their data collected they extrapolate the energy consumption of the \ac{ip} core network at \SI{126}{\giga\watt\hour}
+% \citet{Malmodin2010} focus on the Sweden \ac{ict} sector and uses both top-down data collection of traffic and energy measurements of several network sites, and bottom-up data from user data traffic measurements and network equipment databases.  
+% From their data collected they extrapolate the energy consumption of the \ac{ip} core network at \SI{126}{\giga\watt\hour}
 
-%% Krug 2014
+% %% Krug 2014
 
+% \citet{Krug2014} used data from 2012 of the BT UK network, a major supplier of telecommunications services in the UK. The study presents a metric called "energy per bit" that is calculated as: the
+% power per line multiplied by the number of seconds in a month divided by the bits per line in a month. 
