@@ -20,6 +20,13 @@ The common consensus is that the system boundaries for the model of the internet
 
 So this study divides the system boundary in 3 main components, the network, datacenters and the end user devices (figure \ref{figure:system_boundaries}). The network is divided in three main components, \ac{cpe}, Access Network and Core Network. The datacenter is also divided in three components, Servers, Storage and Datacenter Network. Lastly the end user devices only includes the compression/decompression algorithm cost. 
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/System_Boundary.png}
+    \caption{Complete system boundary of the model and subsystem of each component.}
+    \label{figure:system_boundaries}
+\end{figure}
+
 \section{Internet}
 
 The internet is the most complex component of the model.
@@ -157,10 +164,24 @@ This model is more used by smaller datacenters. There are separated environments
 
 This topology consists in distributing network resources, as seen in figure \ref{figure:eor_topology}. The servers are placed in rows and the network resources are placed at the end of each row. This solution is recommended by the  ANSI/TIA-942 Data Center Standards \cite{ANSI/TIA-942} and is very scalable, repeatable, and predictable.
 
-\subsubsection{\ac{tor}}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/eor_topology.png}
+    \caption[End of Row topology.] {End of Row topology, adapted from \citet{commScope}}
+    \label{figure:eor_topology}
+\end{figure}
 
-Top of the rack consists on two or more swtches on top of each server cabinate, as shown below in figure \ref{figure:tor_topology}. It is cost-effective because it reduces the number of copper cables between racks. The rack is linked to the data center network by an Ethernet switch, often through a fiber cable. This fiber cable is a direct link from the common aggregation area to the rack.
+\subsubsection{\ac{tor}} 
+
+Top of the rack consists on two or more switches on top of each server cabinet, as shown below in figure \ref{figure:tor_topology}. It is cost-effective because it reduces the number of copper cables between racks. The rack is linked to the data center network by an Ethernet switch, often through a fiber cable. This fiber cable is a direct link from the common aggregation area to the rack.
 In the \ac{tor} approach, every rack in the data center network is a separate entity that eases its management. Any change, upgrade, or malfunction in the rack usually affects that rack only.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/tor_topology.png}
+    \caption[Top of Rack topology.] {Top of Rack topology, adapted from \citet{commScope}}
+    \label{figure:tor_topology}
+\end{figure}
 
 \section{Compression algorithms}
 

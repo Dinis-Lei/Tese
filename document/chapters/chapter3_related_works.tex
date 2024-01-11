@@ -16,14 +16,15 @@ From the results gathered papers that showed bottom-up models were privileged ov
 
 In this section, we will present the most relevant studies gathered by the methodology described in the previous section. Each study tackles a different subsystem, however, their boundary delimitation can overlap with others, so we will frame the boundaries of the studies into the system boundaries that we have defined in \ref{section:system_boundaries}.
 
-The methodology used by each study is different. We separate the studies into those who use modeling, direct measurement, and those who use a combination of both.
+The methodology used by each study is different. We separate the studies into those who use modeling,  or direct measurement, with a focus on the former category.
 
 \subsection{Modeling}
 
-There exist several models for parts of the \ac{ict} sector, table \ref{table:energy_model} showcase the models that we will describe in this section.
+This approach consists in specifying equations based on parameters like energy consumption to describe the subsystem in study. The parameters can be obtained by using empirical data or by making informed assumptions of the system in question. 
+There exist several models for parts of the \ac{ict} sector, table \ref{table:energy_models} showcase the models that we will describe in this section.
 
 \begin{table}
-\caption{My table}
+\caption{Bottom-up energy models and their system boundaries according to the ones defined in \ref{section:system_boundaries}.}
 \label{table:energy_models}
 \begin{center}
     \begin{tabular}{|| c | c | c | c | c | c ||}
@@ -31,16 +32,17 @@ There exist several models for parts of the \ac{ict} sector, table \ref{table:en
         \multirow{2}{*}{Study} & \multirow{2}{*}{Year of data} & \multicolumn{4}{c||}{System Boundary} \\ \cline{3-6}
         & & \ac{cpe} & \ac{an} & Core Network & Datacenter \\
         \hline
-        \citet{Coroama2015} & 2 & 3 & 4 & 5 & 6  \\ \hline
-        \citet{Schien2015} & 2 & 3 & 4 & 5 & 6  \\ \hline
-        \citet{Tall2014} & 2 & 3 & 4 & 5 & 6  \\ \hline
-        \citet{USReport2016} & 2 & 3 & 4 & 5 & 6  \\ \hline
-        \citet{Li2014} & 2 & 3 & 4 & 5 & 6  \\ \hline
+        \citet{Coroama2015} & 2 & \checkmark & \checkmark &  &   \\ \hline
+        \citet{Baliga2009} & 2 & \checkmark & \checkmark & \checkmark &   \\ \hline
+        \citet{Schien2015} & 2 &  &  & \checkmark &   \\ \hline
+        \citet{Tall2014} & 2 &  &  & \checkmark & \checkmark  \\ \hline
+        \citet{USReport2016} & 2 &  &  &  & \checkmark  \\ \hline
+        \citet{Li2014} & 2 &  &  &  & \checkmark  \\ \hline
     \end{tabular}
 \end{center}
 \end{table}
 
-This approach consists in specifying equations based on parameters like energy consumption to describe the subsystem in study. The parameters can be obtained by using empirical data or by making informed assumptions of the system in question. 
+%% Coroama 2015
 
 \citet{Coroama2015} uses both approaches to estimate the energy consumption of the \ac{cpe} and access network subsystems. They developed a formula, (\ref{formula:coroama_cpe_an}), for estimating the energy intensity of these two subsystems. The formula builds on their previous analysis of multimedia servers \citet{Schien2013}. The formula is as follows: 
 
@@ -66,6 +68,43 @@ $\frac{P_{CPE}}{N_{CPE}}$ gives the energy intensity of the \ac{cpe} per subscri
 The ratio of time that the device is actively working is estimated to be 6 according to the findings in \citet{Nissen2007}.
 The study then concludes that the energy intensity for this subsystem is \SI{52}{\watt} per subscriber.
 
+%% Baliga 2009
+
+\citet{Baliga2009} evaluates the impact of different \ac{ip} technologies, and uses data from manufacture data sheets to supplement its assumptions. They use a simple model (\ref{formula:baliga_cpe_an}) to estimate the energy consumption of the \ac{cpe} and \ac{an} subsystems and evaluate different technologies such as \ac{adsl}, \ac{pon}, \ac{fttn} and \ac{ptp}. The model is as follows:  
+
+\begin{equation}
+\label{formula:baliga_cpe_an}
+    P_a = P_{CPE} + \frac{P_{RN}}{N_{RN}} + \frac{2P_{TU}}{N_{TU}}
+\end{equation}
+
+\begin{itemize}
+    \item $P_a$: Power consumption of the \ac{cpe} and \ac{an} subsystems.
+    \item $P_{CPE}$: Power consumption of the \ac{cpe}.
+    \item $P_{RN}$: Power consumption of the remote node.
+    \item $N_{RN}$: Number of subscribers that share remote nodes.
+    \item $P_{TU}$: Power consumption of the terminal unit at the central office.
+    \item $N_{TU}$: Number of subscribers that share  terminal units.
+    \item The factor of 2 corresponds to the \ac{pue}.  
+\end{itemize}
+
+For the core network specifications from Cisco CRS-1 core routers were used to develop a per costumer power consumption model (\ref{formula:baliga_core}):
+
+\begin{equation}
+\label{formula:baliga_core}
+    P_c = \frac{8A_{T}(H + 1)}{640 Gbps} \cdot \SI{10.9}{\kilo\watt}
+\end{equation}
+
+With: 
+
+\begin{itemize}
+    \item $P_c$: Power consumption of the core network.
+    \item $A_{T}$: Minimum capacity available to a customer.
+    \item $H$: Number of core node hops.
+    \item The factor of 8 accounts for the fact that core routers are usually provisioned for future growth of double the current peak demand, to account for redundancy and \ac{pue}.
+\end{itemize}
+
+%% Schien 2015
+ 
 \citet{Schien2015} developed a model for the subsystem of core network. The study created a model to estimate the energy consumption of data traffic in the core network, that is the cost per \ac{gigabyte} of data transmitted. 
 The model only considers the devices that will carry the connection data between the user and the server. Because not all energy spent by each device is directly related to a request, the energy intensity is the ratio between the energy spent by the device and the data throughput. The study distinguish between metro and long-haul networks, and use similar models for both. The model for the metro network is as follows:
 
@@ -84,6 +123,7 @@ Where:
     \item $n_{M_{OA}}$: Number of metro network optical amplifiers per hop.
     \item $I_{OA}$: Energy intensity per metro network optical amplifier.
 \end{itemize}
+
 
 %% Tall2014
 
@@ -167,12 +207,12 @@ Where:
 
 %% US Report 2016
 
-\citet{USReport2016} developed a model for the subsystem of datacenters. The report evaluates the yearly consumption of datacenters in the US until 2014 and forecasts the consumption until 2020. Data from \ac{idc} was collected to determine the installed base, in \ac{TB}, per type of disk (\ac{hdd}, \ac{sdd}) and their information of previous report \citet{USReport2007} was used to convert the installed based to \ac{TB}/drive.
+\citet{USReport2016} developed a model for the subsystem of datacenters. The report evaluates the yearly consumption of datacenters in the US until 2014 and forecasts the consumption until 2020. Data from \ac{idc} was collected to determine the installed base, in terabytes (\SI{}{\tera\byte}), per type of disk (\ac{hdd}, \ac{ssd}) and their information of previous report \citet{USReport2007} was used to convert the installed based to \SI{}{\tera\byte}/drive.
 Electricity consumption is calculated as the product of the estimated installed base of drives and the assumed power consumption per drive.
 
 \begin{equation}
 \label{formula:usreport2016}
-    E_y = \sum_{t=HDD,SDD}{(I_{t,y} * P_{t,y}) * h_y * (1 + O * \frac{C_{external}}{C_{total}})}
+    E_y = \sum_{t=HDD,SSD}{(I_{t,y} * P_{t,y}) * h_y * (1 + O * \frac{C_{external}}{C_{total}})}
 \end{equation}
 
 Where:
@@ -243,6 +283,12 @@ Given that the total number of devices ($N$) is equal to the sum of the number o
 
 \subsection{Direct measurement}
 
+Another approach is to directly measure the power consumption and data traffic of equipment within a network.
+
 %% Maldomin 2010
 
+\citet{Malmodin2010} focus on the Sweden \ac{ict} sector and uses both top-down data collection of traffic and energy measurements of several network sites, and bottom-up data from user data traffic measurements and network equipment databases.  
+From their data collected they extrapolate the energy consumption of the \ac{ip} core network at \SI{126}{\giga\watt\hour}
+
+%% Krug 2014
 
