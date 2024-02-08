@@ -1,60 +1,100 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
-import { Button, Grid } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Tooltip } from '@mui/material';
+import model from './model.json';
+import HelpIcon from '@mui/icons-material/Help';
+
+
+
+function tooltip(title) {
+    return (
+        <Tooltip title={<p style={{fontSize: "1.2em"}}>{title}</p>}>
+            <IconButton style={{padding: 0}}>
+                <HelpIcon fontSize='small' />
+            </IconButton>
+        </Tooltip>
+    );
+
+}
+
 
 
 export default function Form({onFill}) {
-    const [val0, setVal0] = React.useState();
-    const [val1, setVal1] = React.useState();
-    const [val2, setVal2] = React.useState();
-    
-    function fillForm() {
-        console.log(val0, val1, val2);
-        onFill({
-            "val0": parseInt(val0),
-            "val1": parseInt(val1),
-            "val2": parseInt(val2)
+
+    const [data, setData] = React.useState({});
+
+    const handleChange = (event) => {
+        let updatedData = {};
+        let value = event.target.value != "" ? Number(event.target.value) : event.target.defaultValue;
+        updatedData[event.target.id] = value;
+        console.log("DATA", updatedData);
+        setData(data => ({
+            ...data,
+            ...updatedData
+        }));
+    } 
+
+    React.useEffect(() => {
+        fillData(model);
+    }, []);
+
+    // Fill the form with default values
+    const fillData = (d) => {
+        let updatedData = {};
+        model.map((row, index) => {
+            row.params.map((param, index) => {
+                updatedData[param.id] = param.default;
+            });
         });
+        setData(data => ({
+            ...data,
+            ...updatedData
+        }));
+        onFill(updatedData);
     }
     
+    function fillForm() {
+        onFill(data);
+    }
+
     
     
     return (
-    <Grid container justifyContent={"center"} spacing={0.5}>
-        <Grid item xs={4}>
-            <TextField
-            id="example"
-            label="Number1"
-            type='number'
-            InputLabelProps={{
-                shrink: true,
-            }}
-            onChange={(e) => setVal0(e.target.value)}
-            /> 
-        </Grid>
-        <Grid item xs={4}>
-            <TextField
-            id="example"
-            label="Number2"
-            type='number'
-            InputLabelProps={{
-                shrink: true,
-            }}
-            onChange={(e) => setVal1(e.target.value)}
-            /> 
-        </Grid>
-        <Grid item xs={4}>
-            <TextField
-            id="example"
-            label="Number3"
-            type='number'
-            InputLabelProps={{
-                shrink: true,
-            }}
-            onChange={(e) => setVal2(e.target.value)}
-            /> 
-        </Grid>
-        <Button onClick={fillForm}>Fill Form</Button>
-    </Grid>
+        <Card>
+            <CardContent>
+                <Grid m={2} container justifyContent={"flex-start"} spacing={2} component='form'>
+                    {model.map((row, index) => (
+                        <Grid item container xs={4} rowSpacing={1} key={index}>
+                            <Card variant='outlined'>
+                                <CardHeader title={row.title}/>
+                                <CardContent>
+                                    {row.params.map((param, index) => {
+                                        return <Grid item xs={12} key={index}>
+                                                    <TextField id={param.id} 
+                                                        type={param.type} 
+                                                        defaultValue={param.default}
+                                                        InputLabelProps={{shrink: true,}}
+                                                        onChange={(e) => handleChange(e)}
+                                                        variant='standard'
+                                                        helperText={
+                                                            <p style={{width: '20em', margin:0}}>
+                                                                {param.label} {tooltip(param.tooltip)}
+                                                            </p>
+                                                        }
+                                                        
+                                                    />
+                                            {/* <p>{JSON.stringify(param, null, 2)}</p> */}
+                                        </Grid>
+                                    })}
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </CardContent>
+            <CardActions>
+                <Button variant='contained' onClick={fillForm}>Submit Form</Button>
+            </CardActions>
+        </Card>
   );
 }
