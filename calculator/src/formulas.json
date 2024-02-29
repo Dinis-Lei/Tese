@@ -1,0 +1,41 @@
+[
+    {
+        "name": "CPE",
+        "independent_variables": ["d_in"],
+        "dependent_variables": [
+            "t_on",
+            "t_use",
+            "p_cpe",
+            "n_cpe",
+            "cpe_bandwidth"
+        ],
+        "normal_model": "(d_in/cpe_bandwidth)*(t_on/t_use)*(p_cpe/n_cpe)"
+    },
+    {
+        "name": "AN",
+        "independent_variables": ["d_in"],
+        "dependent_variables": [
+            "p_an",
+            "n_an",
+            "an_bandwidth",
+            "pue_an"
+        ],
+        "normal_model": "(d_in/an_bandwidth)*(p_an/n_an)*pue_an"
+    },
+    {
+        "name": "Server",
+        "independent_variables": [
+            "d_in"
+        ],
+        "dependent_variables": [
+            "p_server",
+            "n_server",
+            "server_bandwidth",
+            "pue_server",
+            "compression_cost"
+        ],
+        "normal_model": "(d_in/server_bandwidth)*(p_server/n_server)*pue_server",
+        "compressed_model": "((d_in**(1+compression_cost))/server_bandwidth)*(p_server/n_server)*pue_server"
+    }
+]
+  
