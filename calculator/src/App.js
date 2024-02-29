@@ -4,13 +4,13 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Form from './form.js';
 import Chart from './chart.js';
-import { AppBar, Box, Divider } from '@mui/material';
+import { AppBar, Box, Button, Divider, Toolbar, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ModelPage from './ModelPage.js';
 import InfoPage from './InfoPage.js';
 import ChangeModelPage from './ChangeModelPage.js';
@@ -46,11 +46,24 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <AppBar position="static">
-            <Box sx={{width: '100%', display: 'flex', backgroundColor: theme.palette.mode === 'dark' ? 'gray' : 'lightgray' }}>
-              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+            <Toolbar
+              sx={{
+                backgroundColor: theme.palette.mode === 'dark' ? 'gray' : 'lightgray',
+              }}
+            >
+              <IconButton onClick={colorMode.toggleColorMode} color="inherit">
                 {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
               </IconButton>
-            </Box>
+              <Button color="inherit" component={Link} to="/">
+                <Typography variant="h6">Model</Typography>
+              </Button>
+              <Button color="inherit" component={Link} to="/info">
+                <Typography variant="h6">Info</Typography>
+              </Button>
+              <Button color="inherit" component={Link} to="/changeModel">
+                <Typography variant="h6">Change Model</Typography>
+              </Button>
+            </Toolbar>
           </AppBar>
           <Routes>
             <Route path='/' element={<ModelPage/>} />
