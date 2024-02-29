@@ -163,15 +163,17 @@ export default function Chart(data) {
     return (
     <Grid container spacing={2}>
         <Grid item xs={12} m={2} p={2}>
-            <LineChart m={3} width={700} height={400} data={chartData} onClick={(e) => {setPieIndex(e.activeTooltipIndex)}}>
-                <Line type="monotone" dataKey="normal_value" stroke="#8884d8" strokeWidth={3} dot={false}/>
-                <Line type="monotone" dataKey="compressed_value" stroke="#82ca9d" strokeWidth={3} dot={false}/>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="xaxis" label={{value:"Data (Mb)", position: "insideBottom", offset:-5}} type="category" interval={(nDataPoints/10)-1} />
-                <YAxis label={{value:"Energy (W)", angle:-90, position: "insideLeft"}}/>
-                <Tooltip />
-                <Legend verticalAlign='top'/>
-            </LineChart>
+            <ResponsiveContainer width="100%" aspect={2}>
+                <LineChart data={chartData} onClick={(e) => {setPieIndex(e.activeTooltipIndex)}}>
+                    <Line type="monotone" dataKey="normal_value" stroke="#8884d8" strokeWidth={3} dot={false}/>
+                    <Line type="monotone" dataKey="compressed_value" stroke="#82ca9d" strokeWidth={3} dot={false}/>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="xaxis" label={{value:"Data (Mb)", position: "insideBottom", offset:-5}} type="category" interval={(nDataPoints/10)-1} />
+                    <YAxis label={{value:"Energy (W)", angle:-90, position: "insideLeft"}}/>
+                    <Tooltip />
+                    <Legend verticalAlign='top'/>
+                </LineChart>
+            </ResponsiveContainer>
         </Grid>
         <Grid item xs={12} md={6} mt={2}>
             <PieChart width={400} height={400}>
@@ -214,7 +216,6 @@ export default function Chart(data) {
                         />
                     </CardContent>
                 </Card>
-                
             </Box>
         </Grid>
         <Grid item xs={12}>

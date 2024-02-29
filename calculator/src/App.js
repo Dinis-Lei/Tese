@@ -1,9 +1,6 @@
 import './App.css';
 import * as React from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Form from './form.js';
-import Chart from './chart.js';
+import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import { AppBar, Box, Button, Divider, Toolbar, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -14,8 +11,30 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ModelPage from './ModelPage.js';
 import InfoPage from './InfoPage.js';
 import ChangeModelPage from './ChangeModelPage.js';
+import FormDrawer from './FormDrawer.js';
+import Test from './test.js';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+const drawerWidth = 240;
+
+const MyAppBar = styled(AppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+
 
 function App() {
   
@@ -39,37 +58,49 @@ function App() {
     [mode],
   );
 
+  const [openDrawer, setOpenDrawer] = React.useState(false);
+
 
   return (
     <BrowserRouter>
       <ColorModeContext.Provider value={colorMode} >
         <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <AppBar position="static">
-            <Toolbar
-              sx={{
-                backgroundColor: theme.palette.mode === 'dark' ? 'gray' : 'lightgray',
-              }}
-            >
-              <IconButton onClick={colorMode.toggleColorMode} color="inherit">
-                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-              </IconButton>
-              <Button color="inherit" component={Link} to="/">
-                <Typography variant="h6">Model</Typography>
-              </Button>
-              <Button color="inherit" component={Link} to="/info">
-                <Typography variant="h6">Info</Typography>
-              </Button>
-              <Button color="inherit" component={Link} to="/changeModel">
-                <Typography variant="h6">Change Model</Typography>
-              </Button>
-            </Toolbar>
-          </AppBar>
-          <Routes>
-            <Route path='/' element={<ModelPage/>} />
-            <Route path='/info' element={<InfoPage/>} />
-            <Route path='/changeModel' element={<ChangeModelPage/>} />
-          </Routes>
+          <Box>
+            <CssBaseline />
+            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+              <Toolbar
+                sx={{
+                  backgroundColor: theme.palette.mode === 'dark' ? 'gray' : 'lightgray',
+                }}
+              >
+                <IconButton onClick={colorMode.toggleColorMode} color="inherit">
+                  {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+                <Button color="inherit" component={Link} to="/">
+                  <Typography variant="h6">Model</Typography>
+                </Button>
+                <Button color="inherit" component={Link} to="/info">
+                  <Typography variant="h6">Info</Typography>
+                </Button>
+                <Button color="inherit" component={Link} to="/changeModel">
+                  <Typography variant="h6">Change Model</Typography>
+                </Button>
+                <Button color="inherit" onClick={() => setOpenDrawer(!openDrawer)}>
+                  <Typography variant="h6">Open Drawer</Typography>
+                </Button>
+                <Button color="inherit" component={Link} to="/test">
+                  <Typography variant="h6">Test</Typography>
+                </Button>
+              </Toolbar>
+            </AppBar>
+            <FormDrawer open={openDrawer}/>
+            <Routes>
+              <Route path='/' element={<ModelPage/>} />
+              <Route path='/info' element={<InfoPage/>} />
+              <Route path='/changeModel' element={<ChangeModelPage/>} />
+              <Route path='test' element={<Test open={openDrawer}/>} />
+            </Routes>
+          </Box>
         </ThemeProvider>
       </ColorModeContext.Provider>
     </BrowserRouter>
