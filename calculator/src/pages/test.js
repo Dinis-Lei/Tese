@@ -1,37 +1,9 @@
 import { Box, Grid, Toolbar } from "@mui/material";
 import React from "react";
-import Chart from "./chart.js";
 import { styled, useTheme } from '@mui/material/styles';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
+import EnergyLineChart from "../components/EnergyLineChart";
 
-
-const drawerWidth = 500;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginRight: -drawerWidth,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginRight: 0,
-      }),
-      /**
-       * This is necessary to enable the selection of content. In the DOM, the stacking order is determined
-       * by the order of appearance. Following this rule, elements appearing later in the markup will overlay
-       * those that appear earlier. Since the Drawer comes after the Main content, this adjustment ensures
-       * proper interaction with the underlying content.
-       */
-      position: 'relative',
-    }),
-);
 
 const data = [
     {
@@ -87,7 +59,7 @@ export default function Test(openDrawer) {
             layout = 4;
         }
         else {
-            layout = 12
+            layout = 8
         }
         setLayout(layout);
         console.log("Layout", layout);
@@ -100,22 +72,25 @@ export default function Test(openDrawer) {
     return (
         <Box>
            <Toolbar />
-           <Grid container>
+           <Grid container justifyContent={openDrawer.open ? "flex-start" : "center"}>
                 <Grid item xs={layout}>
-                    <Chart data={data} />
+                    <EnergyLineChart data={data} />
                 </Grid>
                 <Grid item xs={12}/>
+                <Grid item xs={12} justifyContent="center">
+                  <p>Open: {JSON.stringify(openDrawer, null, 2)} {openDrawer.open}, {true}</p>
+                </Grid>
                 <Grid item xs={layout}>
                     <ResponsiveContainer width="100%" aspect={3}>
                         <AreaChart data={data}
                         margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <Tooltip />
-                        <ReferenceLine x="Page C" stroke="green" label="Min PAGE" />
-                        <ReferenceLine y={4000} label="Max" stroke="red" strokeDasharray="3 3" />
-                        <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <Tooltip />
+                            <ReferenceLine x="Page C" stroke="green" label="Min PAGE" />
+                            <ReferenceLine y={4000} label="Max" stroke="red" strokeDasharray="3 3" />
+                            <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" isAnimationActive={false} />
                         </AreaChart>
                     </ResponsiveContainer>
                 </Grid>

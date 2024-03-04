@@ -4,17 +4,27 @@ import Box from '@mui/material/Box';
 import Form from './form.js';
 import { Toolbar } from '@mui/material';
 
-const drawerWidth = "66%";
-
-export default function FormDrawer(open) {
+export default function FormDrawer(props) {
 
     const [data, setData] = React.useState(null);
-
+    const [drawerWidth, setDrawerWidth] = React.useState("66%");
+    React.useEffect(() => {
+        window.addEventListener("resize", () => {
+            console.log("RESIZE", window.innerWidth);
+            if (window.innerWidth < 900) {
+                setDrawerWidth("100%");
+            }
+            else {
+                setDrawerWidth("66%");
+            }
+        });
+    }, []);
+    
 
     return (
         <Drawer
             anchor="right"
-            open={open.open}
+            open={props.open}
             variant='persistent'
             sx={{
                 width: drawerWidth,
@@ -24,7 +34,7 @@ export default function FormDrawer(open) {
         >
             <Toolbar />
             <Box sx={{ overflow: 'auto' }}>
-                <Form onFill={setData}/>
+                <Form onFill={props.fillForm}/>
             </Box>
         </Drawer>
     );

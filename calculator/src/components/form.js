@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import { Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton, Tooltip } from '@mui/material';
-import model from './model.json';
+import model from '../model.json';
 import HelpIcon from '@mui/icons-material/Help';
 import { InputAdornment } from '@mui/material';
 
