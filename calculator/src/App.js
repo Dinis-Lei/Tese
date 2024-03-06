@@ -58,7 +58,7 @@ function App() {
         [mode],
     );
 
-    const [openDrawer, setOpenDrawer] = React.useState(false);
+    const [openDrawer, setOpenDrawer] = React.useState(true);
     const [formData, setFormData] = React.useState(null); 
         
 

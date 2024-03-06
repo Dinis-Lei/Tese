@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import EnergyLineChart from '../components/EnergyLineChart.js';
-import { calculate_model } from '../util/generate_data.js';
+import { calculate_model, load_models } from '../util/generate_data.js';
 import InputSlider from '../components/InputSlider.js';
 import EnergyPieChart from '../components/EnergyPieChart.js';
 
@@ -13,8 +13,11 @@ export default function MainPage(props) {
     const [chartData, setChartData] = React.useState([{}]);
     const [nDataPoints, setNDataPoints] = React.useState(20);
     const [stepSize, setStepSize] = React.useState(100);
-    const [pie_index, setPieIndex] = React.useState(0);
-    
+    const [pie_index, setPieIndex] = React.useState(null);
+    React.useEffect(() => {
+        load_models();
+    }, []);
+
     React.useEffect(() => {
         let layout = {};
 
@@ -30,6 +33,8 @@ export default function MainPage(props) {
     React.useEffect(() => {
         setChartData(calculate_model(props.formData, nDataPoints, stepSize));
     }, [props.formData, nDataPoints, stepSize]);
+
+    
 
 
     return (

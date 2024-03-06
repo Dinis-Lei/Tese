@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
+import { Typography } from '@mui/material';
 
 
 
@@ -13,7 +14,7 @@ export default function InputSlider(props) {
         <Box p={3}>
             <Card>
                 <CardContent>
-                    <h5>Number of data points</h5>
+                    <Typography gutterBottom>Number of data points</Typography>
                     <Slider 
                         defaultValue={20}
                         step={10}

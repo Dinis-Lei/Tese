@@ -27,6 +27,14 @@
                 "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
             },
             {
+                "id": "cpe_bandwidth",
+                "label": "CPE Bandwidth",
+                "type": "number",
+                "unit": "Mbps",
+                "default": 100,
+                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
+            },
+            {
                 "id": "n_cpe",
                 "label": "Nº of users connected to CPE",
                 "type": "number",
@@ -56,6 +64,14 @@
                 "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
             },
             {
+                "id": "an_bandwidth",
+                "label": "Access Network Bandwidth",
+                "type": "number",
+                "unit": "Mbps",
+                "default": 500,
+                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
+            },
+            {
                 "id": "pue_an",
                 "label": "PUE of Access Network",
                 "type": "number",
@@ -77,11 +93,59 @@
                 "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
             },
             {
+                "id": "server_bandwidth",
+                "label": "Server Bandwidth",
+                "type": "number",
+                "unit": "Mbps",
+                "default": 1000,
+                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
+            },
+            {
                 "id": "n_server",
                 "label": "Nº of users connected to Server",
                 "type": "number",
                 "unit": null,
                 "default": 1,
+                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
+            },
+            {
+                "id": "p_server_switch",
+                "label": "Power of server switch",
+                "type": "number",
+                "unit": null,
+                "default": 200,
+                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
+            },
+            {
+                "id": "server_switch_bandwidth",
+                "label": "Server switch bandwidth",
+                "type": "number",
+                "unit": null,
+                "default": 100,
+                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
+            },
+            {
+                "id": "p_disk",
+                "label": "Power of server disk storage",
+                "type": "number",
+                "unit": null,
+                "default": 100,
+                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
+            },
+            {
+                "id": "disk_bandwidth",
+                "label": "Server disk storage bandwidth",
+                "type": "number",
+                "unit": null,
+                "default": 100,
+                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
+            },
+            {
+                "id": "disk_size",
+                "label": "Size of server disk storage",
+                "type": "number",
+                "unit": "MB",
+                "default": 100,
                 "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
             },
             {
@@ -98,30 +162,6 @@
         "title": "Other",
         "params": [
             {
-                "id": "cpe_bandwidth",
-                "label": "CPE Bandwidth",
-                "type": "number",
-                "unit": "Mbps",
-                "default": 100,
-                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            },
-            {
-                "id": "an_bandwidth",
-                "label": "Access Network Bandwidth",
-                "type": "number",
-                "unit": "Mbps",
-                "default": 500,
-                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            },
-            {
-                "id": "server_bandwidth",
-                "label": "Server Bandwidth",
-                "type": "number",
-                "unit": "Mbps",
-                "default": 1000,
-                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            },
-            {
                 "id": "compression_rate",
                 "label": "Compression Rate",
                 "type": "number",
@@ -130,80 +170,27 @@
                 "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
             },
             {
-                "id": "compression_cost",
-                "label": "Compression Cost",
+                "id": "compression_time_cost",
+                "label": "Time increase of compression",
                 "type": "number",
                 "unit": null,
-                "default": 0.2,
+                "default": 2,
                 "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            }
-        ]
-    },
-    {
-        "title": "Test",
-        "params": [
+            },
             {
-                "id": "test1",
-                "label": "Test",
+                "id": "retention_time",
+                "label": "Data Retention Time",
                 "type": "number",
-                "unit": "Mbps",
+                "unit": "h",
                 "default": 1,
                 "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
             },
             {
-                "id": "test2",
-                "label": "Test",
+                "id": "download_rate",
+                "label": "Download Rate",
                 "type": "number",
-                "unit": "Mbps",
-                "default": 1,
-                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            },
-            {
-                "id": "test3",
-                "label": "Test",
-                "type": "number",
-                "unit": "Mbps",
-                "default": 1,
-                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            },
-            {
-                "id": "test4",
-                "label": "Test",
-                "type": "number",
-                "unit": "Mbps",
-                "default": 1,
-                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            },
-            {
-                "id": "test5",
-                "label": "Test",
-                "type": "number",
-                "unit": "Mbps",
-                "default": 1,
-                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            },
-            {
-                "id": "test6",
-                "label": "Test",
-                "type": "number",
-                "unit": "Mbps",
-                "default": 1,
-                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            },
-            {
-                "id": "test7",
-                "label": "Test",
-                "type": "number",
-                "unit": "Mbps",
-                "default": 1,
-                "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
-            },
-            {
-                "id": "test8",
-                "label": "Test",
-                "type": "number",
-                "unit": "Mbps",
-                "default": 1,
+                "unit": "MBps",
+                "default": 500,
                 "tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae orci urna. Morbi id elit a sapien dignissim tempus in vitae tortor. Morbi vel mattis diam, vel fermentum libero. Sed venenatis posuere nisl, id pretium velit porttitor et. Proin porta aliquam porttitor. Curabitur ut lobortis justo. Aenean in justo sollicitudin, aliquet purus nec, ultrices neque. Nam id orci sit amet nisi porta lacinia. Suspendisse faucibus hendrerit risus, id tincidunt odio vestibulum tincidunt."
             }
         ]
