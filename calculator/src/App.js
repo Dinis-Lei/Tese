@@ -1,110 +1,86 @@
 import './App.css';
 import * as React from 'react';
-import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
-import { AppBar, Box, Button, Divider, Toolbar, Typography } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from './pages/MainPage.js';
 import InfoPage from './pages/InfoPage.js';
-import ChangeModelPage from './pages/ChangeModelPage.js';
+import AboutPage from './pages/AboutPage.js';
 import FormDrawer from './components/FormDrawer.js';
-import Test from './pages/test.js';
+import Navbar from './components/Navbar.js';
+import { Theme } from './util/theme.js';
+import IntroductionCard from './components/InfoPageCards/IntroductionCard.js';
+import UploadModelCard from './components/InfoPageCards/UploadModelCard.js';
+import DownloadModelCard from './components/InfoPageCards/DownloadModelCard.js';
+import StorageModelCard from './components/InfoPageCards/StorageModelCard.js';
+
+import { MathJaxContext } from 'better-react-mathjax';
+import OverallModelCard from './components/InfoPageCards/OverallModelCard.js';
+
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
-const drawerWidth = 240;
-
-const MyAppBar = styled(AppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-
 
 function App() {
   
-    const [mode, setMode] = React.useState('dark');
+    const [mode, setMode] = React.useState(() => {
+        const localMode = localStorage.getItem('colorMode');
+        return localMode ? localMode : 'dark';
+    });
     const colorMode = React.useMemo(
         () => ({
-        toggleColorMode: () => {
-            setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-        },
+          toggleColorMode: () => {
+              setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+              localStorage.setItem('colorMode', mode === 'light' ? 'dark' : 'light');
+          },
         }),
         [],
     );
-
+        
     const theme = React.useMemo(
         () =>
-        createTheme({
-            palette: {
-            mode,
-            },
-        }),
+        createTheme(Theme(mode)),
         [mode],
     );
 
     const [openDrawer, setOpenDrawer] = React.useState(true);
     const [formData, setFormData] = React.useState(null); 
+    const [infoPageSection, setInfoPageSection] = React.useState(0);
         
 
     return (
+        <MathJaxContext config={{
+            options: {
+                enableMenu: false,
+                makeCollapsible: false,
+            }
+        
+        }}>
         <BrowserRouter>
         <ColorModeContext.Provider value={colorMode} >
             <ThemeProvider theme={theme}>
-            <Box>
-                <CssBaseline />
-                <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-                    <Toolbar
-                        sx={{
-                        backgroundColor: theme.palette.mode === 'dark' ? 'gray' : 'lightgray',
-                        }}
-                    >
-                        <IconButton onClick={colorMode.toggleColorMode} color="inherit">
-                        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                        </IconButton>
-                        <Button color="inherit" component={Link} to="/">
-                        <Typography variant="h6">Model</Typography>
-                        </Button>
-                        <Button color="inherit" component={Link} to="/info">
-                        <Typography variant="h6">Info</Typography>
-                        </Button>
-                        <Button color="inherit" component={Link} to="/changeModel">
-                        <Typography variant="h6">Change Model</Typography>
-                        </Button>
-                        <Button color="inherit" onClick={() => setOpenDrawer(!openDrawer)}>
-                        <Typography variant="h6">Open Drawer</Typography>
-                        </Button>
-                        <Button color="inherit" component={Link} to="/test">
-                        <Typography variant="h6">Test</Typography>
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-                <FormDrawer open={openDrawer} fillForm={setFormData}/>
-                <Routes>
-                    <Route path='/' element={<MainPage formData={formData} isDrawerOpen={openDrawer}/>} />
-                    <Route path='/info' element={<InfoPage/>} />
-                    <Route path='/changeModel' element={<ChangeModelPage/>} />
-                    <Route path='test' element={<Test open={openDrawer}/>} />
-                </Routes>
-            </Box>
+                <Box>
+                    <CssBaseline />
+                    <Navbar theme={theme} colorMode={colorMode} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/>
+                    <FormDrawer open={openDrawer} fillForm={setFormData} setInfoPageSection={setInfoPageSection}/>
+                    <Routes>
+                        <Route path='/' element={<MainPage formData={formData} isDrawerOpen={openDrawer}/>} />
+                        <Route path='/info' element={<InfoPage isDrawerOpen={openDrawer} infoPageSection={infoPageSection}/>}>
+                            <Route path='' element={<IntroductionCard />}/>
+                            <Route path='uploadModel' element={<UploadModelCard />} />
+                            <Route path='downloadModel' element={<DownloadModelCard />} />
+                            <Route path='storageModel' element={<StorageModelCard />} />
+                            <Route path='overallModel' element={<OverallModelCard />} />
+                        </Route>
+                        <Route path='/about' element={<AboutPage isDrawerOpen={openDrawer}/>} />
+                    </Routes>
+                </Box>
             </ThemeProvider>
         </ColorModeContext.Provider>
         </BrowserRouter>
+        </MathJaxContext>
     );
 }
 

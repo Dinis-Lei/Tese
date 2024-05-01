@@ -7,7 +7,7 @@ export default function ChangeModelPage(props) {
     return (
         <Box>
             <Toolbar />
-            <h1>Change Model Page</h1>
+            <h1>About Page</h1>
         </Box>
     );
 }
