@@ -33,15 +33,16 @@ function App() {
         () => ({
           toggleColorMode: () => {
               setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-              localStorage.setItem('colorMode', mode === 'light' ? 'dark' : 'light');
           },
         }),
         [],
     );
         
     const theme = React.useMemo(
-        () =>
-        createTheme(Theme(mode)),
+        () => {
+            localStorage.setItem('colorMode', mode === 'dark' ? 'dark' : 'light');
+            return createTheme(Theme(mode));
+        },
         [mode],
     );
 
