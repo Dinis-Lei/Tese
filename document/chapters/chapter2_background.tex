@@ -16,13 +16,13 @@
 
 The definition of system boundaries is an important factor in the modelling of energy consumption. As seen in the compilation of studies made by \citet{Aslan2018}, the system boundaries are one of the main factors for the discrepancies of the results.
 
-The common consensus is that the system boundaries for the model of the internet should exclude datacenters and user devices \citet{Coroama2014}. This study however won't be modeling only the internet but also the impact on datacenters and of the compression/decompression algorithm in the end user device. So the overall system boundary will include all the \ac{ict} sector. 
+The common consensus is that the system boundaries for the model of the internet should exclude datacenters and user devices, as shown by \citet{Coroama2014}. Our study however won't be modeling only the internet but also the impact on datacenters and of the compression/decompression algorithm in the end user device. So the overall system boundary will include all the \ac{ict} sector. 
 
-So this study divides the system boundary in 3 main components, the network, datacenters and the end user devices (figure \ref{figure:system_boundaries}). The network is divided in three main components, \ac{cpe}, Access Network and Core Network. The datacenter is also divided in three components, Servers, Storage and Datacenter Network. Lastly the end user devices only includes the compression/decompression algorithm cost. 
+So our study divides the system boundary in three main components: the network, datacenters and the end user devices (Figure \ref{figure:system_boundaries}). The network is divided in three main components: \ac{cpe}, Access Network and Core Network. The datacenter is also divided in three components: Servers, Storage and Datacenter Network. Lastly the end user devices only includes the compression/decompression algorithm cost. 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{figs/System_Boundary.png}
+    \includegraphics[width=1\textwidth]{figs/System_Boundary.png}
     \caption{Complete system boundary of the model and subsystem of each component.}
     \label{figure:system_boundaries}
 \end{figure}
@@ -30,40 +30,38 @@ So this study divides the system boundary in 3 main components, the network, dat
 \section{Internet}
 
 The internet is the most complex component of the model.
-Internet started has an interconnection of small number of local university networks, which were composed of a few routers and cables. Nowadays, the internet is a global network of networks, composed of millions of routers, switches and cables, that interconnects billions of end users. This communication is made possible by the use of the \ac{tcp} and \ac{ip} protocols.
+Internet started has an interconnection of a small number of local university networks, which were composed of a few routers and cables. Nowadays, the internet is a global network of networks, composed of millions of routers, switches and cables, that interconnects billions of end users. This communication is made possible by the use of the \ac{tcp} and \ac{ip} protocols.
 
-Because of its complexity the system is usually divided in smaller components, however the delimitation on where each component begins and ends can vary from paper to paper. In this thesis we use the delimitation proposed by \citet{Coroama2015} and \citet{Schien2015}, which divides the internet in 4 main components: \ac{cpe}, access network, \ac{ip} core network and undersea cables.
-
-\ref{fig:internet_topology} shows the topology of the internet as described by both papers \cite{Coroama2015} \cite{Schien2015}. 
+Because of its complexity the system is usually divided into smaller components. However, the delimitation on where each component begins and ends can vary from paper to paper. In this thesis, we use the delimitation proposed by \citet{Coroama2015} and \citet{Schien2015}, which divides the internet in four main components: \ac{cpe}, access network, \ac{ip} core network and undersea cables.
 
 \subsection{\acl{cpe} and Access Network}
 
-There are several technologies used to establish to connect user to the Ethernet, they can be either wired or wireless and can be part of the \ac{cpe} layer or access network layer. Figure \ref{figure:network_technologies} highlights which technologies are currently used and in what layer they belong to.
+There are several technologies used to connect the user to the Ethernet. They can be either wired or wireless and can be part of the \ac{cpe} layer or access network layer. Figure \ref{figure:network_technologies} highlights which technologies are currently used and in what layer they belong to.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/network_technologies.png}
-    \caption[Network technologies used in Access Networks and CPE]{Network technologies used in Access Networks and CPE. In green are the technologies used in the access network and in blue are the technologies used in the CPE. Adapted from \citet{forum:huwawei}}
+    \caption[Network technologies used in Access Networks and CPE]{Network technologies used in Access Networks and CPE. In green are the technologies used in the access network and in blue are the technologies used in the CPE. Adapted from \citet{forum:huawei}.}
     \label{figure:network_technologies}
 \end{figure}
 
-The first layer and most simple is the \ac{cpe}. The \ac{cpe} is the equipment that is installed in the end user premises. 
+The first layer and most simple one is the \ac{cpe}. The \ac{cpe} is the equipment that is installed in the end user premises. 
 The equipment is usually provided by the \ac{isp} and normally consists of a gateway that acts as a modem and a router.
-A modem is used to convert the signal from the \ac{isp} to a signal that can be used by the router. The router is used to connect the end user devices to the internet. The user can connect to the routers either by cable or by wireless technology like Wi-fi. 
+A modem is used to convert the signal from the \ac{isp} to a signal that can be used by the router. The router is used to connect the end user devices to the internet. The user can connect to the routers either by cable or by wireless technology like Wi-Fi. 
 
-Access networks serve as the connection between the \ac{cpe} and the core network. All the user are connected to a central office where traffic is aggregated and then transferred to the core network.
-The access network incorporates any technology that establishes the connection between the end user and the \ac{isp} and said technology it is not own by the user. % So a user can connect to the internet by either a modem or a cellular tower but only the cellular tower is part of the access network. 
+Access networks serve as the connection between the \ac{cpe} and the core network. All users are connected to a central office where traffic is aggregated and then transferred to the core network.
+The access network incorporates any technology that establishes the connection between the end user and the \ac{isp} and this technology it is not own by the user. % So a user can connect to the internet by either a modem or a cellular tower but only the cellular tower is part of the access network. 
 
-Traffic in the access network is highly variable. The equipment used in the access network has a power consumption that is largely constant in time and thus load-independent \citet{Vereecken2011}.
+Traffic in the access network is highly variable. The equipment used in the access network has a power consumption that is largely constant in time and thus load-independent \cite{Vereecken2011}.
 
 \subsubsection{Access Network Wired technologies}
 
-The most popular wired connections are \ac{dsl}, coax cable and fiber-optics.
+The most popular wired connections are \ac{dsl}, coaxial cable and fiber-optics.
 
 \begin{itemize}
 
-    \item \ac{dsl} provide internet access over existing analog telephone lines. So, existing telephone service providers offer \ac{dsl} service. With this technology, user voice and data traffic go through this analog lines. \ac{dsl} uses high frequencies for data transmission. And with a help of \ac{dsl} filter data traffic do not interference with voice traffic.
-    There are different DSL types. Now \ac{adsl} is the most used \ac{dsl} type in the world. 
+    \item \ac{dsl} provides internet access over existing analog telephone lines. So, existing telephone service providers offer \ac{dsl} service. With this technology, user voice and data traffic go through the analog lines. \ac{dsl} uses high frequencies for data transmission and with the help of \ac{dsl} filter data traffic do not interference with voice traffic.
+    There are different DSL types. Currently, \ac{adsl} is the most used \ac{dsl} type in the world. 
 
     \item \ac{hfc} uses the same coaxial cable that is used for cable television. It uses the \ac{docsis} standard to provide internet access.
 
@@ -77,15 +75,15 @@ The most popular wired connections are \ac{dsl}, coax cable and fiber-optics.
 \subsubsection{Access Network Wireless technologies}
 
 Wireless access networks use radio waves to provide fixed or mobile access services for users. 
-According to coverage range classification, the broadband wireless access technology are generally divided into different categories such as \ac{wpan}, a \ac{wlan}, a \ac{wman}, and a \ac{wwan}, however only technologies in the \ac{wman} and \ac{wwan} fall into the umbrella of what we refer as the access network.
+According to coverage range classification, the broadband wireless access technology are generally divided into different categories, such as: \ac{wpan}, \ac{wlan}, \ac{wman}, and \ac{wwan}. However, only technologies in the \ac{wman} and \ac{wwan} fall into the umbrella of what we refer to as the access network.
 
-The area coverage of \ac{wman} is in the order of kilometers and there are 2 prominent technologies for establish internet access, \ac{lmds} and \ac{wimax}.
+The area coverage of \ac{wman} is in the order of kilometers and there are two prominent technologies to establish internet access, \ac{lmds} and \ac{wimax}.
 
 \begin{itemize}
 
-    \item \ac{lmds} as the name says is a multipoint communication system, it is used to provided network connectivity to buildings. These are great technologies for last mile connectivity, because they are more cost-effective than wired technologies and can be deployed faster than fiber \cite{forum:imda}.
+    \item \ac{lmds} is a multipoint communication system. It is used to provided network connectivity to buildings. These are great technologies for last mile connectivity, because they are more cost-effective than wired technologies and can be deployed faster than fiber \cite{forum:imda}.
 
-    \item \ac{wimax}  is based on IEEE 802.16. It provides fixed, mobile or portable wireless connections with high speeds that can reach up to 70 \ac{mbps} \cite{forum:ctrfantennasinc}.
+    \item \ac{wimax}  is based on IEEE 802.16. It provides fixed, mobile or portable wireless connections, with high speeds that can reach up to 70 \ac{mbps} \cite{forum:ctrfantennasinc}.
 
 \end{itemize}
 
@@ -105,41 +103,41 @@ From a broad perspective, core nodes operate on an optical-electrical-optical ba
 
 \section{Datacenters}
 
-Datacenters are facilities that house numerous computing and storage devices. They provide users with the opportunity to host their applications as well as store data. Their use is widespread, and their energy impact is substantial, as they are responsible for X\% of the global energy consumption \cite{get source}.
+Datacenters are facilities that house numerous computing and storage devices. They provide users with the opportunity to host their applications as well as store data. Their use is widespread, and their energy impact is substantial, as they are responsible for  1-1.3\% of the global energy consumption \cite{IEA}.
 
-Datacenters are composed of electronic equipment for communication, data processing and storage. The quantity and type of equipment depends on the type of datacenter. Usually you can distinguish the type of datacenter by its size and processing power. \citet{US-report2016} classifies datacenters in the following categories:
+Datacenters are composed of electronic equipment for communication, data processing and storage. The quantity and type of equipment depends on the type of datacenter. Usually, we can distinguish the type of datacenter by its size and processing power. \citet{Shehabi2016} classifies datacenters in the following categories:
 
 \begin{itemize}
-    \item Closet
-    \item Room
-    \item Localized
-    \item Midtier
-    \item High-end
-    \item Hyperscale
+    \item Closet;
+    \item Room;
+    \item Localized;
+    \item Midtier;
+    \item High-end;
+    \item Hyperscale.
 \end{itemize}
 
-The main contributors for the energy consumption of datacenters are the servers, the network and the storage devices. Each type of datacenter has a different efficiency in the use of energy. The efficiency of a datacenter is measured by the \ac{pue}, it is the ratio between the total energy consumption of the facility and the energy consumption of the \ac{it} equipment, the closer it is to 1 the better the efficiency of the datacenter.
+The main contributors for the energy consumption of datacenters are the servers, the network and the storage devices. Each type of datacenter has a different efficiency in the use of energy. The efficiency of a datacenter is measured by the \ac{pue}, which is the ratio between the total energy consumption of the facility and the energy consumption of the \ac{it} equipment. The closer it is to one, the better the efficiency of the datacenter.
 
 \subsection{Datacenter Servers}
 
 Datacenter servers are the main component of the datacenter. The servers are computers with the resources capable of executing applications and processing data.
 
-As the main component of the datacenter, they are also the main contributor for the energy consumption of it. According to \citet{Cheung} and \citet{Miyuru} the servers account for around 70\% of the energy consumption of the datacenter, ignoring cooling and other non \ac{it} factors.
+As the main component of the datacenter, they are also the main contributor for the energy consumption of it. According to \citet{Cheung2018} and \citet{Dayarathna2016} the servers account for around 70\% of the energy consumption of the datacenter, ignoring cooling and other non \ac{it} factors.
 
 
 \subsection{Datacenter Storage}
 
-Storage in datacenter is composed of several \acp{hdd} and \acp{ssd} that are connected to the servers. The storage configuration can be divided in three categories: \ac{das}, \ac{nas} and \ac{san} \citet{Storage101}.
+Storage in datacenters is composed of several \acp{hdd} and \acp{ssd} that are connected to the servers. The storage configuration can be divided in three categories: \ac{das}, \ac{nas} and \ac{san} \cite{Storage101}.
 
 \subsubsection{\acl{das}}
 
-As the name suggests, the storage devices connect directly to the server without any networking. \ac{das} can connect either internally or externally has a single drive or an array of \ac{raid}. 
+As the name suggests, the storage devices connect directly to the server without any networking. \ac{das} can connect either internally or externally, as a single drive or an array of \ac{raid}. 
 
-\ac{das} is the cheapest easier and cheapest option to implement of the three. However, it is also the least scalable and the least flexible, because the server has a limited number of ports and expansion slots.
+Of the three types, \ac{das} is the easier and cheapest option. However, it is also the least scalable and the least flexible, because the server has a limited number of ports and expansion slots.
 
 \subsubsection{\acl{nas}}
 
-\ac{nas} is a centralized file-level storage system, that is connected to the server via the network. \ac{nas} is composed of a storage device with a \ac{os} that is optimized for file storage and sharing.
+\ac{nas} is a centralized file-level storage system, that is connected to the server via the network. \ac{nas} is composed of a storage device with an \ac{os} that is optimized for file storage and sharing.
 
 It includes built-in fault tolerance, management capabilities, and security protections, and it can support features such as replication and data deduplication.
 
@@ -152,9 +150,9 @@ It is composed of storage arrays (\acp{raid}), servers for managing data access,
 \subsection{Datacenter Network}
 
 Typically, datacenter networks are composed of switches, routers and other hardware components that provide the connectivity and security to run applications and process data on the servers. 
-According to \citet{Cheung} and \citet{Miyuru} the network accounts for around 10\% of the energy consumption of the datacenter. 
+According to \citet{Cheung2018} and \citet{Dayarathna2016} the network accounts for around 10\% of the energy consumption of the datacenter. 
 
-Today there are 3 main topologies that datacenters can follow, but larger datacenters can use two or all three of them. Each topology has its own advantages and disadvantages and the choice of topology depends on the type of datacenter and the type of applications that it will be hosted \citet{commScope}.
+Today there are three main topologies that datacenters can follow, but larger datacenters can use two or all three of them. Each topology has its own advantages and disadvantages, and the choice of topology depends on the type of datacenter and the type of applications that it will be hosted \cite{commScope}.
 
 \subsubsection{Centralized}
 
@@ -162,32 +160,32 @@ This model is more used by smaller datacenters. There are separated environments
 
 \subsubsection{\ac{eor}}
 
-This topology consists in distributing network resources, as seen in figure \ref{figure:eor_topology}. The servers are placed in rows and the network resources are placed at the end of each row. This solution is recommended by the  ANSI/TIA-942 Data Center Standards \cite{ANSI/TIA-942} and is very scalable, repeatable, and predictable.
+This topology consists in distributing network resources, as seen in Figure \ref{figure:eor_topology}. The servers are placed in rows and the network resources are placed at the end of each row. This solution is recommended by the  ANSI/TIA-942 Data Center Standards \cite{ANSI/TIA-942} and is very scalable, repeatable, and predictable.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/eor_topology.png}
-    \caption[End of Row topology.] {End of Row topology, adapted from \citet{commScope}}
+    \caption[End of Row topology.] {End of Row topology, adapted from \citet{commScope}.}
     \label{figure:eor_topology}
 \end{figure}
 
 \subsubsection{\ac{tor}} 
 
-Top of the rack consists on two or more switches on top of each server cabinet, as shown below in figure \ref{figure:tor_topology}. It is cost-effective because it reduces the number of copper cables between racks. The rack is linked to the data center network by an Ethernet switch, often through a fiber cable. This fiber cable is a direct link from the common aggregation area to the rack.
+Top of the rack consists on two or more switches on top of each server cabinet, as shown in Figure \ref{figure:tor_topology}. It is cost-effective, because it reduces the number of copper cables between racks. The rack is linked to the data center network by an Ethernet switch, often through a fiber cable. This fiber cable is a direct link from the common aggregation area to the rack.
 In the \ac{tor} approach, every rack in the data center network is a separate entity that eases its management. Any change, upgrade, or malfunction in the rack usually affects that rack only.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/tor_topology.png}
-    \caption[Top of Rack topology.] {Top of Rack topology, adapted from \citet{commScope}}
+    \caption[Top of Rack topology.] {Top of Rack topology, adapted from \citet{commScope}.}
     \label{figure:tor_topology}
 \end{figure}
 
-\section{Compression algorithms}
+\section{Data compression algorithms}
 
 Compression algorithms are used to reduce the size of a file or data stream. They have been used in applications where the cost of storage or transmission is high.
 
-With the increase of the use of the internet and the increase of the amount of data that is stored and transmitted, compression algorithms have become a standard in the \ac{ict} sector.
+With the increase of the use of the internet and the increase of the amount of data that are stored and transmitted, compression algorithms have become a standard in the \ac{ict} sector.
 
 \subsubsection{Lossless compression}
 
@@ -195,9 +193,60 @@ Lossless algorithms usually exploit the redundancy present in data to reduce the
 
 \subsubsection{Lossy compression}
 
-Lossy compression algorithms are used when the loss of information is acceptable. They are usually used in multimedia applications, where the loss of information is not noticeable by the end user.
+Lossy compression algorithms are used when the loss of information is acceptable. They are usually used in multimedia applications, where the loss of information is not noticeable, or is tolerable by the end user.
 
-\subsection{Genome sequence formats}
+\subsection{Compression algorithms overview}
+\label{section:compression_algorithms_overview}
+
+Compression algorithms can be divided in two categories based on the type of data that they are used to compressing. General purpose algorithms can be used to compress any type of data. Specific algorithms, on the other hand, are developed to compress a specific type of data, like images, audio or even genetic data, and are usually more efficient in their data type than general purpose algorithms.
+
+There exists several compression algorithms available, their characteristics are summarized in Table \ref{table:compression_algorithms}.
+
+\begin{table}
+\caption{Compression algorithms and their characteristics.}
+\label{table:compression_algorithms}
+\begin{center}
+    \begin{tabular}{|| c | c | c ||}
+        \hline
+        Name & Data type & Reference \\
+        \hline
+        Gzip        & Any & \citet{rfc1952}\\ \hline
+        Zstandard   & Any & \citet{rfc8878}\\ \hline
+        Bzip2       & Any & \citet{bzip2}\\ \hline
+        LZMA        & Any & \citet{lzma}\\ \hline
+        Cmix        & Any & \citet{cmix}\\ \hline
+        PAQ1        & Any & \citet{Mahoney2002}\\ \hline
+        NNCP        & Any & \citet{NNCP}\\ \hline
+        MFCompress  & FASTA, multi-FASTA & \citet{Pinho2014}\\ \hline
+        Jarvis3     & FASTA, FASTQ & \citet{jarvis3}\\ \hline
+        Naf         & FASTA, FASTQ & \citet{Kryukov2019}\\ \hline
+        Leon        & FASTA, FASTQ & \citet{Benoit2015}\\ \hline
+        Agc         & FASTA & \citet{Deorowicz2023}\\ \hline
+        Fqzcomp     & FASTQ & \citet{fqzcomp}\\ \hline
+        Quip        & SAM/BAM & \citet{Jones2012}\\ \hline
+    \end{tabular}
+\end{center}
+\end{table}
+
+\subsubsection{General purpose algorithms}
+
+As stated above, compression algorithms can be divided into two categories, general purpose and specific algorithms. In terms of general purpose algorithms, we have the most popular algorithms, Zstandard, Gzip, Bzip2 and LZMA \cite{GeekyHumans}.
+
+Zstandard and Gzip are both lossless compression algorithms based on the DEFLATE algorithm, which uses a combination of both LZ77 and Huffman coding. Zstandard is the most recent algorithm and was developed by Facebook, offering a much faster compression and decompression than its predecessors. Gzip was created as an alternative to the compress program in Unix systems, because of the Unisys and IBM patents covering the LZW algorithm.
+
+Bzip2 is a lossless compression algorithm based on the Burrows-Wheeler transform. It is more efficient than DEFLATE but is also slower. Even though it can be used in any type of data it is most efficient in text based data. The algorithm is composed of several compression techniques such as \ac{rle}, Burrows-Wheeler transform, move-to-front transform and Huffman coding.
+
+LZMA is a lossless compression algorithm based on the Lempel-Ziv-Markov chain algorithm. It is used by the 7zip file archiver and the xz file format.
+
+Cmix and PAQ are both context mixing compression algorithms. They use more than one model to predict the next symbol in a sequence, it usually results in a more accurate prediction than using only one model. Cmix uses several machine learning models, while PAQ1, a version of the PAQ, uses a weighted average of 5 bit-level predictors.
+
+NNCP also uses machine learning models, in this case it uses pure neural network models based on the \ac{lstm} and Transform model.
+
+\subsubsection{Specific algorithms}
+
+In terms of specific algorithms, we focus on algorithms that compress genome sequences. These algorithms compress files that are in the FASTA, FASTQ and \ac{sam}/\ac{bam} formats.
+
+\subsubsection{Genome sequence formats}
 
 Genome sequencing is a process that determines the order of the nucleotides in a genome, it turns sequences of genomes into data that can be stored and analyzed. The genome sequence is usually stored in a file, which can be in several formats. The most common formats are FASTQ, FASTA, \ac{sam}/\ac{bam} and \ac{vcf}.
 
@@ -210,61 +259,11 @@ FASTA is also a text-based format that stores the biological sequence. However, 
 Lastly \ac{vcf} is the standard file format for storing variation data. It is used by large scale variant mapping projects such as IGSR. It is also the standard output of variant calling software such as GATK and the standard input for variant analysis tools such as the VEP or for variation archives like EVA.
 VCF is a preferred format because it is unambiguous, scalable and flexible, allowing extra information to be added to the info field. Many millions of variants can be stored in a single VCF file. 
 
-\subsection{Compression algorithms overview}
+MFCompress was designed and implemented in \ac{ieeta}. It is a tool for compressing FASTA and multi-FASTA files, achieving compression gains of almost 50\%. The algorithm bases on probabilistic models that comply with the Markov property, i.e. that estimate the probability of the next symbol of the information source using the $k>0$ immediate past symbols (order-k context) to select the probability distribution. 
 
-Compression algorithms can be divided in two categories based on the type of data that they are used to compressing. General purpose algorithms can be used to compress any type of data. Specific algorithms on the other hand are developed to compress a specific type of data, like images, audio or even genetic data, and are usually more efficient in their data type than general purpose algorithms.
+Jarvis3, NAF and Leon, are tools that compress FASTA and FASTQ files, but all focus on different techniques. Jarvis3 uses neural network models, while NAF is based on the Zstandard algorithm. Leon uses probabilistic models based on "De Bruijin Graph", it has the advantage of not needing to have a reference genome for the execution of the algorithm.
 
-There exists several compression algorithms available, their characteristics are summarized in table \ref{table:compression_algorithms}.
-
-\begin{table}
-\caption{Compression algorithms and their characteristics}
-\label{table:compression_algorithms}
-\begin{center}
-    \begin{tabular}{|| c | c | c | c | c ||}
-        \hline
-        Name & Data type & Compression Rate & Decompression Speed & Reference \\
-        \hline
-        Gzip & 2 & 3 & 4 & 5\\ \hline
-        Zstandard & 2 & 3 & 4 & 5\\ \hline
-        Bzip2 & 2 & 3 & 4 & 5\\ \hline
-        Lzma & 2 & 3 & 4 & 5\\ \hline
-        Cmix & 2 & 3 & 4 & 5\\ \hline
-        Paq & 2 & 3 & 4 & 5\\ \hline
-        Nncp & 2 & 3 & 4 & 5\\ \hline
-        MFCompress & 2 & 3 & 4 & 5\\ \hline
-        Jarvis3 & 2 & 3 & 4 & 5\\ \hline
-        Naf & 2 & 3 & 4 & 5\\ \hline
-        Leon & 2 & 3 & 4 & 5\\ \hline
-        Agc & 2 & 3 & 4 & 5\\ \hline
-        Fqzcomp & 2 & 3 & 4 & 5\\ \hline
-        Quip & 2 & 3 & 4 & 5\\ \hline
-    \end{tabular}
-\end{center}
-\end{table}
-
-\subsubsection{General purpose algorithms}
-
-As stated above, compression algorithms can be divided into two categories, general purpose and specific algorithms. In terms of general purpose algorithms, we have the most popular algorithms, zstandard, gzip, bzip2 and lzma.
-
-Zstandard and Gzip are both lossless compression algorithms based on the DEFLATE algorithm, which uses a combination of both LZ77 and Huffman coding. Zstandard is the most recent algorithm and was developed by Facebook, offering a much faster compression and decompression than its predecessors. Gzip was created as an alternative to the compress program in Unix systems, because of the Unisys and IBM patens covering the LZW algorithm.
-
-Bzip2 is a lossless compression algorithm based on the Burrows-Wheeler transform. It is more efficient than DEFLATE but is also slower. Even though it can be used in any type of data it is most efficient in text based data. The algorithm is composed of several compression techniques such as \ac{rle}, Burrows-Wheeler transform, move-to-front transform and Huffman coding.
-
-Lzma is a lossless compression algorithm based on the Lempel-Ziv-Markov chain algorithm. It is used by the 7zip file archiver and the xz file format.
-
-Cmix and paq are both context mixing compression algorithms. They use more than one model to predict the next symbol in a sequence, it usually results in a more accurate prediction than using only one model. Cmix uses several machine learning models, while paq1, a version of the paq, uses a weighted average of 5 bit-level predictors.
-
-Nncp also uses machine learning models, in this case it uses pure neural network models based on the \ac{lstm} and Transform model.
-
-\subsubsection{Specific algorithms}
-
-In terms of specific algorithms, we focus on algorithms that compress genome sequences. These algorithms compress files that are in the FASTA, FASTQ and \ac{sam}/\ac{bam} formats.
-
-MFCompress was designed and implemented in \ac{ieeta}. It is a tool for compressing FASTA and multi-FASTA files, achieving compression gains of almost 50\%. The algorithm bases on probabilistiv models that comply with the Markov property, i.e. that estimate the probability of the next symbol of the information source using the $k>0$ immediate past symbols (order-k context) to select the probability distribution. 
-
-Jarvis3, Naf and Leon, are tools that compress FASTA and FASTQ files, but all focus on different techniques. Jarvis3 uses neural network models, while Naf is based on the zstandard algorithm. Leon uses probabilistic models based on "De Bruijin Graph", it has the advantage of not needing to have a reference genome for the execution of the algorithm.
-
-Agc uses a reference genome to compress FASTA files, and in small sequences it uses zstandard.
+Agc uses a reference genome to compress FASTA files, and in small sequences it uses Zstandard.
 
 Fqzcomp compresses FASTQ files and uses ZPAQ, an algorithm of the PAQ family, to achieve higher levels of compression.
 

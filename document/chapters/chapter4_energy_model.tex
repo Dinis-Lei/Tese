@@ -1,0 +1,246 @@
+\chapter{Energy Model}
+\label{chapter:energy_model}
+
+\begin{introduction}
+    As seen in the previous chapter, no uniform model exists for the energy consumption of the \ac{ict}. This is due to the complexity of the \ac{ict} and the different components that can be used.
+
+    This chapter explains how the aggregated model was constructed as well as how the compression algorithms impact the energy calculation.
+\end{introduction}
+
+
+\section{Description of the work}
+
+    The aggregated model needs to have a wide system boundary and encapsulate each component of the \ac{ict}. Based on the work of chapter \ref{chapter:related_works}, three studies were selected to make up the model. These studies were chosen because they cover a wide system boundary with little overlap, as well as having a complete and easily modifiable formula.
+    
+    \begin{table}
+        \caption{Selected energy models and their system boundaries.}
+        \label{table:selected_energy_models}
+        \begin{center}
+            \begin{tabular}{|| c | c | c | c | c | c ||}
+                \hline
+                \multirow{2}{*}{Study} & \multirow{2}{*}{Year of data} & \multicolumn{4}{c||}{System Boundary} \\ \cline{3-6}
+                & & \ac{cpe} & \ac{an} & Core Network & Datacenter \\
+                \hline
+                \citet{Coroama2015}     & 2014 & \checkmark & \checkmark &  &   \\ \hline
+                \citet{Schien2015}      & 2014 &  &  & \checkmark &   \\ \hline
+                \citet{Taal2014}        & 2013 &  &  & \checkmark & \checkmark  \\ \hline
+            \end{tabular}
+        \end{center}
+    \end{table}
+
+    Table \ref{table:selected_energy_models} shows the studies that were selected and the components they cover. Only the Datacenter part of \citet{Taal2014} was considered as the other part was already covered by the former studies. 
+    
+    With the models for each component, the next step was determine how the compression algorithms would impact the energy consumption.
+    The model represents three stages:
+    \begin{itemize}
+        \item The Upload stage, where data is uploaded into the datacenters and where compression can be applied.
+        \item The Storage stage, where the data is stored in the datacenters.
+        \item The Download stage, where the data is downloaded from the datacenters and the process of decompression is applied on the user devices.
+    \end{itemize} 
+
+    Figure \ref{figure:energy_model_stages}
+    shows which components and subcomponents each stage interacts with, the arrows show the flow of data between the components. 
+    As we can see both the Upload and Download stages interact with the whole system while the Storage stage only interacts with the Datacenter's storage subcomponent. Joining the three stages together, we have the complete  model.
+    
+\section{Upload Stage}
+
+\subsection{Energy Model}
+
+    As seen in the previous section, the Upload stage interacts with the user, the network and the Datacenter components. So we can describe this stage as the sum of the energy consumption of the user, network and Datacenter components,
+
+    \begin{equation}
+        \label{formula:upload_stage}
+        E_{upload}(D_{in}) = E_{user}(D_{in}) + E_{network}(D_{in}) + E_{datacenter}(D_{in}),
+    \end{equation}
+
+    \noindent with $D_{in}$ being the data that is uploaded, or as we refer in this paper, the input data. 
+
+    Now we need to choose the most adequate model for calculating the energy consumption of each component.
+
+    For the user component, we choose to define its energy consumption based on the time it takes for the task to be completed, in this case, the task is the upload of data, and the energy intensity of the devices, similar to how \citet{Coroama2015} defined for the \ac{cpe}. So we express the energy consumption as the following:
+
+    \begin{equation}
+        \label{formula:upload_user_energy}
+        E_{user}(D_{in}) = \frac{D_{in}}{R_{upload}} \cdot P_{user\_device},
+    \end{equation}
+
+    \noindent where $R_{upload}$ is the upload rate of the user device, in MB/s, which by dividing $D_{in}$ with it, we have an approximate value of the time it takes upload the data, or in other words, the active time. $P_{user\_device}$ is the power consumption of the user device. Multiplying the active time by the power consumption, we have the desired energy consumption of the user component.
+
+    For the network component, we use the formula of energy intensity of \citet{Coroama2015}, \ref{formula:coroama_cpe_an}. As sated in the previous chapter, the energy consumption of \ac{cpe} and \ac{an} are dependent on the time they are active for the workload to complete, not the amount of data. So we have to use the active time calculated in the user component and multiply with the energy intensity of the network component. Resulting in:
+
+    \begin{equation}
+        \label{formula:upload_network_energy}
+        E_{network}(D_{in}) = \frac{D_{in}}{R_{upload}} \cdot \Bigg( \frac{t_{on}}{t_{use}} \cdot \frac{P_{CPE}}{N_{CPE}} + \frac{P_{AN}}{N_{AN}} \cdot PUE_{AN} \Bigg).
+    \end{equation}
+    
+    As for the core network part, we use the formula of \citet{Schien2015}, shown in \ref{formula:schien_core_metro}, this component however is not time based, but purely data based, so there is no need to alter the formula.
+
+    Lastly for the Datacenter component, we use the formula of \citet{Taal2014} that covers the server write operation, \ref{formula:tall_datacenter_write}. However, there was the need to make some changes to the equation to fit with our model.
+
+    First, there is a correction to the equation for calculating the number of disks (\ref{formula:tall_datacenter_ndisks}) needed to store the data, as the size of the array doesn't influence the number of disks needed.
+    The new formula is the following:
+    \begin{equation}
+        \label{formula:storage_ndisks}
+        N_d(D_{in}) = 2 \cdot \bigg \lceil \frac{D_{in}}{S_{disk}} \bigg \rceil,
+    \end{equation} 
+    \noindent with:
+    \begin{itemize}
+        \item $S_{disk}$ is the size of the disk.
+    \end{itemize}
+
+    Another change is that we removed the conversion of Gbps to GBph, that was used in the original formula, as the data is already in the correct format, and we removed the utilization factor ($U$) as it is not needed for the model.
+
+    Finally, we changed the name of the term capacity to bandwidth, as it is more fitting for the context of the formula, and unraveled the terms to make it easier for when we apply compression later on.
+
+    The final formula is the following:
+
+    \begin{equation}
+    \label{formula:upload_server_write}
+    \begin{split}
+        E_{write}(D_{in}) = & \Bigg( \frac{D_{in}}{B_{server}} \cdot P_{server} + \\ & \frac{D_{in}}{B_{sw}} \cdot P_{sw} + \\ & \frac{D_{in}}{B_{disk}} \cdot P_{disk} \cdot N_d(D_{in}) \Bigg) \cdot PUE,
+    \end{split}
+    \end{equation}
+
+    \noindent where:
+    \begin{itemize}
+        \item $B_{server}$ is the capacity of the server.
+        \item $B_{sw}$ is the capacity of the switch.
+        \item $B_{disk}$ is the capacity of the disk.
+        \item $P_{server}$ is the power consumption of the server.
+        \item $P_{sw}$ is the power consumption of the switch.
+        \item $P_{disk}$ is the power consumption of the disk.
+        \item $N_d(D_{in})$ is the number of disks needed to store the data.
+        \item $PUE$ is the Power Usage Effectiveness of the datacenter.
+    \end{itemize}
+
+\subsection{Energy Model while using compression}
+
+    The use of compression algorithms will affect how the model is calculated, because it will introduce two variables, the compression rate $c_{rate}$, which is the rate that data will be reduced by when applying compression, and the additional time it takes to compress the data, the compression time cost ($c_{t\_cost}$).
+
+    The input data ($D_{in}$) still refers to the size of the original data without applying compression.
+
+    We defined that data is compressed server-side, so only the formula of the Datacenter component will be affected by the compression time cost. The new formula is the following:
+    
+    \begin{equation}
+    \label{formula:upload_server_write_compressed}
+    \begin{split}
+        E_{write}(D_{in}) = & \Bigg( \bigg(\frac{D_{in}}{B_{server}} \cdot D_{in} \cdot c_{t\_cost} \bigg) \cdot P_{server} + \\ & \frac{D_{comp}(D_{in})}{B_{sw}} \cdot P_{sw} + \\ & \frac{D_{comp}(D_{in})}{B_{disk}} \cdot P_{disk} \cdot N_d(D_{comp}(D_{in})) \Bigg) \cdot PUE,
+    \end{split}
+    \end{equation}
+
+    \noindent where:
+    \begin{itemize}
+        \item $D_{comp}(D_{in})$ is the size of the compressed data, $D_{comp}(D_{in}) = \frac{D_{in}}{c_{rate}}$.
+        \item $c_{t\_cost}$ is the time cost of compressing the data.
+        \item $B_{server}$ is the capacity of the server.
+        \item $B_{sw}$ is the capacity of the software.
+        \item $B_{disk}$ is the capacity of the disk.
+        \item $P_{server}$ is the power consumption of the server.
+        \item $P_{sw}$ is the power consumption of the software.
+        \item $P_{disk}$ is the power consumption of the disk.
+        \item $N_d(D_{in})$ is the number of disks needed to store the data.
+        \item $PUE$ is the Power Usage Effectiveness of the datacenter.
+    \end{itemize}
+
+    As we can see, different parts of the datacenter will deal with different amounts of data, because the server has to process the original data as well as deal with compression, so an additional process time $c_{{t\_cost}}$ is factored.
+    The other subcomponents will receive the already compressed data, which will lower their overall energy consumption.
+
+    As for the rest of the model, as their stages happen before the compression, they will not be affected by it, so their formulas remain the same, as the data is still in the original form.
+
+\section{Storage Stage}
+
+\subsection{Energy Model}
+    The storage stage is the smallest of the three stages, as it only interacts with the Datacenter's storage subcomponent. The energy consumption of this stage the formula of \citet{Taal2014} that covers the server store operation, equation \ref{formula:tall_datacenter_store}. The equation that the study used was mostly adequate for our model, and the only change needed to be made was removing the utilization factor ($U$) like we did in the upload stage equation.
+
+\subsection{Energy Model while using compression}
+
+    The use of compression will only affect the size of the input data, so the only change in the formula is applying the compression rate to the input data.
+    Resulting in the final formula:
+    \begin{equation}
+        \label{formula:storage_stage}
+        E_{storage}(D_{in}) = PUE \cdot N_d(D_{comp}(D_{in})) \cdot P_{disk} \cdot RT,
+    \end{equation}
+
+    \noindent with:
+    \begin{itemize}
+        \item $D_{comp}(D_{in})$ is the size of the compressed data, $D_{comp}(D_{in}) = \frac{D_{in}}{c_{rate}}$.
+        \item $N_d(D_{in})$ is the number of disks needed to store the data.
+        \item $P_{disk}$ is the power consumption of the disk.
+        \item $RT$ is the retention time of the data.
+    \end{itemize}
+
+\section{Download Stage}
+
+\subsection{Energy Model}
+
+    The download stage is like the mirror of the upload stage, as it interacts with the same components, but the flow of data is reversed. So like the former stage, the energy consumption is the sum of the energy consumption of the user, network and Datacenter components.
+
+    \begin{equation}
+        \label{formula:download_stage}
+        E_{download}(D_{out}) = E_{user}(D_{out}) + E_{network}(D_{out}) + E_{datacenter}(D_{out}),
+    \end{equation}
+
+    \noindent with $D_{out}$ being the size of all data being downloaded.
+
+    The active time is now based on the download rate ($R_{download}$) and the amount of data downloaded ($D_{out}$).
+
+    The user component is the same as in the upload stage, \ref{formula:upload_user_energy}, with the upload rate being replaced by the download rate.
+
+    The network component will use the same formula from \ref{formula:coroama_cpe_an} as used in the upload stage, but with the different active time.
+    As for the core network part, it remains the same as in the upload stage.
+
+    Lastly for the Datacenter component, we use the formula of \citet{Taal2014} that covers the server read operation, \ref{formula:tall_datacenter_read}. Like with the upload stage, we applied the same changes, that is, removed the utilization factor ($U$) and conversion from Gbps to BGph, and changed the term capacity to bandwidth. The final formula became the following: 
+
+    \begin{equation}
+    \label{formula:download_server_read}
+    \begin{split}
+        E_{read}(D_{out}) = PUE \cdot D_{out} \cdot \Bigg( \frac{P_{server}}{B_{server}} + \frac{P_{sw}}{B_{sw}}\Bigg),
+    \end{split}
+    \end{equation}
+
+    \noindent where:
+    \begin{itemize}
+        \item $B_{server}$ is the capacity of the server.
+        \item $B_{sw}$ is the capacity of the switch.
+        \item $P_{server}$ is the power consumption of the server.
+        \item $P_{sw}$ is the power consumption of the switch.
+        \item $PUE$ is the Power Usage Effectiveness of the datacenter.
+    \end{itemize}
+
+\subsection{Energy Model while using compression}
+
+    This stage deals with the data in the compressed form and with the task of decompressing it, so a new variable is introduced, the decompression time cost $d_{t\_cost}$.
+    
+    The data is decompressed on the user device, so for the components before the user device, the data is still in the compressed form, so the datacenter and network equations have to use the compressed data size.
+
+    As for the user component we need to add the decompression step, which is similar to the compression step used in the former stage. The new formula is the following:
+
+    \begin{equation}
+        \label{formula:download_user_energy_compressed}
+        E_{user}(D_{out}) = \bigg( \frac{D_{comp}(D_{out})}{R_{download}} + D_{comp}(D_{out}) \cdot d_{t\_cost} \bigg) \cdot P_{user\_device},
+    \end{equation}
+
+    \noindent where:
+    \begin{itemize}
+        \item $D_{comp}(D_{out})$ is the size of the compressed data, $D_{comp}(D_{in}) = \frac{D_{in}}{c_{rate}}$.
+        \item $R_{download}$ is the download rate of the user device.
+        \item $d_{t\_cost}$ is the time cost of decompressing the data.
+        \item $P_{user\_device}$ is the power consumption of the user device.
+    \end{itemize}
+
+
+\section{Model Evaluation}
+
+    To evaluate the accuracy of the model, we need to compare the results of the model with real-world data. Although the studies where the formulas were taken from already performed this step, further testing will only reinforce the model's validity.
+
+    However, acquiring real-world data is difficult due to the lack of public data on the energy consumption of the \ac{ict}, so not every component can be tested. We gathered data from \ac{stic} which will help us validate the Datacenter component of the model. 
+
+
+\section{Conclusion}
+
+
+
+
+
+
+

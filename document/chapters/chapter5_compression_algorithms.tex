@@ -1,0 +1,155 @@
+\chapter{Compression Algorithms Benchmarking}
+\label{chapter:compression_algorithms_benchmark}
+
+
+\begin{introduction}
+    This chapter presents the benchmarking process and results of various compression algorithms. The benchmarking focuses on measuring the time increase in compression and decompression, as well as the compression ratio. By gathering these metrics, we aim to explore any correlation between the time increase and the number of operations performed by each algorithm.
+
+    The results of the benchmarking process provide insights into the performance of the compression algorithms and their suitability for different scenarios. These findings contribute to the understanding of the compression algorithms, enabling us to determine the values to be used for parameters in the energy model. The parameters we aim to determine are the compression ratio ($c_{ration}$), the added compression time increase ($c_{t\_cost}$) and the added decompression time increase ($d_{t\_cost}$).
+\end{introduction}
+
+\section{Description of the work}
+        The aspects of the compression algorithms that are needed to benchmark are the time increase in compression and decompression and the compression ratio. To gather this data we used the \texttt{perf} profiler to measure the time elapsed, the number of cycles and the number of instructions executed during the compression and decompression of the files. These metrics were gathered to see if there existed any correlation between the time increase and the number of operations each algorithm performed. 
+        
+        The compression ratio was calculated by dividing the size of the original file by the size of the compressed file. 
+
+\section{Methodology}
+
+    The benchmarking process was done by compressing and decompressing a set of files with different sizes and types. There were three types of files considered:
+    \begin{itemize}
+        \item Text files, which where gathered from the Project Gutenberg website \url{https://www.gutenberg.org/}.
+        Several books were concatenated to create files of approximately 1, 10, 100 and 1000 Megabytes.
+        \item Random text files, these are randomly generated text files using the \texttt{/dev/urandom} file, which is a file that generates random data. The sizes of these files are the same as the text files.
+        \item Genome sequence files, which were gathered from the NCBI website \url{https://www.ncbi.nlm.nih.gov/}. These sequences are either in the FASTA or FASTQ formats.
+    \end{itemize}
+    
+    The algorithms mentioned in the section \ref{section:compression_algorithms_overview} were used, except for the \texttt{cmix} algorithm due to its large system requirements not making it possible to run on a 16-GB RAM machine. We divided the algorithms into two categories, general purpose and specific. The general purpose algorithms were tested on the text and random text files, while the specific algorithms were tested on the genome sequence files. The \texttt{gzip} algorithm was tested on all files as a way to compare the performance of the specific algorithms.
+
+    % Dizer o porque q se escolheu o gzip para testar todos?
+
+    Each algorithm has a wide set of parameters and tweaks that improve its performance in different scenarios. To make a fair comparison, it was decided to only test the default parameters of each algorithm.
+
+    To account for fluctuations in the system, each algorithm was executed 5 times for each file, and the average of the 5 executions was calculated.
+
+    Due to the large size of files some algorithms would take an unreasonable amount of time to compress and decompress the files, so not every algorithm was tested with every file.
+    
+
+\section{Results}
+
+    The results of the benchmarking process are presented in the following sections. We divided the results by the type of algorithm used.
+
+    \subsection{General purpose algorithms}
+
+        As we can see from the following Figures, \ref{fig:text_stats} and \ref{fig:random_text_stats}, independently of the algorithm, the time elapsed, the number of cycles and the number of instructions executed by the algorithms are proportional to the size of the file. This means that the time increase is linear with the size of the file. 
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{figs/text_stats.png}
+            \caption[Figure displaying the metrics of the general purpose algorithms when compressing text files.] {Figure displaying the metrics of the general purpose algorithms when compressing text files. The plots display the time elapsed, the number of instructions and the number of cycles executed by the algorithms respectively.}
+            \label{fig:text_stats}
+        \end{figure}
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{figs/random_text_stats.png}
+            \caption[Figure displaying the metrics of the general purpose algorithms when compressing random text files.] {Figure displaying the metrics of the general purpose algorithms when compressing random text files. The plots display the time elapsed, the number of instructions and the number of cycles executed by the algorithms respectively.}
+            \label{fig:random_text_stats}
+        \end{figure}
+
+        Analyzing the metrics we can separate the algorithms into three groups, each separated by at least an order of magnitude in the time metrics.
+        The first group comprises solely of \texttt{zstandard}, which proved to be the fastest of the algorithms in all metrics. The second group is composed of \texttt{gzip}, \texttt{bzip2} and \texttt{lzma}, which are the second, third and fourth fastest algorithms, respectively. The third group is composed of the more complex algorithms, such as \texttt{paq8} and \texttt{nncp}, which are the slowest in all metrics. This is expected, as the more complex algorithms need to perform more operations to compress the files.
+        
+        Changing the type of the file didn't have any significant impact on the time metrics of the algorithms, so time performance isn't related to the data type of the file.
+
+        Observing the compressed size of the files generated by the algorithms, presented in Figures \ref{fig:random_text_comp_size} and \ref{fig:text_comp_size}, and their respectively compression rations, shown in Figures \ref{fig:random_text_comp_ratio} and \ref{fig:text_comp_ratio}, we can see some interesting results. 
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=1\textwidth]{figs/random_text_comp_size.png}
+            \caption[Figure displaying the size of the compressed files generated by the general purpose algorithms when compressing random text files.] {Figure displaying the size of the compressed files generated by the general purpose algorithms when compressing random text files. Each plot is associated to one of the four text files used in the benchmark.}
+            \label{fig:random_text_comp_size}
+        \end{figure}
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\textwidth]{figs/random_text_comp_ratio.png}
+            \caption[Figure displaying the compression ratio of each general purpose compression algorithm for the random text file benchmark.] {Figure displaying the compression ratio of each general purpose compression algorithm for the random text file benchmark.}
+            \label{fig:random_text_comp_ratio}
+        \end{figure}
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{figs/text_comp_size.png}
+            \caption[Figure displaying the size of the compressed files generated by the general purpose algorithms when compressing text files.] {Figure displaying the size of the compressed files generated by the general purpose algorithms when compressing text files. Each plot is associated to one of the four text files used in the benchmark.}
+            \label{fig:text_comp_size}
+        \end{figure}
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.5\textwidth]{figs/text_comp_ratio.png}
+            \caption[Figure displaying the compression ratio of each general purpose compression algorithm for the text file benchmark.] {Figure displaying the compression ratio of each general purpose compression algorithm for the text file benchmark.}
+            \label{fig:text_comp_ratio}
+        \end{figure}
+        
+        First, we see that when dealing with random files, the compression algorithms don't have a good performance, with all algorithms having similar final compressed size, with no one having a ratio higher than 1.4. This means that if the user is expecting to receive a lot of random data, like storing binaries, using compression can be a waste of resources.
+        
+        Looking at the normal text results, we see that the algorithms that had the fastest metrics in the time benchmarks, \texttt{gzip} and \texttt{zstandard}, also had in general the lowest compression ratios, with both ranking as last and second to last, in almost all file sizes. This means that the algorithms that are faster are also the ones that have the worst compression ratios. This is an interesting trade-off that the user needs to consider when choosing an algorithm.
+        Overall, the compression ratio of the algorithms is much better when the contents of the files aren't random, because the algorithms can find patterns in the data to compress.
+
+        The following figures, Figures \ref{fig:text_decomp_stats} and \ref{fig:random_text_decomp_stats} show the results of the decompression metrics. We observe the same rankings as in the compression metrics, with \texttt{zstandard} being the fastest, followed by \texttt{gzip}, \texttt{bzip2} and \texttt{lzma}, and finally \texttt{paq8} being the slowest.
+        The growth of the time metrics is also linear with the size of the file for all algorithms, as we can see in the figures. Due to problems with the decompression using \texttt{nncp} we had to exclude it from the benchmarks.
+
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{figs/text_dstats.png}
+            \caption[Figure displaying the metrics of the general purpose algorithms when decompressing text files.] {Figure displaying the metrics of the general purpose algorithms when decompressing text files. The plots display the time elapsed, the number of instructions and the number of cycles executed by the algorithms respectively.}
+            \label{fig:text_dstats}
+        \end{figure}
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{figs/random_text_dstats.png}
+            \caption[Figure displaying the metrics of the general purpose algorithms when decompressing random text files.] {Figure displaying the metrics of the general purpose algorithms when decompressing random text files. The plots display the time elapsed, the number of instructions and the number of cycles executed by the algorithms respectively.}
+            \label{fig:random_text_dstats}
+        \end{figure}
+
+        With the results of these benchmarks we can determine the values for the general purpose algorithms to be used in the energy model. The values are presented in Table \ref{table:general_purpose_values}. The compression ratio is the median of the compression ratios of the algorithms in the normal text file benchmark, while the compression and decompression time costs were determined using a poly fitting algorithm to the time elapsed data of the normal and random text file benchmark.
+
+    \begin{table}
+        \caption{Values for the compression ratio, compression time cost and decompression time cost of the general purpose algorithms.}
+        \label{table:general_purpose_values}
+        \begin{center}
+        \begin{tabular}{|| c | p{3cm} | p{3cm} | p{3cm} ||}
+            \hline
+            Algorithm & Compression ratio $c_{ration}$ & Compression time cost $c_{t\_cost}$ & Decompression time cost $d_{t\_cost}$ \\
+            \hline
+            \texttt{gzip} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r||}{X} \\
+
+            \texttt{zstandard} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r||}{X} \\
+
+            \texttt{bzip2} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r||}{X} \\
+
+            \texttt{lzma} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r||}{X} \\
+
+            \texttt{paq8} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r||}{X} \\
+
+            \texttt{nncp} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r|}{X} & \multicolumn{1}{r||}{X} \\
+            
+            \hline
+        \end{tabular}
+        \end{center}
+    \end{table}
+
+
+\subsection{Specific algorithms}
+
+    Looking at Figures \ref{fig:fasta_stats} and \ref{fig:fastq_stats}, we see that the growth of the algorithms isn't as linear as with the general purpose algorithms, with in some cases the time decreasing with an increase in file size. This implies that apart from the size of the file, the contents of the file, such as the different patterns present in the genetic sequence, may also have an impact on the time metrics of the algorithms.
+
+    We also can see that comparative to the gzip algorithm
+    
+
+
+    
+
+\section{Conclusion}
