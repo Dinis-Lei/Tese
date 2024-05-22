@@ -17,12 +17,10 @@
                     "disk_size",
                     "pue_server",
                     "compression_time_cost",
-                    "compression_rate",
-                    "compression_time_cost",
                     "compression_rate"
                 ],
                 "normal_model": "((d_in/server_bandwidth)*(p_server) + (d_in/server_switch_bandwidth)*p_server_switch + (d_in/disk_bandwidth)*p_disk*Math.ceil(d_in/disk_size))*pue_server",
-                "compressed_model": "((d_in/server_bandwidth + d_in*compression_time_cost)*(p_server) + ((d_in*compression_rate)/server_switch_bandwidth)*p_server_switch + ((d_in*compression_rate)/disk_bandwidth)*p_disk*Math.ceil((d_in*compression_rate)/disk_size))*pue_server"
+                "compressed_model": "((d_in/server_bandwidth + d_in*compression_time_cost)*(p_server) + ((d_in/compression_rate)/server_switch_bandwidth)*p_server_switch + ((d_in/compression_rate)/disk_bandwidth)*p_disk*Math.ceil((d_in/compression_rate)/disk_size))*pue_server"
             }
         ]
     },
@@ -42,7 +40,7 @@
                     "compression_rate"
                 ],
                 "normal_model": "pue_server*Math.ceil(d_in/disk_size)*p_disk*retention_time",
-                "compressed_model": "pue_server*Math.ceil((d_in*compression_rate)/disk_size)*p_disk*retention_time"
+                "compressed_model": "pue_server*Math.ceil((d_in/compression_rate)/disk_size)*p_disk*retention_time"
             }
         ]
     },
@@ -65,7 +63,7 @@
                     "compression_rate"
                 ],
                 "normal_model": "pue_server*(d_in)*(p_server/server_bandwidth + p_server_switch/server_switch_bandwidth)",
-                "compressed_model": "pue_server*(d_in*compression_rate)*(p_server/server_bandwidth + p_server_switch/server_switch_bandwidth)"
+                "compressed_model": "pue_server*(d_in/compression_rate)*(p_server/server_bandwidth + p_server_switch/server_switch_bandwidth)"
             },
             {
                 "name": "CPE",
@@ -79,7 +77,7 @@
                     "compression_rate"
                 ],
                 "normal_model": "(d_in/download_rate)*(t_on/t_use)*(p_cpe/n_cpe)",
-                "compressed_model": "(d_in*compression_rate/download_rate)*(t_on/t_use)*(p_cpe/n_cpe)"
+                "compressed_model": "(d_in/compression_rate/download_rate)*(t_on/t_use)*(p_cpe/n_cpe)"
                 
             },
             {
@@ -93,7 +91,7 @@
                     "compression_rate"
                 ],
                 "normal_model": "(d_in/download_rate)*(p_an/n_an)*pue_an",
-                "compressed_model": "(d_in*compression_rate/download_rate)*(p_an/n_an)*pue_an"
+                "compressed_model": "(d_in/compression_rate/download_rate)*(p_an/n_an)*pue_an"
             },
             {
                 "name": "Edge Network",
@@ -103,7 +101,7 @@
                     "compression_rate"
                 ],
                 "normal_model": "d_in*en_power_per_gb",
-                "compressed_model": "d_in*compression_rate*en_power_per_gb"
+                "compressed_model": "d_in/compression_rate*en_power_per_gb"
             },
             {
                 "name": "User Side",
@@ -116,7 +114,7 @@
                     "n_users_downloading"
                 ],
                 "normal_model": "(d_in/download_rate)*avg_user_power",
-                "compressed_model": "avg_user_power*(((d_in*compression_rate)/download_rate) + decompression_time_cost*d_in)"
+                "compressed_model": "avg_user_power*(((d_in/compression_rate)/download_rate) + decompression_time_cost*d_in)"
             }
         ]
     }

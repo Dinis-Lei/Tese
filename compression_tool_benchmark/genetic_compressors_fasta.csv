@@ -1,0 +1,6 @@
+name,alias,arguments,suffix,has_output
+mfcompress,MFCompressC,2,mfc,false
+naf,ennaf,--temp-dir tmp -o,naf,true
+Spring,spring,--fasta-input -c,spr,true
+agc,agc,create -o,agc,true
+gzip,gzip,-k,gz,false

@@ -21,9 +21,11 @@ function tooltip(title, error=false) {
 }
 
 const compressors = [
-    {"id": "compressor1", "label": "Compressor 1", "compression_rate": 0.5, "compression_time_cost": 0.02},
-    {"id": "compressor2", "label": "Compressor 2", "compression_rate": 0.6, "compression_time_cost": 0.04},
-    {"id": "compressor3", "label": "Compressor 3", "compression_rate": 0.8, "compression_time_cost": 0.2},
+    {"id": "gzip", "label": "gzip", "compression_rate": 2.79, "compression_time_cost": 0.0856, "decompression_time_cost": 0.00627},
+    {"id": "zstandard", "label": "zstandard", "compression_rate": 2.88, "compression_time_cost": 0.00582, "decompression_time_cost": 0.00162},
+    {"id": "lzma", "label": "lzma", "compression_rate": 3.74, "compression_time_cost": 0.594, "decompression_time_cost": 0.00873},
+    {"id": "bzip2", "label": "bzip2", "compression_rate": 3.75, "compression_time_cost": 0.0699, "decompression_time_cost": 0.0317},
+    {"id": "paq8", "label": "paq8", "compression_rate": 4.86, "compression_time_cost": 8.49, "decompression_time_cost": 8.61},
     {"id": "custom", "label": "Custom", "compression_rate": null, "compression_time_cost": null}
 ]
 
@@ -113,6 +115,7 @@ export default function Form({onFill}) {
                 errorMessages[param.id] = null;
                 disabled[param.id] = false;
             });
+            return;
         });
         setData(data => ({
             ...data,
@@ -171,7 +174,7 @@ export default function Form({onFill}) {
                                     title={
                                         <Typography variant='h6' noWrap>
                                             {row.title}
-                                            {row.title != "Other" &&
+                                            {row.title !== "Other" &&
                                                 <Tooltip title={"Disable Component"}>
                                                     <Checkbox onClick={(e) => disableComponent(row)}/>
                                                 </Tooltip>  
@@ -319,6 +322,26 @@ export default function Form({onFill}) {
                                             }
                                             required
                                             error={errorMessages["compression_time_cost"] != null}
+                                            disabled={compressor.id !== "custom"}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} justifyContent={'center'}>
+                                        <TextField 
+                                            id={"decompression_time_cost"} 
+                                            type={"number"} 
+                                            defaultValue={compressor.decompression_time_cost}
+                                            value={compressor.decompression_time_cost}
+                                            InputLabelProps={{shrink: true,}}
+                                            onChange={(e) => handleChange(e)}
+                                            variant='standard'
+                                            helperText={
+                                                <p  style={{width: '20em', margin:0, fontSize:"1.2em"}}>
+                                                    Time increase of compression {tooltip("A", errorMessages["decompression_time_cost"])}
+                                                    {errorMessages["decompression_time_cost"] && <br/>} {errorMessages["decompression_time_cost"]}
+                                                </p>
+                                            }
+                                            required
+                                            error={errorMessages["decompression_time_cost"] != null}
                                             disabled={compressor.id !== "custom"}
                                         />
                                     </Grid>
