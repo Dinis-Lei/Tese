@@ -26,7 +26,7 @@ const compressors = [
     {"id": "lzma", "label": "lzma", "compression_rate": 3.74, "compression_time_cost": 0.594, "decompression_time_cost": 0.00873},
     {"id": "bzip2", "label": "bzip2", "compression_rate": 3.75, "compression_time_cost": 0.0699, "decompression_time_cost": 0.0317},
     {"id": "paq8", "label": "paq8", "compression_rate": 4.86, "compression_time_cost": 8.49, "decompression_time_cost": 8.61},
-    {"id": "custom", "label": "Custom", "compression_rate": null, "compression_time_cost": null}
+    {"id": "custom", "label": "Custom", "compression_rate": null, "compression_time_cost": null, "decompression_time_cost": null}
 ]
 
 
@@ -70,12 +70,11 @@ export default function Form({onFill}) {
         else {
             return;
         }
-
-
         
         let updatedData = {
             "compression_rate": updatedCompressor.compression_rate,
-            "compression_time_cost": updatedCompressor.compression_time_cost
+            "compression_time_cost": updatedCompressor.compression_time_cost,
+            "decompression_time_cost": updatedCompressor.decompression_time_cost
         };
         setData(data => ({
             ...data,
@@ -85,17 +84,20 @@ export default function Form({onFill}) {
 
     React.useEffect(() => {
         const localData = JSON.parse(localStorage.getItem("formData"));
+        console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBB", localData)
         if (localData){
             setData(localData);
             setCompressor(
                 compressors.find((c) => 
                     c.compression_rate === localData.compression_rate && 
-                    c.compression_time_cost === localData.compression_time_cost) 
-                    || {"id": "custom", "label": "Custom", "compression_rate": null, "compression_time_cost": null}
+                    c.compression_time_cost === localData.compression_time_cost &&
+                    c.decompression_time_cost === localData.decompression_time_cost) 
+                    || {"id": "custom", "label": "Custom", "compression_rate": null, "compression_time_cost": null, "decompression_time_cost": null}
             );
             onFill(localData);
         }
         else {
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")
             fillData(model);
         }
     }, []);
@@ -105,11 +107,12 @@ export default function Form({onFill}) {
         let updatedData = {
             "disabled": [],
             "compression_rate": compressors[0].compression_rate,
-            "compression_time_cost": compressors[0].compression_time_cost
+            "compression_time_cost": compressors[0].compression_time_cost,
+            "decompression_time_cost": compressors[0].decompression_time_cost
         };
         let errorMessages = {};
         let disabled = {};
-        model.map((row, index) => {
+        d.map((row, index) => {
             row.params.map((param, index) => {
                 updatedData[param.id] = param.default;
                 errorMessages[param.id] = null;
@@ -123,6 +126,7 @@ export default function Form({onFill}) {
         }));
         setErrorMessage(errorMessages);
         setDisabled(disabled);
+        console.log(updatedData)
         onFill(updatedData);
     }
     

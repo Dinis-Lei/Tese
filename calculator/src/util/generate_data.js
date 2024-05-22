@@ -78,6 +78,12 @@ export function calculate_model(data, nDataPoints=20, stepSize=100, customDin=[]
                 let normal_value = Math.round((formula.normal_model(useful_data_size, data) + Number.EPSILON)*100)/100;
                 let compressed_value = Math.round((formula.compressed_model(useful_data_size, data)+ Number.EPSILON)*100)/100;
 
+                if (model.name === "download" && isNaN(compressed_value)) {
+                    console.log("DOWNLOAD")
+                    console.log(useful_data_size, data)
+                }
+
+
                 element[model.name].normal_value += normal_value;
                 element[model.name].compressed_value += compressed_value;
                 element[model.name].normal_pie.push({

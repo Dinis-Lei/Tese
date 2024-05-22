@@ -73,13 +73,15 @@ export default function MainPage(props) {
     }, [props.isDrawerOpen]);
 
     const chartData = React.useMemo(() => {
-        
+        console.log(props.formData)
         
         if (props.formData === null) {
             return;
         }
         console.log("A", count);
         setCount(count + 1);
+        
+
         const form = JSON.parse(localStorage.getItem("formData"));
         let flg = true
         for (let key in form) {
@@ -88,7 +90,7 @@ export default function MainPage(props) {
                 break;
             }
         }
-        if (flg) {
+        if (flg && localStorage.getItem("modelData")) {
             const data = JSON.parse(localStorage.getItem("modelData"));
             return data;
         }
